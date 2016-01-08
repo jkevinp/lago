@@ -1,0 +1,11 @@
+SET GLOBAL event_scheduler = ON;
+Check event_sheduler status ON or OFF by
+SELECT @@event_scheduler;
+
+CREATE EVENT e_store_ts
+    ON SCHEDULE
+      EVERY 1 MINUTE
+    DO
+      DELETE from booking_details where and temporary ='1'
+
+      DELETE from booking_details where created_at > DATE_SUB(NOW(),INTERVAL 1 MINUTE) and temporary ='1'

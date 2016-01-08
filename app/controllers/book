@@ -1,0 +1,38 @@
+if(Session::has('date_info'))
+	{
+			$date_info = Session::get('date_info');
+			$products = Product::all();//Get all products (only 50 products)
+			$productsArray = array(); 
+			$reservedProductsArray = array();
+			$resultArray = array(); 
+			$fullproducts = array(); //list of unavailable rooms at time type x
+			
+			//get All reserved rooms/products
+			$reservedProductsByTimeAndType = BookingDetails::getReserved($date_info);
+
+			//If products are not available
+			if(count($fullproducts))
+				$rooms = Product::where('id' , '!=', $fullproducts)->paginate(6);
+			else 
+				$rooms = Product::paginate(6);
+			$rooms->totalCount = Product::all()->count();
+
+			//Get the image path of each room/product	
+			foreach ($rooms as $room)
+			{
+				if(isset($resultArray[$room['id']]))
+					$room->reservedqty= (int)$resultArray[$room['id']];
+				else 
+					$room->reservedqty = 0;
+
+				if(Files::find($room->fileid) == null) 
+					$room->attr = 0;
+				else 
+					$room->attr = Files::find($room->fileid);		
+			}
+			return View::make('default.booking.index')->withRooms($rooms);
+		}
+		else
+		{
+			return Redirect::intended('/#booknow');
+		}

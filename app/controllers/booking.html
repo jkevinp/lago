@@ -1,0 +1,394 @@
+<?php
+use Carbon\Carbon ;
+class BookingController extends \BaseController 
+{
+	public function AddItem()
+	{
+		$input = Input::all();
+		$rules = array('quantity' => 'required' , 'productname' => 'required');
+		$val =  Validator::make($input , $rules);
+		if($val->fails())
+		{
+			return Redirect::back()->withErrors($val->messages());
+		}
+		if(Session::has('items')){
+				$products = Session::pull('items');
+				array_push($products, array(
+					'productid' => $input['productid'],
+					'product' => $input['productname'] , 
+					'quantity' => $input['quantity'],
+					'description' => $input['productdescription'],
+					'totalquantity' => $input ['producttotalqty'],
+					'type' => $input['producttype'],
+					'price' => $input['price'],
+					'image' => $input['image']
+					));
+				Session::put('items' , $products);
+		}
+		else{
+				Session::put('items' , []);
+				$products = Session::pull('items');
+				array_push($products, array(
+					'productid' => $input['productid'],
+					'product' => $input['productname'] , 
+					'quantity' => $input['quantity'],
+					'description' => $input['productdescription'],
+					'totalquantity' => $input ['producttotalqty'],
+					'type' => $input['producttype'],
+					'price' => $input['price'],
+					'image' => $input['image']
+					));
+				Session::put('items' , $products);
+		}
+		Session::put('flash_message','Added '.$input['productname'].' to Reservations List <br/>');
+		return Redirect::back();
+	}
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$input = Input::all();
+		/*if(Session::has('date_info'))
+		{
+			if(isset($input['type']))
+			{
+				if (isset ($input['search']))
+				{
+					//type with search
+					$s = $input["search"];
+					$rooms = Product::whereHas('producttype', function($q)
+					{	
+						$q->where('producttypename', '=', Input::get('type'));
+					})->where('productname', 'like' , "%$s%")->paginate(1);
+				}
+				else
+				{
+					//Type only
+					$rooms = Product::whereHas('producttype', function($q)
+					{	
+						$q->where('producttypename', '=', Input::get('type'));
+					})->paginate(1);
+				}
+			}
+			else
+			{
+				if(isset($input['search']))
+				{
+					//search only
+					$s = $input["search"];
+					$rooms = Product::where('productname', 'like' , "%$s%")->paginate(1);	
+				}
+				else
+				{
+					//all
+					$rooms = Product::paginate(1);
+				}
+			}*/
+	if(Session::has('date_info'))
+	{
+			$date_info = Session::get('date_info');
+			$products = Product::all();//Get all products (only 50 products)
+			$productsArray = array(); 
+			$reservedProductsArray = array();
+			$resultArray = array(); 
+			$fullproducts = array(); //list of unavailable rooms at time type x
+			
+			//get the products and its total quantity
+			foreach ($products as $key => $value)
+				array_push($productsArray, $value['attributes']);
+			
+			//get All reserved rooms/products
+			$reservedProductsByTimeAndType = BookingDetails::
+											where('bookingstart', '=' , $this->ConvertDate($date_info['start']))
+											->where('time' ,'=' , $date_info['timeofday'])
+											->get();
+			//Push the products to an array that will hold the qty of each product
+			foreach ($reservedProductsByTimeAndType as $key => $value)
+			{
+				array_push($reservedProductsArray, $value['attributes']);
+				if(!isset($resultArray[$value['attributes']['productid']]))
+					$resultArray[$value['attributes']['productid']] = $value['attributes']['quantity'];
+				else
+					$resultArray[$value['attributes']['productid']] += $value['attributes']['quantity'];
+			}
+
+			//loop all reserved products and check if product can still be reserved @ qty = x
+			foreach ($productsArray as $key => $value)
+			 {
+				if(isset($resultArray[$value['id']]))
+				{	
+					$result = $value['productquantity'] - $resultArray[$value['id']];
+					if($result < 1)
+					{
+						array_push($fullproducts,array('id' => $value['id']));
+					}
+				}
+			}
+
+			//If products are not available
+			if(count($fullproducts))$rooms = Product::where('id' , '!=', $fullproducts)->paginate(6);
+			else  $rooms = Product::paginate(6);
+			
+			$rooms->totalCount = Product::all()->count();
+			//Get the image path of each room/product	
+			foreach ($rooms as $room)
+			{
+				if(isset($resultArray[$room['id']]))
+					$room->reservedqty= (int)$resultArray[$room['id']];
+				else 
+					$room->reservedqty = 0;
+
+
+				if(Files::find($room->fileid) == null) 
+					$room->attr = 0;
+				else 
+					$room->attr = Files::find($room->fileid);		
+			}
+
+			return View::make('default.booking.index')->withRooms($rooms);
+		}
+		else
+		{
+
+			
+		}
+	}
+
+	public function SetInfo()
+	{
+			Session::flush();
+			$input = Input::all();
+			$rules = array('start' => 'required','end' => 'required','email' => 'required','timeofday' => 'required');
+	    	$validator = Validator::make($input, $rules);
+			if($validator->fails())return Redirect::intended('/#booknow')->withErrors($validator->messages())->withInput($input);
+			else 
+			{
+				//set the date on session
+				if($input['timeofday'] == '0')return Redirect::intended('/#booknow')->withErrors('Please select the schedule of reservation')->withInput($input);
+				$date = array('start' => $input['start'],'end' =>  $input['end'],'timeofday' => $input['timeofday']);
+				Session::put('date_info' ,$date);
+				$account = Account::where('email' , '=' , $input['email'])->first();
+				if($account)
+				Session::put('account_info' , $account);
+				else
+					Session::put('email' , $input['email']);
+				return Redirect::route('book.index');
+			}
+	}
+
+//$r = BookingDetails::select(DB::raw('SUM(Quantity) as qty'))
+			//->whereRaw('bookingstart ='.$date_info['start']);
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('default.booking.create');
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//Define the rules for the booking form validation
+		$rules = array('Title' => 'required' , 
+						'Firstname' => 'required|min:1', 
+						'Lastname' => 'required|min:1', 
+						'Middlename' => 'required|min:1',
+						'ContactNumber' => 'required',
+						'Email' => 'required',
+						'Email2' => 'required|same:Email'
+						);
+		//get All Input from from
+		$input = Input::all();
+		//Set a error message for each type of validation error
+		$messages = array(
+        					'required' => 'The :attribute field is required.',
+        					'same'  => 'The :others must match.'
+    					);
+		//create the validation
+		$val = Validator::make($input, $rules, $messages);
+		//check validation
+		if($val->fails())
+		{
+			//If validation fails..
+			return Redirect::back()->withErrors($val->messages())->withInput($input);	
+		}
+		//if validation succeed, create a new booking information
+		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
+		$input['confirmation_code'] = str_random(10).'k'.str_random(5).'e'.str_random(15);
+		$input['booking_confirmation_code'] = str_random(10).'p'.str_random(5).'e'.str_random(15);
+		//create an account
+		$count = Account::where('email', '=', $input['Email'])->count();
+		if($count === 0)
+		{
+			$id =  $this->GenerateAccountId();
+			$account = Account::create(array(
+				'id' => $id,
+				'title' => $input['Title'],
+				'firstname' => $input['Firstname'],
+				'middleName' => $input['Middlename'] , 
+				'lastName' => $input['Lastname'] , 
+				'email' => $input['Email'] , 
+				'contactnumber'  => $input['ContactNumber'], 
+				'username' => $input['Email'] , 
+				'password' => $input['password'] , 
+				'usergroupid' =>2 , 
+				'confirmationcode' => $input['confirmation_code'],
+				'active' => 0
+			));
+
+			$account->save();
+		}else 
+		{
+			$account = Account::where('email' , '=' , $input['Email'])->first();
+			$id = $account->id;
+		}
+		
+		$booking = new Booking();
+		$booking->bookingid = $this->GenerateBookingId();
+		$booking->bookingreferenceid = $this->GenerateBookingReference($input['Firstname'] , $input['Lastname']);
+		$booking->bookingstart= $this->ConvertDate( Session::get('date_info')['start']);
+		$booking->bookingend = $this->ConvertDate(Session::get('date_info')['end']);
+		$booking->totalduration = $this->countDays($booking->bookingstart , $booking->bookingend);
+		$booking->accountid = $id;
+		$booking->active =  0;
+		$booking->confirmationcode = $input['booking_confirmation_code'];
+		$input['bookingid'] = $booking->bookingid;
+		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
+		//$booking->save();
+
+		$booking_details =   new BookingDetails();
+		if(Session::get('items'))
+		foreach (Session::get('items') as $key => $value)//replace by pull 
+		{
+			$booking_details = BookingDetails::create(array(
+					'productid'   => $value['productid'] ,
+					'productname' =>  $value['product'],
+					'quantity'    => $value['quantity'],
+					'bookingreferenceid' => $booking->bookingreferenceid,
+					'time' => Session::get('date_info')['timeofday'],
+					'bookingstart' => $this->ConvertDate(Session::get('date_info')['start']),
+					'bookingend' => $this->ConvertDate( Session::get('date_info')['end'])
+				));
+		}
+		if($booking->save())
+			{
+				if($booking_details->save())
+				{
+					Session::forget('date_info');
+					Session::forget('items');
+					Session::forget('email');
+					if(Session::get('account_info'))Session::forget('account_info');
+					Helpers::SendMail('emails.auth.welcome',$input, array('title' => 'Reservation Confirmation.[No-reply]' , 'email' => $input['Email'] , 'Lastname' => $input['Lastname'] , 'Firstname' => $input['Firstname']));
+					Helpers::SendMail('emails.auth.notification', array('title' => 'A new reservation was booked!' , 'content' => $input['bookingid']) , array('email' => 'mail.sunrock@gmail.com' ,'title' => 'New Reservation notification' ,'Firstname' => 'auto' , 'Lastname' => 'Notification.'));
+					$mail = Mails::create(array(
+							'id' => str_random(5).rand(1,10000),
+							'sendername' => 'System',
+							'senderemail' => 'mail.sunrock@gmail.com',
+							'message' => 'A new reservation was booked.<br/> Booking id: '.$input['bookingid'].'<br/>Booked by: '.$account->id,
+							'status' => 5
+						));
+					Session::put('flash_message', 'Your reservation has been saved. Please check your email to continue');
+					return Redirect::to('/');
+				}
+			}
+		
+	}
+	public function GetLastAccount()
+	{
+		$account = Account::orderby('created_at', 'desc')->first();
+		return $account;
+	}
+
+	
+
+	public function countDays($date1, $date2)
+	{
+		 $now = strtotime($date1);
+	     $your_date = strtotime($date2);
+	     $datediff = abs($now - $your_date);
+	     return floor($datediff/(60*60*24)) + 1;
+	}
+
+	public function GenerateBookingId()
+	{
+		$micro_date = microtime();
+		$date_array = explode(" ",$micro_date);
+		$date = date("YmdHis",$date_array[1]);
+		return str_random(3).$date;
+	}
+	public function GenerateAccountId()
+	{
+		$micro_date = microtime();
+		$date_array = explode(" ",$micro_date);
+		$date = date("Ym",$date_array[1]);
+		return $date.rand(0, 1000000).str_random(6);
+	}
+	public function GenerateBookingReference($firstname, $lastname)
+	{
+		return $firstname[0].$lastname[0].str_random(5);
+	}
+	public function ConvertDate($source)
+	{
+			$date = new DateTime($source);
+			return $date->format('Y-m-d'); // 31-07-2012
+	}
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
+
+}

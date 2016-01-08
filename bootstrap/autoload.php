@@ -1,6 +1,23 @@
 <?php
-
+$localhost = false;
 define('LARAVEL_START', microtime(true));
+define('APP_NAME', 'Sunrock Resort');
+if($localhost){
+	define('DB_HOST', 'localhost'); 
+	define('DB_USER', 'root');
+	define('DB_PASS', '');
+	define('DB_NAME','srdb');
+	define('HOST', 'localhost:8000/Sunrock/');
+}else{
+	define('DB_HOST',getenv('OPENSHIFT_MYSQL_DB_HOST'));
+	define('DB_PORT',getenv('OPENSHIFT_MYSQL_DB_PORT')); 
+	define('DB_USER',getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
+	define('DB_PASS',getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
+	define('DB_NAME',getenv('OPENSHIFT_GEAR_NAME'));
+	define('HOST', 'http://sunrock-sunrock.rhcloud.com/');
+}
+define('APP_RESOURCES',HOST.'public/');
+define('APP_DEFAULT', APP_RESOURCES.'default/');
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +44,49 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$compiledPath = __DIR__.'/../vendor/compiled.php';
-
-if (file_exists($compiledPath))
+if (file_exists($compiled = __DIR__.'/compiled.php'))
 {
-	require $compiledPath;
+	require $compiled;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Setup Patchwork UTF-8 Handling
+|--------------------------------------------------------------------------
+|
+| The Patchwork library provides solid handling of UTF-8 strings as well
+| as provides replacements for all mb_* and iconv type functions that
+| are not available by default in PHP. We'll setup this stuff here.
+|
+*/
+
+Patchwork\Utf8\Bootup::initMbstring();
+
+/*
+|--------------------------------------------------------------------------
+| Register The Laravel Auto Loader
+|--------------------------------------------------------------------------
+|
+| We register an auto-loader "behind" the Composer loader that can load
+| model classes on the fly, even if the autoload files have not been
+| regenerated for the application. We'll add it to the stack here.
+|
+*/
+
+Illuminate\Support\ClassLoader::register();
+
+/*
+|--------------------------------------------------------------------------
+| Register The Workbench Loaders
+|--------------------------------------------------------------------------
+|
+| The Laravel workbench provides a convenient place to develop packages
+| when working locally. However we will need to load in the Composer
+| auto-load files for the packages so that these can be used here.
+|
+*/
+
+if (is_dir($workbench = __DIR__.'/../workbench'))
+{
+	Illuminate\Workbench\Starter::start($workbench);
 }

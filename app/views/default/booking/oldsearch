@@ -1,0 +1,39 @@
+ <ul class="nav nav-list nav-stacked">
+                        <li role="presentation" id="All">
+                            {{Form::open(array('action' => 'book.index' , 'method'=>'get'))}}
+                            <div class="input-group input-grouproup-sm">
+                              <div class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    @if (Input::get('type'))
+                                        {{Input::get('type')}}
+                                        {{Form::hidden('type' , Input::get('type'))}}
+                                    @else
+                                    All
+                                    @endif<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+
+                                  <li><a href="">All</a></li>
+                                  <li><a href="?type=Rooms">Rooms</a></li>
+                                  <li><a href="?type=Cottages">Cottages</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="?type=Others">Others</a></li>
+                                </ul>
+                              </div>
+                              <!-- /btn-group -->
+                               {{Form::text('search',null , array('class' => 'form-control text-sm',
+                                                                'placeholder' => 'Product/Services',
+                                                                'aria-describedby' => 'sizing-addon3'
+                                                                )
+                              )}}
+                                <span class="input-group-btn">
+                                      {{Form::button('<i class="glyphicon glyphicon-search"> </i>', array('class' => 'btn btn-default btn-sm','type' => 'submit'))}}
+                                </span>
+                            </div><!-- /input-group -->
+                            {{Form::close()}}
+                        </li>
+                        <li class="nav-header">Product & Services Selection</li>
+                        <li role="presentation" id="All"><a href="{{Request::url();}}">All Categories</a></li>
+                        <li role="presentation" id="Rooms" ><a href="{{Request::url()}}?type=Rooms">Rooms</a></li>
+                        <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=Cottages">Cottages</a></li>
+                        <li role="presentation" id="Others"><a href="{{Request::url()}}?type=Others">Others</a></li>
+                    </ul>

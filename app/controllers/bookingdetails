@@ -1,0 +1,9 @@
+$booking =  $this->account->find(Auth::id())->booking;
+					$booking->each(function($book)
+					{
+					    $details = $book->bookingdetails()->where();
+					    $details->each(function($detail)
+					    {	
+					    	echo $detail['productname'].'<br/>';
+					    });
+					});
