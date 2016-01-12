@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Sunrock Resort</h1>
-                        <h3>Antipolo</h3>
+                        <h1>D'One Resort & Restaurant</h1>
+                        <h3>Baras, Rizal</h3>
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>Sunrock</title>
+	<title>{{APP_NAME}}</title>
     <link rel="shortcut icon" href="{{ asset('default') }}/img/icons/favicon.ico">
     <link href="{{URL::asset('default')}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{URL::asset('default')}}/css/landing-page.css" rel="stylesheet">

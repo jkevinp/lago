@@ -1,7 +1,7 @@
 <?php
-$localhost = false;
+$localhost = true;
 define('LARAVEL_START', microtime(true));
-define('APP_NAME', 'Sunrock Resort');
+define('APP_NAME', "D'One Resort & Restaurant");
 if($localhost){
 	define('DB_HOST', 'localhost'); 
 	define('DB_USER', 'root');
@@ -14,7 +14,7 @@ if($localhost){
 	define('DB_USER',getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
 	define('DB_PASS',getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
 	define('DB_NAME',getenv('OPENSHIFT_GEAR_NAME'));
-	define('HOST', 'http://sunrock-sunrock.rhcloud.com/');
+	define('HOST', 'http://app-sunrock.rhcloud.com/');
 }
 define('APP_RESOURCES',HOST.'public/');
 define('APP_DEFAULT', APP_RESOURCES.'default/');

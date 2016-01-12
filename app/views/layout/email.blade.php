@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<title>Sunrock</title>
+	<title>{{APP_NAME}}</title>
     <link href="{{URL::asset('default')}}/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{URL::asset('default')}}/css/landing-page.css" rel="stylesheet">
     <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>Sunrock Resort- Antipolo</h1>
+                        <h1>{{APP_NAME}}- Antipolo</h1>
                     </div>
                 </div>
             </div>

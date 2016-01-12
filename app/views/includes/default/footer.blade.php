@@ -16,7 +16,7 @@
                             <a href="{{URL::action('cpanel.account.login')}}">Control Panel</a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted small">Copyright &copy; Your Sunrock Resort 2014. All Rights Reserved</p>
+                    <p class="copyright text-muted small">Copyright &copy; {{APP_NAME}} 2016. All Rights Reserved</p>
                 </div>
             </div>
         </div>

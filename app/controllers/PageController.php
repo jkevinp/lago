@@ -3,7 +3,8 @@
 class PageController extends \BaseController 
 {
 	public function index(){
-		return View::make('default.static.main');
+		return View::make('hello');
+		// return View::make('default.static.main');
 	}
 	public function about(){
 		return View::make('default.static.about');
