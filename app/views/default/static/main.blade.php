@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@section('image', 'Home')
+@section('image', '-Home')
 @stop
 
 @section('content')
