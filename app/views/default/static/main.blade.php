@@ -8,8 +8,8 @@
         <div class="css-carousal">
             <img src="{{URL::asset('media/photos')}}/1.jpg" class="css-img img-thumbnail"/>
             <img src="{{URL::asset('media/photos')}}/2.jpg" class="css-img img-thumbnail"/>
-            <img src="{{URL::asset('media/photos')}}/3.jpg" class="css-img img-thumbnail"/>
-            <img src="{{URL::asset('media/photos')}}/4.jpg" class="css-img img-thumbnail"/>
+            <img src="{{URL::asset('media/photos')}}/3.JPG" class="css-img img-thumbnail"/>
+            <img src="{{URL::asset('media/photos')}}/4.JPG" class="css-img img-thumbnail"/>
             <img src="{{URL::asset('media/photos')}}/5.jpg" class="css-img img-thumbnail"/>
          </div>
     </div>
