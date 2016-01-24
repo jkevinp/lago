@@ -1,7 +1,7 @@
 <div class="col-md-10 col-md-offset-1">
     <div class="row" style="min-height:200px;margin:auto;">
-      <img src="{{URL::asset('media/photos/Logo.png')}}" style="margin:auto;height:200px;" />
-      <img src="{{URL::asset('media/photos/Default')}}@yield('image').png" class="pull-right" style="margin:auto;height:200px;" />
+      <img src="{{URL::asset('media/photos/Logo.png')}}" style="margin:auto;height:130px;" />
+      <img src="{{URL::asset('media/photos/Default')}}@yield('image').png" class="pull-right" style="margin:auto;height:130px;" />
     </div>
 </div>
 
