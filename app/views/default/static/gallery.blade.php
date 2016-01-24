@@ -1,7 +1,6 @@
 @extends('layout.template')
 
-@yield('image')Gallery
-@stop
+@yield('image' , 'Gallery')
 
 @section('header')
 

@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@section('image') AboutUs @stop
+@section('image' , 'AboutUs')
 
 @section('content')
     <!-- Header -->
