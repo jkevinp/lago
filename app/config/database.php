@@ -67,7 +67,7 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
-			'database' => 'sunrockdb',
+			'database' => 'donedb',
 			'username' => 'root',
 			'password' => '',
 			'charset'  => 'utf8',

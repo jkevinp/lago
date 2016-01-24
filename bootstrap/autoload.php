@@ -1,13 +1,13 @@
 <?php
-$localhost = false;
+$localhost = true;
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "D'One Resort & Restaurant");
 if($localhost){
 	define('DB_HOST', 'localhost'); 
 	define('DB_USER', 'root');
 	define('DB_PASS', '');
-	define('DB_NAME','srdb');
-	define('HOST', 'localhost:8000/Sunrock/');
+	define('DB_NAME','donedb');
+	define('HOST', 'localhost:8000/Doneresort/');
 }else{
 	define('DB_HOST',getenv('OPENSHIFT_MYSQL_DB_HOST'));
 	define('DB_PORT',getenv('OPENSHIFT_MYSQL_DB_PORT')); 

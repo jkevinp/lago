@@ -113,6 +113,16 @@
                           <li><a  href="{{URL::action('cpanel.create',['action' => 'file'])}}">Upload File</a></li>
                       </ul>
                   </li>
+                   <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class=" fa fa-edit"></i>
+                          <span>Content</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="{{route('cms.index')}}">List</a></li>
+                          <li><a  href="{{route('cms.create')}}">Create</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class=" fa fa-bar-chart-o"></i>
@@ -120,7 +130,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="{{URL::action('cpanel.show' ,array('action' => 'reports' , 'param' => 'all'))}}">List</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
+                 
                       </ul>
                   </li>
 
@@ -213,6 +223,7 @@
                        
                       </ul>
                   </li>
+
 
               </ul>
               <!-- sidebar menu end-->

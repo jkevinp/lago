@@ -1,0 +1,41 @@
+
+
+.css-carousal{
+	overflow:hidden;
+	margin-top:2%;
+}
+.css-carousal .css-img{
+	width:60%;
+	height:70%;
+	max-width:100%;
+	max-height:100%;
+	position:absolute;
+	opacity:0;
+	-webkit-animation-name: css-animation-fade;
+	-webkit-animation-duration: 15s;
+	-webkit-animation-iteration-count:infinite;
+
+}
+.css-carousal .css-img:nth-child(2){
+	-webkit-animation-delay:3s;
+}
+.css-carousal .css-img:nth-child(3){
+	-webkit-animation-delay:6s;
+}
+.css-carousal .css-img:nth-child(4){
+	-webkit-animation-delay:9s;
+}
+.css-carousal .css-img:nth-child(5){
+	-webkit-animation-delay:12s;
+}
+.css-carousal .css-img:nth-child(6){
+	-webkit-animation-delay:15s;
+}
+
+@-webkit-keyframes css-animation-fade{
+	from {opacity:0;}
+	10% {opacity:1;}
+	20% {opacity:1;}
+	25% {opacity:0;}
+	to {opacity:0;}
+}

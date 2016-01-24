@@ -10,10 +10,12 @@
 	<title>{{APP_NAME}}</title>
     <link rel="shortcut icon" href="{{ asset('default') }}/img/icons/favicon.ico">
     <link href="{{URL::asset('default')}}/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{URL::asset('default')}}/css/landing-page.css" rel="stylesheet">
+    <!-- <link href="{{URL::asset('default')}}/css/landing-page.css" rel="stylesheet"> -->
     <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="{{URL::asset('default')}}/css/lightbox.css" rel="stylesheet">
+    <link href="{{URL::asset('default')}}/css/custom.css" rel="stylesheet">
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -22,14 +24,21 @@
     <![endif]-->
 </head>
 <body>
-@yield('content')
-@include('includes.default.header')
+<section class="header">
+@yield('header')
+    @include('includes.default.header')
+</section>
+<div class="col-md-10 col-md-offset-1">
+    <div class="row content">
+        @yield('content')
+    </div>
+</div>
 
-  
-
-@yield('footer')
+<section>
 @include('includes.default.footer')
-	
+@yield('footer')
+</section>
+
 
 @yield('script')
 </body>

@@ -36,7 +36,12 @@
                         <div class="col-md-6">
                             <div class="thumbnail">
                                 <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" >
-                                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  class="example-image img-responsive"/>
+                                    @if(File::exists(public_path('default/img-uploads/'.$room['attr']['imagename'])))
+                                        <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  style="width:400px;height:300px;"  class="example-image img-responsive"/>
+                                    @else
+                                        <img src="{{URL::asset('media/photos/default-image.png')}}"  style="width:400px;height:300px;"  class="example-image img-responsive"/>
+                                    @endif
+
                                 </a>
                                     <div class="caption">
 

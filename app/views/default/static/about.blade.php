@@ -1,68 +1,48 @@
 @extends('layout.template')
 
+@section('image') AboutUs @stop
+
 @section('content')
     <!-- Header -->
     <br/><br/>
-    <!-- /.intro-header -->
-    <!-- Page Content -->
+    @foreach($content as $k=>$c)
+    @if($k % 2 ==0)
     <div class="content-section-a">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
-                     <h2 class="section-heading">Sunrock Resort</h2>
+                     <h2 class="section-heading">{{$c->title}}</h2>
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <p class="lead">Making a choice the famous resort in Antipolo is Sunrock. It is an ideal place for weddings, graduation, retreats, birthdays, baptisms, reunions,team building and workshop. It is economical rates but you can enjoy as well. Sunrock resort is a perfect resort near Manila or NCR because its about 25 - 50 minutes to drive away the bc streets of manila. Come and visit now. Stay comfortable like a home.</p>
+                    <p class="lead">{{$c->value}}</p>
                 </div>
                 <div class="col-lg-6 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="{{URL::asset('default')}}/img/foot.jpg" alt="">
+                    <img class="img-responsive img img-thumbnail" style="float:right;" width="500px" src="{{URL::asset('media/photos')}}/1.jpg" alt="">
                 </div>
             </div>
-
         </div>
-        <!-- /.container -->
-
     </div>
-    <!-- /.content-section-a -->
+    @else
     <div class="content-section-b">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">AMENITIES</h2>
-                    <p class="lead">Sunrock resort have a jacuzzi, anaconda slide, mega bubbles, kiddie slide, private pools, kubo and rooms and overlooking view.</p>
+                    <h2 class="section-heading">{{$c->title}}</h2>
+                    <p class="lead">{{$c->value}}</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                    <img class="img-responsive" src="{{URL::asset('default')}}/img/Multi.jpg" alt="">
+                    <img class="img-responsive img img-thumbnail" width="500px" src="{{URL::asset('media/photos')}}/2.jpg" alt="">
                 </div>
             </div>
-
         </div>
-        <!-- /.container -->
-
     </div>
-    <!-- /.content-section-b -->
-    <div class="content-section-a">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">LOWEST ENTRANCE FEE AMONG OTHER NEAR RESORT</h2>
-                    <p class="lead">The entrance fee for kids if day time 130php above 4 feet, if your child is below 4 feet it cost only 100php meanwhile in night time rate if your kids is above 4 feet it cost 150php while if youre kids is below 4 feet it cost 120php. Sunrock resort open 6:30am to 5:30pm in day rate. In night rate starts at 6:00pm to 5:30am Sunrock resort is the cheapest resort and most affordable resort here in antipolo.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                    <img class="img-responsive" src="{{URL::asset('default')}}/img/MainN.jpg" alt="">
-                </div>
-            </div>
+    @endif
+    @endforeach
 
-        </div>
-        <!-- /.container -->
-    </div>
-    <!-- /.content-section-a -->
-   
     <legend></legend>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3862.3717672783123!2d121.26506931480299!3d14.52071498985335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ea796a2274c7%3A0xa02a4c041bda471c!2sD'one+Resort+and+Restaurant!5e0!3m2!1sen!2sph!4v1453258273626" width="100%" height="600" frameborder="0" style="border:0;margin-bottom:20px" allowfullscreen=""></iframe>
 @stop
 
 @section('script')

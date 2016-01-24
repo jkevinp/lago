@@ -3,13 +3,28 @@
 class PageController extends \BaseController 
 {
 	public function index(){
-		return View::make('hello');
-		// return View::make('default.static.main');
+		//return View::make('hello');
+		return View::make('default.static.main');
 	}
 	public function about(){
-		return View::make('default.static.about');
+		$content = SiteContents::where('contenttype' , 2)->get();
+		return View::make('default.static.about')->with(compact('content'));
 	}
 	public function explore(){	
+
+		$carousel = SiteContents::join('contenttype', function($j){
+			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
+		})->where('contentvalue' , 'carousel')->get();
+
+	
+
+		$content = SiteContents::join('contenttype', function($j){
+			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
+		})->where('contentvalue' , 'gallery')->get();
+		return View::make('default.static.gallery')
+					->with(compact('carousel' , 'content'));
+	}
+	public function roomsAndCottages(){	
 		$rooms = Product::join('files', function($j){
 			$j->on('product.fileid', '=' , 'files.id');
 		})->where('producttypeid' , 2)->get();
@@ -22,6 +37,9 @@ class PageController extends \BaseController
 		return View::make('default.static.explore')->withRooms($rooms)
 		->with('cottages' , $cottages)
 		->with('pools' , $pools);
+	}
+	public function rates(){
+
 	}
 
 }

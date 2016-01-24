@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.sunrockresorts.com',
+	'host' => 'sunrockresortscom1.ipage.com',
 
 	/*
 	|--------------------------------------------------------------------------

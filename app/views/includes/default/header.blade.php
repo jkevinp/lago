@@ -1,56 +1,52 @@
-<header>
-<nav class="navbar navbar-nav navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                <div class="navbar-collapse collapse" >
-                  <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <i class="glyphicon glyphicon-fire" style="padding-left:5px;padding-right:5px;font-size:50px;background:#f8f8f8;-webkit-border-bottom-right-radius: 4px;
-                                                              -webkit-border-bottom-left-radius: 4px;
-                                                              -moz-border-radius-bottomright: 4px;
-                                                              -moz-border-radius-bottomleft: 4px;
-                                                              border-bottom-right-radius: 4px;
-                                                              border-bottom-left-radius: 4px;" aria-hidden="true"></i>
-                    </li>
-                    <li>
-                        {{APP_NAME}}
-                    </li>
-                  </ul>
-                </div>
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse   " id="bs">
-                <ul class="nav navbar-nav navbar-right">
-                    <li> 
-                        <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-github fa-fw"></i> Reservation List</a>
-                    </li>
-                    <li>
-                        <a href="{{URL::action('static.about')}}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> About</a>
-                    </li>
-                    <li>
-                        <a href="{{URL::action('static.explore')}}"><i class="glyphicon glyphicon-barcode" aria-hidden="true"></i>  Explore</a>
-                    </li>
+<div class="col-md-10 col-md-offset-1">
+    <div class="row" style="min-height:200px;margin:auto;">
+      <img src="{{URL::asset('media/photos/logo.png')}}" style="margin:auto;height:200px;" />
+      <img src="{{URL::asset('media/photos/Default')}}@yield('image').png" class="pull-right" style="margin:auto;height:200px;" />
+    </div>
+</div>
 
-                    <li>
-                        <a href="#" data-toggle="modal" data-target="#contactModal" data-whatever=""><i class="glyphicon glyphicon-phone-alt" aria-hidden="true"></i> Contact</a>
-                    </li>
-                     <li>
-                        <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>  User's Login</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+  <div class="col-md-10 col-md-offset-1">
+      <div class="header-base">
+          <div class="col-md-6" style="padding:0;">
+              <ul>
+                <li> 
+                    <a href="{{route('static.home')}}"><i class="fa fa-home fa-fw"></i>Home</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('static.about')}}"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> About Us</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('static.explore')}}"><i class="fa fa-list" aria-hidden="true"></i> Gallery</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('static.explore')}}"><i class="fa fa-building" aria-hidden="true"></i> Rooms & Cottages</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('static.explore')}}"><i class="fa fa-money" aria-hidden="true"></i> Rates</a>
+                </li>
+
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#contactModal" data-whatever=""><i class="glyphicon glyphicon-phone-alt" aria-hidden="true"></i> Contact</a>
+                </li>
+             
+            </ul>
+          </div>
+          <div class="col-md-4 col-md-offset-2">
+            <ul>
+                <li> 
+                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
+                </li>
+                <li> 
+                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                </li>
+            </ul>
+          </div>
+      </div>
+  </div>
+
     <!-- Modal Send Inquiry -->
     <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModal" aria-hidden="true">
       <div class="modal-dialog">
@@ -208,4 +204,3 @@
         </div>
       </div>
     </div>
-</header>

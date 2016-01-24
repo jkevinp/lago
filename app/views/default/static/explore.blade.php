@@ -1,4 +1,8 @@
 @extends('layout.template')
+
+@yield('image')Gallery
+@stop
+
 @section('header')
 
 <style type="text/css">
@@ -24,7 +28,6 @@
 
 
 @section('content')
-<br/><br/>
 <div id="carousel-explore" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">

@@ -1,0 +1,23 @@
+.wrapper{
+	display:grid;
+	grid-template-columns: 200px 40px auto 40px 200px;
+	grid-template-rows:auto;
+}
+.mainnav{
+	grid-column-start:1;
+	grid-column-end:2;
+	grid-row-start:2;
+	grid-row-end:3;
+}
+.subhead{
+	grid-row-start:1;
+	grid-row-end:2;
+	grid-column-start:3;
+	grid-column-end:4;
+}
+.quote{
+	grid-column-start:5;
+	grid-column-end:6;
+	grid-row-start:2;
+	grid-row-end:3;
+}

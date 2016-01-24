@@ -1,28 +1,25 @@
-<!-- Footer -->
-    <footer>
-        <hr>
-        <div class="container" align="center">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="{{URL::action('static.home')}}">Home</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="{{URL::action('static.about')}}">About</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                            <a href="{{URL::action('cpanel.account.login')}}">Control Panel</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright &copy; {{APP_NAME}} 2016. All Rights Reserved</p>
+<div class="footer">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="header-base">
+            <div class="col-md-12">
+                <a href="{{URL::action('cpanel.account.login')}}">Control Panel</a>
+          
+                <div class="row">
+                    <div class="col-md-9" style="color:white;">
+                        <p class="copyright  small">Copyright &copy; {{APP_NAME}} 2016. All Rights Reserved</p>
+                        <p><i class="fa fa-map-marker"></i> Maharlika Road, San Salvador, Baras, Rizal</p>
+                        <p><i class="fa fa-phone"></i> 0922 807 1360 | 0917 517 6510 | 0917 516 1226</p>
+                        <p><i class="fa fa-google"></i> donatajengsantos@gmail.com</p>
+
+                    </div>
+                    <div class="col-md-3">
+                        <a href=""><i class="fa fa-facebook fa-2x"></i><br/>Like us on facebook
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</div>
     @include('includes.default.footer-script')
     @include('includes.default.footer-modal')
-
-       
-<!-- Footer -->

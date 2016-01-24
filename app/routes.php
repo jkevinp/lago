@@ -4,10 +4,12 @@ $subscriber = new Sunrock\Events\BookingEventSubscriber;
 Event::subscribe($subscriber);
 //Event::subscribe(new Sunrock\Events\BookingDetailsEventSubscriber);
 Route::get('/' , 'PageController@index');
-Route::get('/home' , 'PageController@index');
+Route::get('/home' , ['uses'=> 'PageController@index']);
 Route::get('/index' ,  ['uses'=>'PageController@index' , 'as' => 'static.home']);
 Route::get('/about' ,  ['uses' => 'PageController@about' , 'as' => 'static.about']);
-Route::get('/explore' ,['uses'=>'PageController@explore' ,'as' => 'static.explore' ]);
+Route::get('/gallery' ,['uses'=>'PageController@explore' ,'as' => 'static.explore' ]);
+Route::get('/rates' ,['uses'=>'PageController@rates' ,'as' => 'static.rates' ]);
+Route::get('/roomsAndCottages' ,['uses'=>'PageController@roomsAndCottages' ,'as' => 'static.roomscottages' ]);
 Route::get('t', function(){
     var_dump(DB::getQueryLog());
     dd(Session::all());
@@ -146,5 +148,17 @@ Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
     Route::post('addItem' ,['uses' => 'AdminController@AddItem' , 'as' => 'cpanel.cashier.addItem']);
     Route::get('checkout' ,['uses' => 'AdminController@checkout' , 'as' => 'cpanel.cashier.checkout']);
     Route::post('AddReservation/SetInfo' ,['uses' => 'AdminController@SetInfo' , 'as' => 'cpanel.cashier.SetInfo']);
+
+    Route::group(['prefix' => 'cms' ,'before' => 'auth.admin'], function()
+    {  
+        Route::get('/' , ['uses' => 'CmsController@index' , 'as' => 'cms.index']);
+        Route::get('/create' , ['uses' => 'CmsController@create' , 'as' => 'cms.create']);
+        Route::post('/store' , [ 'uses' => 'CmsController@store' , 'as' => 'cms.store']);
+        Route::get('/getContentValue' , ['uses' => 'CmsController@ajaxGetContentValue' , 'as' => 'cms.ajax.contentvalue']);
+
+   
+    });
 });
     Route::get('/showProducts' , ['uses' => 'AdminController@showProducts' , 'as' => 'cpanel.show.product']);
+
+
