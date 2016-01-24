@@ -1,5 +1,5 @@
 <?php
-$localhost = true;
+$localhost = false;
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "D'One Resort & Restaurant");
 if($localhost){
