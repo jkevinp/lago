@@ -37,7 +37,7 @@ class CmsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		
 	}
 
 
@@ -49,8 +49,15 @@ class CmsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		if($content = SiteContents::find($id)){
+		$contenttype = ContentType::whereNull('deleted_at')->groupBy('contentkey')->lists('contentkey','contentkey');
+			return View::make('admin.cms.edit')->with(compact('contenttype' , 'content'));
+		}
+		else SessionController::flash("Content not found.");
+		return Redirect::to(route('cms.index'));
 	}
+
+
 
 
 	/**
@@ -73,7 +80,12 @@ class CmsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$c = SiteContents::find($id);
+		if($c){
+		$c->delete();
+		SessionController::flash("Content deleted.");
+	}else SessionController::flash("Content not found.");
+		return Redirect::back();
 	}
 
 	public function ajaxGetContentValue()

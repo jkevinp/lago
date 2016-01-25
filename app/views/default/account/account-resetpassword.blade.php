@@ -1,6 +1,7 @@
 @extends('layout.template')
 @extends('layout.form-horizontal')
 @section('content')
+<div class="row content">
 	@section('form-title')
 		Change Password
 	@stop
@@ -17,5 +18,6 @@
 		{{Form::password('password1', array('class' => 'form-control padded-text input-lg', 'placeholder' => 'Confirm new password'))}}
 		</div>
 	@stop
+	</div>
 
 @stop

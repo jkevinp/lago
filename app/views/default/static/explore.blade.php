@@ -37,6 +37,7 @@
 
 
 @section('content')
+<div class="row content">
 <div id="carousel-explore" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -136,7 +137,7 @@
     </div>
   </div>
 
-
+</div>
     
 @stop
 

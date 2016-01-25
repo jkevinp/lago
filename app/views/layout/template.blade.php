@@ -29,9 +29,7 @@
     @include('includes.default.header')
 </section>
 <div class="col-md-10 col-md-offset-1">
-    <div class="row content">
-        @yield('content')
-    </div>
+@yield('content')
 </div>
 
 <section>

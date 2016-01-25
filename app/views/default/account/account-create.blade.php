@@ -34,7 +34,7 @@
                             
                         </ul>
                             <textarea style="width:70%; height:60%" class="padded-next">
-                            Sunrock Terms of Service
+                            Terms of Service
                             1.
                         </textarea>
                         </legend>

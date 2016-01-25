@@ -9,4 +9,9 @@ class SiteContents extends Eloquent {
 	public $timestamps = true;
 	public $fillable = ['contenttype', 'value' , 'orderposition' , 'media'];
 	protected $table = 'sitecontents';
+
+	public function contentkey()
+	{
+		return $this->belongsTo('ContentType' ,'contenttype');
+	}
 }

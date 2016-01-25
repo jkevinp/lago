@@ -153,6 +153,8 @@ Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
     {  
         Route::get('/' , ['uses' => 'CmsController@index' , 'as' => 'cms.index']);
         Route::get('/create' , ['uses' => 'CmsController@create' , 'as' => 'cms.create']);
+        Route::get('/edit/{id}' , ['uses' => 'CmsController@edit' , 'as' => 'cms.edit']);
+        Route::get('/delete/{id}' , ['uses' => 'CmsController@destroy' , 'as' => 'cms.delete']);
         Route::post('/store' , [ 'uses' => 'CmsController@store' , 'as' => 'cms.store']);
         Route::get('/getContentValue' , ['uses' => 'CmsController@ajaxGetContentValue' , 'as' => 'cms.ajax.contentvalue']);
 

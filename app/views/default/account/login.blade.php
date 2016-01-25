@@ -7,14 +7,14 @@
 
 
 @section('content')
-
+<div class="row content">
  <!-- Header -->
     <div class="intro-header1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                     	<h3><i class="glyphicon glyphicon-fire"></i>User Panel Login</h3>
+                     	<h3><i class="fa fa-sign-in"></i> User Panel Login</h3>
 						{{Form::Open(
 							array('route' => 'account.signin' ,  
 							'method' => 'post' , 
@@ -73,7 +73,7 @@
 
     </div>
     <!-- /.intro-header -->
-
+</div>
 
 
 @stop

@@ -29,7 +29,10 @@
                               <td>{{$content->value}}</td>
                               <td>{{$content->media}}</td>
                               <td>{{$content->orderposition}}</td>
-                              <td>Departure</td>
+                              <td>
+                                  <a href="{{route('cms.delete', $content->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                  <a href="{{route('cms.edit', $content->id)}}" class="btn btn-warning"><i class="fa fa-edit"></i> Edit</button>
+                              </td>
                             </tr>
                               @endforeach
                             

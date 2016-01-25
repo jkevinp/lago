@@ -1,6 +1,7 @@
 @extends('layout.template')
 
 @section('content')
+<div class="row content">
  <div class="intro-header3">
         <div class="container">
             <div class="row">
@@ -59,4 +60,5 @@
 
     </div>
     <!-- /.intro-header -->
+    </div>
 @stop

@@ -7,7 +7,7 @@
 
 
 @section('content')
-
+<div class="row content">
  <!-- Header -->
     <div class="intro-header1">
         <div class="container">
@@ -67,7 +67,7 @@
 
     </div>
     <!-- /.intro-header -->
-
+</div>
 
 
 @stop
