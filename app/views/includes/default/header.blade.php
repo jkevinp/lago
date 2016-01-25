@@ -1,5 +1,5 @@
 <div class="col-md-10 col-md-offset-1">
-    <div class="row" style="min-height:200px;margin:auto;">
+    <div class="row" style="min-height:135px;margin:auto;">
       <img src="{{URL::asset('media/photos/Logo.png')}}" style="margin:auto;height:130px;" />
       <img src="{{URL::asset('media/photos/Default')}}@yield('image').png" class="pull-right" style="margin:auto;height:130px;" />
     </div>
@@ -19,10 +19,10 @@
                     <a href="{{URL::action('static.explore')}}"><i class="fa fa-list" aria-hidden="true"></i> Gallery</a>
                 </li>
                 <li>
-                    <a href="{{URL::action('static.explore')}}"><i class="fa fa-building" aria-hidden="true"></i> Rooms & Cottages</a>
+                    <a href="{{URL::action('static.roomscottages')}}"><i class="fa fa-building" aria-hidden="true"></i> Rooms & Cottages</a>
                 </li>
                 <li>
-                    <a href="{{URL::action('static.explore')}}"><i class="fa fa-money" aria-hidden="true"></i> Rates</a>
+                    <a href="{{URL::action('static.rates')}}"><i class="fa fa-money" aria-hidden="true"></i> Rates</a>
                 </li>
 
                 <li>

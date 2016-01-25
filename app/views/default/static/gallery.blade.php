@@ -1,9 +1,8 @@
 @extends('layout.template')
 
-@yield('image' , '-Gallery')
+@section('image' , '-Gallery')
 
 @section('header')
-
 <style type="text/css">
    .carousel-control {
       height: 100%;
@@ -20,6 +19,10 @@
     {
       position: relative;
       z-index: 9;
+    }
+    .image-control{
+        min-height: 310px !important;
+        max-height: 310px !important;
     }
 </style>
 
@@ -66,17 +69,19 @@
 </div>
 
 <br/>
- <div class="row well well-lg">
+<div class="col-md-12">
+ <div class="row">
     <h3 align="center">Gallery</h3>  
     @foreach($content as $c)
-    <div class="col-md-4">
+    <div class="col-md-4 col-md-4">
         <div class="thumbnail">
             <a data-lightbox="image-1"class="example-image-link" data-title="{{$c['title']}}<hr>{{$c['value']}}" href="{{URL::asset('default/img-uploads')}}/{{$c['media']}}" >
-                <img src="{{URL::asset('default/img-uploads')}}/{{$c['media']}}"  class="example-image img-responsive" width="320px" height="320px"/>
+                <img src="{{URL::asset('default/img-uploads')}}/{{$c['media']}}"  class="image-control example-image img-responsive " />
             </a>
         </div>             
     </div>
     @endforeach
+  </div>
   </div>
 @stop
 

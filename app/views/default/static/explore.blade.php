@@ -1,6 +1,6 @@
 @extends('layout.template')
 
-@yield('image' ,'-Gallery')
+@section('image' ,'-RoomCottage')
 
 @section('header')
 
@@ -20,6 +20,16 @@
     {
       position: relative;
       z-index: 9;
+    }
+  
+    .thumbnail{
+        min-height: 320px !important;
+        max-height: 320px !important;
+    }
+
+    .image-control{
+        min-height: 310px !important;
+        max-height: 310px !important;
     }
 </style>
 
@@ -81,43 +91,19 @@
   </a>
 </div>
 
-<br/>
- <div class="row well well-lg">
-    <h3 align="center">Admission</h3>  
-    @foreach($pools as $room)
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                <img src="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}"  class="example-image img-responsive" width="320px" height="320px"/>
-            </a>
-        </div>             
+ <div class="col-md-12">
+    <div class="row">
+        <h3 align="center">Rooms</h3><hr/>
+        @foreach($rooms as $room)
+          <div class="col-md-4 col-md-4">
+            <div class="thumbnail">
+                <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
+                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                </a>
+            </div>             
+        </div>
+      @endforeach
     </div>
-    @endforeach
-  </div>
- <div class="row well well-lg">
- <h3 align="center">Cottages</h3> 
-
-  @foreach($cottages as $room)
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                <img src="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}"  class="example-image img-responsive" width="320px" height="320px"/>
-            </a>
-        </div>             
-    </div>
-    @endforeach
-  </div>
-   <div class="row well well-lg">
-    <h3 align="center">Rooms</h3><hr />
-     @foreach($rooms as $room)
-    <div class="col-md-4">
-        <div class="thumbnail">
-            <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                <img src="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}"  class="example-image img-responsive" width="320px" height="320px"/>
-            </a>
-        </div>             
-    </div>
-    @endforeach
   </div>
 
 
