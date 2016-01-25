@@ -34,7 +34,7 @@
           <div class="col-md-4 col-md-offset-2">
             <ul>
                 <li> 
-                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
+                    <a href="{{route('static.home')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
                 </li>
                 <li> 
                     <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
@@ -55,13 +55,13 @@
             {{Form::open(['route' => 'guest.mail.create' , 'method' => 'post'])}}
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="contactModalLabel">Contact Us</h4>
-              For urgent matters, please call or text  <br/><strong>Tel: 696-4316</strong>
-              <br/> <strong>Mobile: 0927-500-5257 </strong>
+              For urgent matters, please call or text  <br/><strong>{{SiteContents::where('title' , 'phone')->first()->value}}</strong>
+         
           </div>
           <div class="modal-body">
               <div class="form-group">
                 {{Form::text('sendername', null, ['class' => 'form-control' ,'placeholder' => 'Fullname'])}}
-                {{Form::hidden('receiveremail' , 'mail.sunrock@gmail.com')}}
+                {{Form::hidden('receiveremail' , SiteContents::where('title' , 'email')->first()->value)}}
                 {{Form::hidden('receivername' ,  'System')}}
                 {{Form::hidden('subject' ,'Message[Via Contact]')}}
               </div>

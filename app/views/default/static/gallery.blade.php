@@ -31,15 +31,8 @@
 
 @section('content')
 <div class="row content">
-<div id="carousel-explore" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-explore" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-explore" data-slide-to="1"></li>
-    <li data-target="#carousel-explore" data-slide-to="2"></li>
-  </ol>
+<div id="carousel-explore"  class="carousel slide" data-ride="carousel">
 
-  <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
    <?php $counter = 0;?>
     @foreach($carousel as $c)
