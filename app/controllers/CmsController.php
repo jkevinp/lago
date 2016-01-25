@@ -66,9 +66,60 @@ class CmsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+		$input = Input::all();
+		$rules = ['image' => 'mimes:jpeg,bmp,png' , 'id' => 'required' , 'content-category' => 'required' , 'contenttype' => 'required'];
+    	$validator = Validator::make($input, $rules);
+		if($validator->fails())
+		{
+			return Redirect::Back()->withErrors($validator->messages());
+		}
+		else
+		{
+			$content = SiteContents::find($input['id']);
+			if(!$content)return Redirect::back()->withErrors("Could not find content.");
+			$file = Input::file('image');
+
+			if($file){
+				$destinationPath = public_path('/default/img-uploads/');
+				$filename = str_random(8).$file->getClientOriginalName();
+				Input::file('image')->move($destinationPath, $filename);
+				$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
+				$content->media = $filename;
+			}
+			
+			$content->title = $input['title'];
+			$content->value = $input['textcontent'];
+			$content->orderposition = 0;
+			$content->contenttype=  ContentType::where('contentkey', $input['contenttype'])->where('contentvalue', $input['content-category'])->pluck('id');
+			// $content->updated_at = Carbon::now();
+
+			if($content->save())
+			{
+				$content->touch();
+				
+				if($file){
+					if(file_exists($destinationPath.$filename))
+					{
+
+						$lastInsertId = $content->id;
+
+						SessionController::flash("Content saved.");
+						return Redirect::back();
+					}
+				}else{
+						$lastInsertId = $content->id;
+						SessionController::flash("Content saved.");
+						return Redirect::back();
+				}
+			}
+			else
+			{
+				return Redirect::Back()->withErrors("Something Went Wrong.");
+			}
+
+		}	
 	}
 
 

@@ -156,6 +156,7 @@ Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
         Route::get('/edit/{id}' , ['uses' => 'CmsController@edit' , 'as' => 'cms.edit']);
         Route::get('/delete/{id}' , ['uses' => 'CmsController@destroy' , 'as' => 'cms.delete']);
         Route::post('/store' , [ 'uses' => 'CmsController@store' , 'as' => 'cms.store']);
+        Route::post('/update' , [ 'uses' => 'CmsController@update' , 'as' => 'cms.update']);
         Route::get('/getContentValue' , ['uses' => 'CmsController@ajaxGetContentValue' , 'as' => 'cms.ajax.contentvalue']);
 
    

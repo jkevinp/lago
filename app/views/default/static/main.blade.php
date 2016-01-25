@@ -33,6 +33,7 @@
             @foreach($news as $new)
                 <div class="col-md-10 col-md-offset-1">
                 <div class="row">
+
                 <span class="label label-success pull-right">{{$new->updated_at}}</span>
                  <h3>> <i>{{$new->title}}</i></h3>
                  </div>
@@ -40,7 +41,9 @@
                 <hr/>
                 <p>{{$new->value}}</p>
                 @if(isset($new->media) && !empty($new->media))
-                <img src="{{asset($new->media)}}" ></h1>
+                <center>
+                <img class="img img-thumbnail" src="{{asset('default/img-uploads/'.$new->media)}}" style="max-width: 250px;max-height: 250px;"></h1>
+ </center>
                 @endif
                 <hr/>
                 <br/>
