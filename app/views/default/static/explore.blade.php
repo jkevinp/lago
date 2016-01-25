@@ -98,7 +98,37 @@
           <div class="col-md-4 col-md-4">
             <div class="thumbnail">
                 <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                </a>
+            </div>             
+        </div>
+      @endforeach
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+        <h3 align="center">Cottages</h3><hr/>
+        @foreach($cottages as $room)
+          <div class="col-md-4 col-md-4">
+            <div class="thumbnail">
+                <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
+                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                </a>
+            </div>             
+        </div>
+      @endforeach
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+        <h3 align="center">Pools</h3><hr/>
+        @foreach($pools as $room)
+          <div class="col-md-4 col-md-4">
+            <div class="thumbnail">
+                <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
+                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
                 </a>
             </div>             
         </div>
