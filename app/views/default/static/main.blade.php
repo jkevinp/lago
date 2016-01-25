@@ -30,6 +30,24 @@
             <div class="row">
             <legend class="text-center"><i class="fa fa-newspaper-o"></i> News And Updates</legend>
             </div>
+            @foreach($news as $new)
+                <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                <span class="label label-success pull-right">{{$new->updated_at}}</span>
+                 <h3>> <i>{{$new->title}}</i></h3>
+                 </div>
+                 
+                <hr/>
+                <p>{{$new->value}}</p>
+                @if(isset($new->media) && !empty($new->media))
+                <img src="{{asset($new->media)}}" ></h1>
+                @endif
+                <hr/>
+                <br/>
+                <br/>
+                </div>
+
+            @endforeach
         </div>
     </div>
 </div>
