@@ -84,7 +84,7 @@ class CmsController extends \BaseController {
 			if($file){
 				$destinationPath = public_path('/default/img-uploads/');
 				$filename = str_random(8).$file->getClientOriginalName();
-				Input::file('image')->move($destinationPath, $filename);
+				Input::file('image')->move(Helpers::AssetsDir(), $filename);
 				$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
 				$content->media = $filename;
 			}
@@ -158,7 +158,7 @@ class CmsController extends \BaseController {
 			//$destinationPath =  URL::asset('public\default').'\img-uploads\\';
 			$destinationPath = public_path('/default/img-uploads/');
 			$filename = str_random(8).$file->getClientOriginalName();
-			Input::file('image')->move($destinationPath, $filename);
+			Input::file('image')->move(Helpers::AssetsDir(), $filename);
 			$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
 			$content = new SiteContents();
 			$content->media = $filename;
@@ -168,7 +168,7 @@ class CmsController extends \BaseController {
 			$content->contenttype=  ContentType::where('contentkey', $input['contenttype'])->where('contentvalue', $input['content-category'])->pluck('id');
 			if($content->save())
 			{
-				if(file_exists($destinationPath.$filename))
+				if(file_exists(Helpers::AssetsDir().$filename))
 				{
 					$lastInsertId = $content->id;
 					SessionController::flash("Content saved.");

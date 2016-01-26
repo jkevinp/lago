@@ -15,9 +15,9 @@ class FilesController extends \BaseController {
 		{
 			$file = Input::file('image');
 			//$destinationPath =  URL::asset('public\default').'\img-uploads\\';
-			$destinationPath = public_path('/default/img-uploads/');
+			//$destinationPath = public_path('/default/img-uploads/');
 			$filename = str_random(8).$file->getClientOriginalName();
-			Input::file('image')->move($destinationPath, $filename);
+			Input::file('image')->move(Helpers::AssetsDir(), $filename);
 			$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
 			$classFile = new Files();
 			$classFile->imagename = $filename;
@@ -25,7 +25,7 @@ class FilesController extends \BaseController {
 			$classFile->description = $input['description'];
 			if($classFile->save())
 			{
-				if(file_exists($destinationPath.$filename))
+				if(file_exists(Helpers::AssetsDir().$filename))
 				{
 					$lastInsertId = $classFile->id;
 					echo $destinationPath.$filename;
