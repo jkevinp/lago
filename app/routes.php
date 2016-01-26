@@ -163,5 +163,3 @@ Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
     });
 });
     Route::get('/showProducts' , ['uses' => 'AdminController@showProducts' , 'as' => 'cpanel.show.product']);
-
-

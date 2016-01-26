@@ -2,7 +2,8 @@
 $localhost = 1;
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "D'One Resort");
-var_dump();
+
+
 
 if($_SERVER['SERVER_NAME'] == 'localhost'){
 	define('DB_HOST', 'localhost'); 
@@ -92,3 +93,5 @@ if (is_dir($workbench = __DIR__.'/../workbench'))
 {
 	Illuminate\Workbench\Starter::start($workbench);
 }
+
+

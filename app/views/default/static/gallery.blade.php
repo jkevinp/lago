@@ -38,7 +38,7 @@
     @foreach($carousel as $c)
         
         <div class="item <?php if($counter == 0)echo 'active'; ?>">
-            <img class="img-responsive" src="{{asset('default/img-uploads/'.$c['media'])}}" alt="">
+            <img class="img-responsive" src="{{Helpers::Assets($c['media'])}}" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h2>{{$c['title']}}</h2>
@@ -69,8 +69,8 @@
     @foreach($content as $c)
     <div class="col-md-4 col-md-4">
         <div class="thumbnail">
-            <a data-lightbox="image-1"class="example-image-link" data-title="{{$c['title']}}<hr>{{$c['value']}}" href="{{asset('default/img-uploads/'.$c['media'])}}" >
-                <img src="{{asset('default/img-uploads/'.$c['media'])}}"  class="image-control example-image img-responsive " />
+            <a data-lightbox="image-1"class="example-image-link" data-title="{{$c['title']}}<hr>{{$c['value']}}" href="{{Helpers::Assets($c['media'])}}" >
+                <img src="{{Helpers::Assets($c['media'])}}"  class="image-control example-image img-responsive " />
             </a>
         </div>             
     </div>

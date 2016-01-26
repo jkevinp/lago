@@ -2,6 +2,14 @@
 
 class Helpers extends \BaseController {
 
+	public static function Assets($filename){
+		if($_SERVER['SERVER_NAME'] == 'localhost'){
+			return asset('default/img-uploads/'.$filename);
+		}else{
+			return $OPENSHIFT_REPO_DIR."/".$filename;
+		}
+	}
+
 	public static function SendMail($v,$arr , $sendDetails ,$file = false)
 	{
 		if($file)
