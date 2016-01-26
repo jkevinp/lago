@@ -46,7 +46,7 @@ class PageController extends \BaseController
 		->with('pools' , $pools);
 	}
 	public function rates(){
-
+return View::make('default.static.rates');
 	}
 
 }

@@ -1,6 +1,6 @@
 <div class="col-md-10 col-md-offset-1 text-center">
 	<form class="form-horizontal" action="{{URL::route('book.SetInfo')}}" method="post" >
-	    <legend>Book Now and enjoy the summer heat!</legend>
+	    <legend>Reservation Form</legend>
                   <div class="control-group">
                     <div class="controls">
                     <input  type="text" id="email" name="email" value= ""class="padded-text form-control" placeholder="Your Email-Address">
@@ -27,7 +27,7 @@
                       <?php
                         for($x = 1 ; $x <= 60; $x ++)
                         {
-                          echo '<option value="'.(($x*12) /24).'">'.($x * 12).' Hours - '.(($x*12) /24).' days</option>';
+                          echo '<option value="'.(($x*12) /24).'">'.($x * 12).' Hours</option>';
                         }
                       ?>
                     </select>
@@ -41,9 +41,8 @@
                     @endif
 	                 </div>
                 </div>
-                   <input type="number" value="" style="height:30px" placeholder="Number of Adults" class="form-control padded-text" name="adult">
-                
-                       <input type="number" value="" style="height:30px" placeholder="Number of Children" class="form-control padded-text" name="children">
+                  <input min="0" type="number" value="" style="height:30px" placeholder="Number of Adults" class="form-control padded-text" name="adult">
+                  <input min="0" type="number" value="" style="height:30px" placeholder="Number of Children" class="form-control padded-text" name="children">
                     
                 
               <div class="alert alert-info">

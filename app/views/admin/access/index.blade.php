@@ -10,7 +10,7 @@
 <div class="row content">
  <!-- Header -->
     <div class="intro-header1">
-        <div class="container">
+        <div class="">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">

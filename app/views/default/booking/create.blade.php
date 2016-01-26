@@ -9,38 +9,34 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-     	<div class="container" style="height:80%;">
+     	<div class="" style="min-height:100%;">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1" >
                     	<legend align="center">
                             <br/>
                             <p>Please read the terms of agreement before proceeding.</p>
                             
-                        <h3>Sunrock Terms of Service and Condition.</h3>
+                        <h3>Terms of Service and Condition.</h3>
                         </legend>
-                        <ul type="" style="width:100%">
-                            <li>Initial 50% downpayment is needed to verify your reservation.</li>
-                            <li>No refund policy</li>
-                            <li>Please be reminded that you can upgrade your room once your initial reseervation payment is confirmed in our system.</li>
-                            <li>Downgrading of rooms are also possible but there is no deduction on the original room price you reserved prior to the changes.</li>
-                            <li>All rooms changes are subject on availability.</li>
-                        </ul>
+                  
+                            <p>Initial 50% downpayment is needed to verify your reservation.</li>
+                            <p>No refund policy</li>
+                            <p>Please be reminded that you can upgrade your room once your initial reseervation payment is confirmed in our system.</li>
+                            <p>Downgrading of rooms are also possible but there is no deduction on the original room price you reserved prior to the changes.</li>
+                            <p>All rooms changes are subject on availability.</li>
+                    
                         <hr/>
 
                         <h5 align='center'><p id="helper">Proceeding After <span id="time"> </span> seconds</p></h5>   
-                        <ul class="list-inline intro-social-buttons" align='center'>
-                            <li><a href="#" class="btn btn-default " id="btn_next">
-                                    <i class="fa fa-check fa-fw" ></i> 
-                                    <span class="network-name">Proceed</span>
-                                </a>
-                            </li>
-                        </ul>
+                          <a href="#" class="btn btn-block btn-default " id="btn_next">
+                                    <i class="fa fa-check fa-fw" ></i>Proceed</a>
+                         
                 </div>
             </div>
         </div>
     </div>
     <div class="item">
-        <div class="container" style="height:80%">
+        <div class="" style="height:100%">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1" align="">
                     <br/>
@@ -175,8 +171,7 @@
                         </div>
 
 
-                        <br/>
-                        <div style="width:100%">
+                        <div style="width:100%" class="form-group">
                             <div class="btn-group btn-group-justified" role="group" aria-label="..." >
                                 <div class="btn-group" role="group">
                                     <a href="#" class="btn btn-primary btn-lg padded-text5 " id="btn_next1">
@@ -198,7 +193,7 @@
     </div>
     <!-- Summary -->
      <div class="item">
-        <div class="container" style="height:80%">
+        <div class="container" style="height:100%">
             <div class="row">
                 <div class="col-lg-12" align="center">
                     <br/>

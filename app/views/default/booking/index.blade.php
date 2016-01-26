@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-	<br/><br/><br/><br/>
-        <div class="container">
+	
+        <div class="row content">
             <legend>
             <h1>Select Rooms and services</h1>
             </legend>
