@@ -38,7 +38,7 @@
     @foreach($carousel as $c)
         
         <div class="item <?php if($counter == 0)echo 'active'; ?>">
-            <img class="img-responsive" src="{{Helpers::Assets($c['media'])}}" alt="">
+            <img class="img-responsive" style="width:100%;height:600px;" src="{{Helpers::Assets($c['media'])}}" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h2>{{$c['title']}}</h2>

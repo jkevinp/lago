@@ -17,15 +17,19 @@ class PageController extends \BaseController
 	}
 	public function explore(){	
 
-		$carousel = SiteContents::join('contenttype', function($j){
-			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
-		})->where('contentvalue' , 'carousel')->get();
+		// $carousel = SiteContents::join('contenttype', function($j){
+		// 	$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
+		// })->where('contentvalue' , 'carousel')->get();
 
 	
 
 		$content = SiteContents::join('contenttype', function($j){
 			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
 		})->where('contentvalue' , 'gallery')->get();
+
+
+		$carousel = $content;
+
 		return View::make('default.static.gallery')
 					->with(compact('carousel' , 'content'));
 	}
@@ -40,10 +44,14 @@ class PageController extends \BaseController
 
 		$pools = Product::join('files', function($j){
 			$j->on('product.fileid', '=' , 'files.id');
-		})->where('producttypeid' , 3)->get();
+		})->where('producttypeid' , 5)->get();
+
+		$carousel = Product::join('files', function($j){
+			$j->on('product.fileid', '=' , 'files.id');
+		})->orderBy(DB::raw('RAND()'))->take(5)->get();
 		return View::make('default.static.explore')->withRooms($rooms)
 		->with('cottages' , $cottages)
-		->with('pools' , $pools);
+		->with('pools' , $pools)->with('carousel' , $carousel);
 	}
 	public function rates(){
 return View::make('default.static.rates');

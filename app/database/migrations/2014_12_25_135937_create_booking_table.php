@@ -49,6 +49,8 @@ class CreateBookingTable extends Migration {
 			$table->integer('productquantity');
 			$table->integer('fileid');
 			$table->integer('producttypeid');
+			$table->integer('paxmin');
+			$table->integer('paxmax');
 			$table->integer('active')->default(1);
 			$table->timestamps();
 		});
@@ -61,8 +63,7 @@ class CreateBookingTable extends Migration {
 			$table->date('bookingstart');
 			$table->date('bookingend');
 			$table->integer('totalduration');
-			$table->integer('paxmin');
-			$table->integer('paxmax');
+			
 			$table->decimal('fee', 10, 2);
 			$table->string('paymenttype');
 			$table->string('account_id');
@@ -76,6 +77,7 @@ class CreateBookingTable extends Migration {
 		Schema::create('booking_details' , function($table){
 			$table->increments('id');
 			$table->string('time');
+
 			$table->dateTime('bookingstart');
 			$table->dateTime('bookingend');
 			$table->integer('productid');
