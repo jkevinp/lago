@@ -15,11 +15,7 @@
 	</style>
 </head>
 <body>
-		<p align="right">
-
-				<br>Tel: 696-4316<br/>Mobile: 0927-500-5257	
-		</p>
-		<h2>Sunrock Resort Reservation Report</h2>
+		<h2>Reservation Report</h2>
 		<?php
 		$s0 =0;
 		$s1 = 0;

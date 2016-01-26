@@ -6,45 +6,7 @@
 
 @section('content')
  
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
-  <!-- Indicators 
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    </ol>
-    -->
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-        <div class="container" style="height:80%">
-            <div class="row">
-                <div class="col-lg-12">
-                        <legend align="center">
-                            <br/>
-                            <p>Please read the terms of agreement before proceeding.</p>
-                            <h5><p id="helper">Proceeding After <span id="time"> </span> seconds</p>
-                            </h5>
-                            <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a href="#" class="btn btn-default " id="btn_next">
-                                    <i class="fa fa-twitter fa-fw" ></i> 
-                                    <span class="network-name">Proceed</span>
-                                </a>
-                            </li>
-                            
-                        </ul>
-                            <textarea style="width:70%; height:60%" class="padded-next">
-                            Terms of Service
-                            1.
-                        </textarea>
-                        </legend>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="item">
-        <div class="container" style="height:80%">
-            <div class="row">
+            <div class="row content">
                 <div class="col-lg-12" align="center">
                     <br/>
                         <h3>Account registration</h3>
@@ -57,28 +19,28 @@
                                                 'MRS' => 'Mrs',
                                                 'MS' => 'Ms'),  
                                       isset(Session::get('account_info')['title']) ? Session::get('account_info')['title'] : 'MR',
-                                        array('class' => 'padded-text5'));
+                                        array('class' => 'padded-text5 form-control'));
                         }}
                         {{Form::text('Firstname', isset(Session::get('account_info')['firstname']) ? Session::get('account_info')['firstname'] : '' , 
-                                    array('class' => 'padded-text5',
+                                    array('class' => 'padded-text5 form-control',
                                         'placeholder' => 'First Name'
                                         ))
                         }}
                         {{Form::hidden('active' , 0)}}
                         {{Form::hidden('usergroup' ,2)}}
                         {{Form::text('Middlename',  isset(Session::get('account_info')['middleName']) ? Session::get('account_info')['middleName'] : '', 
-                                    array('class' => 'padded-text5',
+                                    array('class' => 'padded-text5 form-control',
                                         'placeholder' => 'Middle Name'
                                         ))
                         }}
                         {{Form::text('Lastname', isset(Session::get('account_info')['lastName']) ? Session::get('account_info')['lastName'] : '' , 
-                                    array('class' => 'padded-text5',
+                                    array('class' => 'padded-text5 form-control',
                                         'placeholder' => 'Last Name'
                                         ))
                         }}
                         {{Form::text('ContactNumber' ,isset(Session::get('account_info')['contactnumber']) ? Session::get('account_info')['contactnumber'] : '',
                                         array(
-                                            'class' => 'padded-text5',
+                                            'class' => 'padded-text5 form-control',
                                             'placeholder'=> 'Contact Number',
                                             'id' => 'cno'
                                             )
@@ -88,7 +50,7 @@
                       
                         {{Form::text('Email' ,isset(Session::get('account_info')['email']) ? Session::get('account_info')['email'] : Session::get('email'),
                                         array(
-                                            'class' => 'padded-text5',
+                                            'class' => 'padded-text5 form-control',
                                             'placeholder'=> 'E-mail Address',
                                             
                                             )
@@ -97,7 +59,7 @@
                         }}
                         {{Form::text('Email2' ,isset(Session::get('account_info')['email']) ? Session::get('account_info')['email'] : Session::get('email'),
                                         array(
-                                            'class' => 'padded-text5',
+                                            'class' => 'padded-text5 form-control',
                                             'placeholder'=> 'Confirm E-mail Address',
                                             
                                             )
@@ -109,7 +71,7 @@
                         <div style="width:50%">
                             <div class="btn-group btn-group-justified" role="group" aria-label="..." >
                                 <div class="btn-group" role="group">
-                                    {{ Form::submit('Register', array('class' => 'btn btn-primary btn-lg padded-text5')) }}
+                                    {{ Form::submit('Register', array('class' => 'btn btn-primary btn-lg padded-text5 ')) }}
                                     <br>
                                 </div>
                                 <div class="btn-group" role="group">
@@ -121,22 +83,6 @@
                         
                     </div>
             </div>
-        </div>
-    </div>
- 
-  </div>
-
-  <!-- Controls -->
-
-  <a class="left carousel-control" id="back" href="#carousel-example-generic" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" id="next" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
 @stop
 
 @section('script')

@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>{{APP_NAME}}- Antipolo</h1>
+                        <h1>{{APP_NAME}}</h1>
                     </div>
                 </div>
             </div>

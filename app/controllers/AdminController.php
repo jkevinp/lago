@@ -238,8 +238,11 @@ class AdminController extends \BaseController
 				break;
 				case 'product':
 					$fileList = $this->file->all()->toArray();
+					$files = [];
 					$productTypeList = $this->producttype->all()->toArray();
-					foreach($fileList as $file)$files['file id: '.$file['id']] = [$file['id'] => $file['imagename']];
+					foreach($fileList as $file)
+						$files['file id: '.$file['id']] = [$file['id'] => $file['imagename']];
+
 					foreach($productTypeList as $file)$productType['Product Type id: '.$file['id']] = [$file['id'] => $file['producttypename']];
                     $view = View::make('admin.product.product-create')
 							->withTitle('Create new Product')

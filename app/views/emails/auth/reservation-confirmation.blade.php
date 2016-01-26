@@ -18,13 +18,10 @@ Please follow the instructions carefully to confirm your reservation.
 <br/><br/> To pay via bank, deposit the required bill to any of the following banks nationwide.
 <br/>
 <br/>
-BPI FAMILY<br/>
-Account Number: 6436045555<br/><br/>
-METRO BANK<br/>
-Account Number: 402-3-402-33221-3<br/><br/>
-BDO<br/>
-Account Number: 6630127632<br/><br/>
-<strong>Name: Wilfredo E. Solapco</strong>
+Bank of the Philippines<br/>
+Account Number: 3410-0000-74<br/><br/>
+Account branch: BPI tanay<br/>
+<strong>Account Name: D' One Resort and Restaurant</strong>
 <br/>
 <b>Please indicate at the comment box what bank you deposit/payed the bill.</b>
 <br/>

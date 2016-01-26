@@ -19,9 +19,8 @@
 		<p align="right">
 
 				<?php echo date('Y-m-d h:i:s');?>	
-				<br>Tel: 696-4316<br/>Mobile: 0927-500-5257	
 		</p>
-		<h2>Sunrock Resort Invoice Slip</h2>
+		<h2>Invoice Slip</h2>
 	<hr>
 	<table class="table table-bordered" width='100%'>
 		<thead>

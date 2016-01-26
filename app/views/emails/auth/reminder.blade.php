@@ -1,6 +1,6 @@
 @extends('layout.email')
 @section('salutations')
-Dear {{$Firstname}} {{$Middlename}} {{$Lastname}},
+	Dear {{$Firstname}} {{$Middlename}} {{$Lastname}},
 @stop
 @section('content')
 <hr>

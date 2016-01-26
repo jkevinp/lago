@@ -10,8 +10,22 @@ use Helpers;
 
 class AccountEventSubscriber 
 {
-  public function onCreate($token){
-      
+  public function onCreate($account){
+
+         Helpers::SendMail('emails.auth.welcome',
+                      [     'email' => $account['email'] , 
+                            'Lastname' => $account['lastname'] ,
+                            'Firstname' => $account['firstname'],
+                            'Middlename' => $account['middlename'],
+                            'confirmation_code' => $account['confirmationcode']
+                      ], 
+                      [
+                            'title' => '[No-reply] Verify your account.' , 
+                            'email' => $account['email'], 
+                            'Lastname' => $account['lastname'] ,
+                            'Firstname' => $account['firstname']
+                      ]
+                      );
   }
   public function onUpdate($event){
     
@@ -27,7 +41,7 @@ class AccountEventSubscriber
                           ], 
 
                           [
-                                'title' => 'Password Reset.[No-reply]' , 
+                                'title' => '[No-reply] Password Reset' , 
                                 'email' => $account['email'] , 
                                 'Lastname' => $account['lastName'] ,
                                 'Firstname' => $account['firstname']
@@ -38,6 +52,7 @@ class AccountEventSubscriber
   public function subscribe($events)
   {
     $events->listen('account.sendForgot' , 'Sunrock\Events\AccountEventSubscriber@onForgot');
+    $events->listen('account.create' , 'Sunrock\Events\AccountEventSubscriber@onCreate');
   }
  
 }

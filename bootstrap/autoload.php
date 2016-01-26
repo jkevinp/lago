@@ -1,8 +1,10 @@
 <?php
-$localhost = 0;
+$localhost = 1;
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "D'One Resort");
-if($localhost){
+var_dump();
+
+if($_SERVER['SERVER_NAME'] == 'localhost'){
 	define('DB_HOST', 'localhost'); 
 	define('DB_USER', 'root');
 	define('DB_PASS', '');

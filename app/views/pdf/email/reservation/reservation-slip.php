@@ -15,9 +15,8 @@
 <body>
 		<p align="right">
 				<?php echo $booking->created_at;?>	
-				<br>Tel: 696-4316<br/>Mobile: 0927-500-5257	
 		</p>
-		<h2>Sunrock Resort Reservation Slip</h2>
+		<h2>Reservation Slip</h2>
 		
 		<table border='0' width="100%">
 			<tr>

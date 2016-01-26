@@ -15,11 +15,7 @@
 	</style>
 </head>
 <body>
-		<p align="right">
-				
-				<br>Tel: 696-4316<br/>Mobile: 0927-500-5257	
-		</p>
-		<h2>Sunrock Resort Account List</h2>
+		<h2>Account List</h2>
 		
 		<table border='0' width="100%">
 			<tr>

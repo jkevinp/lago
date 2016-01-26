@@ -321,7 +321,9 @@ class AccountController extends \BaseController
 		$account = $this->account->create($input, $input['usergroup'],$active);
 		if($account)
 		{
-			SessionController::flash('Account Successfully created. <br/>Account id:'.$account->id);
+			Event::fire('account.create', [$account]);
+			SessionController::flash('Account Successfully created. Please check your E-mail address Inbox or Spam to continue.<br/>Account id:'.$account->id);
+			
 			return Redirect::to('/');
 		}
 		return Redirect::back()->withErrors('Could not create account!');
