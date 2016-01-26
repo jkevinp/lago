@@ -6,7 +6,7 @@ class Helpers extends \BaseController {
 		if($_SERVER['SERVER_NAME'] == 'localhost'){
 			return asset('default/img-uploads/'.$filename);
 		}else{
-			return get_env('OPENSHIFT_DATA_DIR')."/".$filename;
+			return getenv('OPENSHIFT_DATA_DIR')."/".$filename;
 		}
 	}
 
