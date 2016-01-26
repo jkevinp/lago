@@ -42,7 +42,7 @@
                 <p>{{$new->value}}</p>
                 @if(isset($new->media) && !empty($new->media))
                 <center>
-                <img class="img img-thumbnail" src="{{asset('default/img-uploads/'.$new->media)}}" style="max-width: 250px;max-height: 250px;"></h1>
+                <img class="img img-thumbnail" src="{{Helpers::Assets($new->media)}}" style="max-width: 250px;max-height: 250px;"></h1>
  </center>
                 @endif
                 <hr/>
