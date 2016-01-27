@@ -69,7 +69,7 @@
 			<tr>
 				<th>Booking ID</th>
 				<th>Booking Reference Id</th>
-				<th>Account ID</th>
+				<th>Name</th>
 				<th>Start Date</th>
 				<th>End Date</th>
 				<th>Status</th>
@@ -83,7 +83,7 @@
 	    		echo '<tr>';
 	    		echo '<td>'.$book['bookingid'].'</td>';
 	    		echo '<td>'.$book['bookingreferenceid'].'</td>';
-	    		echo '<td>'.$book['account_id'].'</td>';
+	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
 	    		echo '<td>'.$book['bookingstart'].'</td>';
 	    		echo '<td>'.$book['bookingend'].'</td>';
 	    		echo '<td>';

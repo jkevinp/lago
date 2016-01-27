@@ -3,8 +3,8 @@
 
 @section('content')
 <ul class="nav nav-tabs  nav-justified">
-  <li role="presentation" id="libank" ><a href="#" id="bank">Bank</a></li>
-  <li role="presentation" id="lipaypal"><a href="#" id="paypal">Paypal</a></li>
+  <li role="presentation" id="libank" ><a href="#" id="bank">Bank Payment</a></li>
+  <!-- <li role="presentation" id="lipaypal"><a href="#" id="paypal">Paypal</a></li> -->
 </ul>
 <?php $bookArray = array();?>
 @foreach($booking as $book)
@@ -24,6 +24,9 @@
                     <p>Select the <u>Reservation ID</u> of the reservation you wish to pay then enter the reference/booking code that you received from the bank/paypal.</p>
                     <p>Our staff will verify if the payment has been made. After verification, the reservation will be confirmed.</p>
                     <p>For any notes or instruction, please specify at notes field.</p>
+                    @foreach(SiteContents::where('title' , 'Bank Information')->get() as $content)
+                    <p>{{$content->value}}</p>
+                    @endforeach
                 </div>
             </div>
            

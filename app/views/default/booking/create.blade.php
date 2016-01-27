@@ -251,9 +251,9 @@
                                     {{ Form::submit('Submit', array('class' => 'btn btn-primary btn-lg padded-text5' ,'id' => 'go')) }}
                                     <br>
                                 </div>
-                                <div class="btn-group" role="group">
+                               <!--  <div class="btn-group" role="group">
                                     {{ Form::reset('Reset', array('class' => 'btn btn-default btn-lg padded-text5')) }}
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         {{ Form::close() }}
@@ -266,11 +266,11 @@
 
   <!-- Controls -->
 
-  <a class="left carousel-control" id="back" href="#carousel-example-generic" role="button" data-slide="prev">
+  <a style="display:none;" class="left carousel-control" id="back" href="#carousel-example-generic" role="button" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" id="next" role="button" data-slide="next">
+  <a style="display:none;" class="right carousel-control" href="#carousel-example-generic" id="next" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>

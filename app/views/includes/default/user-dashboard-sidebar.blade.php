@@ -56,11 +56,7 @@
                             </li>
                             <li>
                                    {{HTML::link(route('account.index').'/show/transaction/pay/','Pay via Bank')}}
-                           
-                            </li>
-                            <li>
-                                    {{HTML::link('https://www.paypal.com', 'Pay via Paypal')}}
-                            </li>
+                           </li>
                         </ul>
                     </li>
                     

@@ -18,8 +18,9 @@ class MailsController extends BaseController
   				];
   		$val = Validator::make($input, $rules);
   		if($val->fails()) return Redirect::back()->withErrors($val->messages())->withInput($input);
+
   		$find = $this->account->findByEmail($input['receiveremail'])->first();
-  		if($find)
+      if($find)
   		{
     			$input['receivername'] = $find['firstname'].' '.$find['middleName'].' '.$find['lastName'];	
     			$result = $this->mail->create($input);
@@ -30,7 +31,7 @@ class MailsController extends BaseController
     			}
     			else return Redirect::back()->withErrors('Could not send message!')->withInput($input);
     		}
-    		else return Redirect::back()->withErrors('Could not find a user with the provided reciever email. <br/><u>'.$input['receiveremail'].'</u>')->withInput($input);
+    		else return Redirect::back()->withErrors('Could not find a user with the provided receiver email. <br/><u>'.$input['receiveremail'].'</u>')->withInput($input);
   	}
   	public function delete($id)
   	{

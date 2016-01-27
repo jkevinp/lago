@@ -72,7 +72,9 @@ class PDFController extends \BaseController
 		 	break;
 
 		 	case 'booking':
-		 		$param['booking'] =  Booking::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
+		 		$param['booking'] =  Booking::join('account', function($j){
+			$j->on('booking.account_id', '=' , 'account.id');
+		})->whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
 		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
 		 		if($input['sort'] == 'ascending'){
 		 			$param['booking'] = $param['booking']->CreatedAscending()->get()->toArray();
@@ -150,7 +152,8 @@ class PDFController extends \BaseController
 				break;
 
 				case 'booking':
-				$b =  $this->booking->all()->first()->CreatedDescending()->get()->toArray();
+				$b =  $this->booking->all()->first()->CreatedDescending()->get();
+			
 			 		$data['booking'] =$b;
 			 		$pdf = PDF::loadView('pdf.booking.booking-list' , $data);
 		 		break;

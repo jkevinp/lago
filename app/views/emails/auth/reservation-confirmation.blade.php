@@ -25,7 +25,6 @@ Account branch: BPI tanay<br/>
 <br/>
 <b>Please indicate at the comment box what bank you deposit/payed the bill.</b>
 <br/>
-<br/>To pay via paypal, Login your paypal and send a payment to manuelburce@yahoo.com
 <br/><hr>
 <b>Once, we've received/confirmed your payment. The reservation will be confirmed and activated.</b>
 <br/>You can pay the remaining fee once you've arrived in our resort.

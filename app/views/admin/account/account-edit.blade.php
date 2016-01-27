@@ -3,17 +3,11 @@
 @section('content')
 				<div class="row mt">
                   <div class="col-md-12">
-                  	<h3>> {{$title}} </h3>
+                  	
                       <div class="form-panel">
                       	<div class="row">
-                      		<div class="col-md-10 col-md-offset-1">
-	                      	<div class="alert alert-info">
-	                      		<ul>
-	                      		
-	                      			
-	                      		</ul>
-	                      	</div>
-	                      </div>
+                          <h3>>{{$title}} </h3>
+                      
                       	</div>
                       	<hr>
                       	{{Form::open(['class' => 'form-horizontal style-form' ,'method' => 'post', 'route' => 'cpanel.account.edit'])}}
@@ -73,7 +67,7 @@
                       	
 						    <div class="btn-group btn-group-justified" role=""> 
 						    	<div class="btn-group" role="group">
-						     		{{Form::submit('Create' ,['class' => 'btn btn-primary'])}} 
+						     		{{Form::submit('Update' ,['class' => 'btn btn-primary'])}} 
 						  		</div>  	
 						  	<div class="btn-group" role="group">
 						      {{Form::reset('Reset' ,['class' => 'btn btn-default'])}} 

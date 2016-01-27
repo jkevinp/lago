@@ -214,12 +214,9 @@ URLS EDIT
                                     @endforeach
                                     @endif
                                 </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
             </div>
-            <!-- /.row -->
 @stop
