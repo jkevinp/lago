@@ -17,10 +17,10 @@ return array(
 	'driver' => 'smtp',
 	'host' => 'sunrockresortscom1.ipage.com',
 	'port' => 587,
-	'from' => array('address' => 'no-reply@sunrockresorts.com', 'name' => "D'One resort"),
+	'from' => array('address' => 'no-reply@doneresort.com', 'name' => "D'One resort"),
 	'encryption' => 'tls',
-	'username' => 'no-reply@sunrockresorts.com',
-	'password' => 'Laravel001',
+	'username' => 'no-reply@doneresort.com',
+	'password' => 'BarasRizal2016',
 	'sendmail' => '/usr/sbin/sendmail -bs',
 	'pretend' => false,
 

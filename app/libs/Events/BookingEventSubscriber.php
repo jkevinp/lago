@@ -52,7 +52,7 @@ class BookingEventSubscriber
     Helpers::SendMail('emails.auth.notification', 
                       ['title' => 'A new reservation was booked!' ,
                       'content' => $input['bookingid'] ],
-                      ['email' => 'mail.sunrock@gmail.com' ,
+                      ['email' => SiteContents::where('title' ,'email')->first()->value ,
                       'title' => 'New Reservation notification' ,
                       'Firstname' => 'auto' , 
                       'Lastname' => 'Notification.']);
@@ -60,8 +60,8 @@ class BookingEventSubscriber
     $mailsController->mail->create(
                     [
                       'sendername' => 'System',
-                      'senderemail' => 'mail.sunrock@gmail.com',
-                      'receiveremail' => 'mail.sunrock@gmail.com',
+                      'senderemail' => SiteContents::where('title' ,'email')->first()->value,
+                      'receiveremail' => SiteContents::where('title' ,'email')->first()->value,
                       'receivername' => 'System',
                       'subject' => 'New Reservation',
                       'message' => 'A new reservation was booked.<br/> Booking id: '.$input['bookingid'].'<br/>Booked by: '.$input['id'],

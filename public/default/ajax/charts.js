@@ -1,5 +1,5 @@
 var url = "http://localhost:8000/ajax/";
-url = "http://doneresort.com/ajax/";
+url = "http://www.doneresort.com/ajax/";
 
 var chart = Morris.Bar({
     // ID of the element in which to draw the chart.
