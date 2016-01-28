@@ -168,7 +168,7 @@ class CmsController extends \BaseController {
 			$content->orderposition = 0;
 			$content->contenttype=  ContentType::where('contentkey', $input['contenttype'])->where('contentvalue', $input['content-category'])->pluck('id');
 			if($content->save())
-			{
+			{ 
 				if(file_exists($destinationPath.$filename))
 				{
 					$lastInsertId = $content->id;
