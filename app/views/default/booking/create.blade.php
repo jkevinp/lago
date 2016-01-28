@@ -21,7 +21,7 @@
                   
                             <p>Initial 50% downpayment is needed to verify your reservation.</li>
                             <p>No refund policy</li>
-                            <p>Please be reminded that you can upgrade your room once your initial reseervation payment is confirmed in our system.</li>
+                            <p>Please be reminded that you can upgrade your room once your initial reservation payment is confirmed in our system.</li>
                             <p>Downgrading of rooms are also possible but there is no deduction on the original room price you reserved prior to the changes.</li>
                             <p>All rooms changes are subject on availability.</li>
                     
@@ -241,6 +241,11 @@
                                     <td>Total Bill:</td>
                                     <td align="right"><b>{{Helpers::ToNumber(Session::get('totalFee'))}}</b></td>
                             </tr>
+                             <tr> 
+                                    <td></td>
+                                    <td>Deposit Amount: </td>
+                                    <td align="right"><b class="deposit_amount" data-fullamount="{{Session::get('totalFee')}}">{{Helpers::ToNumber(Session::get('totalFee')/2) }}</b></td>
+                            </tr>
                              </table>
                         </div>
                               @endif
@@ -280,6 +285,16 @@
 @section('script')
     <script type="text/javascript">
     $(document).ready(function(){
+        $('#select-mode').on('change' , function(e){
+            if($(this).val() == "full"){
+                $('.deposit_amount').html($('.deposit_amount').data('fullamount'));
+            }else{
+                var half = parseFloat($('.deposit_amount').data('fullamount')) /2;
+                $('.deposit_amount').html(half.toFixed(2));
+            }
+            //;
+        });
+
     var result = false;
         $('#formx').submit(function(e){
             if(result == false){

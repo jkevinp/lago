@@ -8,7 +8,7 @@ use MailsController;
 use App;
 use HTML;
 use PDFController;
-
+use SiteContents;
 class BookingEventSubscriber 
 {
  
