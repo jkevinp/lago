@@ -6,16 +6,16 @@ class Helpers extends \BaseController {
 		if($_SERVER['SERVER_NAME'] == 'localhost'){
 			return asset('default/img-uploads/'.$filename);
 		}else{
-			return asset('default/img-uploads/'.$filename);
-			return getenv('OPENSHIFT_DATA_DIR').$filename;
+			//return asset('default/img-uploads/'.$filename);
+			return asset(getenv('OPENSHIFT_DATA_DIR')."'default/img-uploads/'".$filename);
 		}
 	}
 	public static function AssetsDir(){
 		if($_SERVER['SERVER_NAME'] == 'localhost'){
 			return asset('default/img-uploads/');
 		}else{
-			return asset('default/img-uploads/');
-			return getenv('OPENSHIFT_DATA_DIR');
+			//return asset('default/img-uploads/');
+			return asset(getenv('OPENSHIFT_DATA_DIR')."default/img-uploads/";
 		}
 	}
 

@@ -156,7 +156,8 @@ class CmsController extends \BaseController {
 		{
 			$file = Input::file('image');
 			//$destinationPath =  URL::asset('public\default').'\img-uploads\\';
-			$destinationPath = public_path('/default/img-uploads/');
+			//$destinationPath = public_path('/default/img-uploads/');
+			$destinationPath =  Helpers::AssetsDir();
 			$filename = str_random(8).$file->getClientOriginalName();
 			Input::file('image')->move($destinationPath, $filename);
 			$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
