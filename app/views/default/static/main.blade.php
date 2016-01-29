@@ -6,26 +6,26 @@
 @section('content')
 <br/>
 <div class="row">
-    <div class="col-md-4">
-        <div class="row content" style="padding-bottom:10px !important;">
+    <div class="col-md-12">
+        <!-- <div class="row content" style="padding-bottom:10px !important;">
             @include('includes.form.form-date')
-        </div>
+        </div> -->
 
-        <div class="row" style="margin-top:10px !important;">
+        <div class="row" style="margin-top:10px !important;margin-bottom:10px !important;">
             <div class="col-md-12">
-                <div class="content" style="height:100% !important;">
+                <div class="content" style="height:820px !important;">
                     <div class="karousel" style="z-index:5;">
-                        <img src="{{URL::asset('media/photos')}}/1.jpg" class="carousel-item img-thumbnail"/>
-                        <img src="{{URL::asset('media/photos')}}/2.jpg" class="carousel-item img-thumbnail"/>
-                        <img src="{{URL::asset('media/photos')}}/3.JPG" class="carousel-item img-thumbnail"/>
-                        <img src="{{URL::asset('media/photos')}}/4.JPG" class="carousel-item img-thumbnail"/>
-                        <img src="{{URL::asset('media/photos')}}/5.jpg" class="carousel-item img-thumbnail"/>
+                        <img src="{{URL::asset('media/photos')}}/1.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
+                        <img src="{{URL::asset('media/photos')}}/2.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
+                        <img src="{{URL::asset('media/photos')}}/3.JPG" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
+                        <img src="{{URL::asset('media/photos')}}/4.JPG" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
+                        <img src="{{URL::asset('media/photos')}}/5.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
                      </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+   <!--  <div class="col-md-8">
         <div class="content" style="min-height:800px !important;">
             <div class="row">
             <legend class="text-center"><i class="fa fa-newspaper-o"></i> News And Updates</legend>
@@ -51,7 +51,7 @@
                 </div>
 
             @endforeach
-        </div>
+        </div> -->
     </div>
 </div>
 @stop

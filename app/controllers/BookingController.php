@@ -145,8 +145,17 @@ class BookingController extends BaseController  {
 			Session::flush();
 			return Redirect::to('/')->withErrors('Your Session has expired. Cannot proceed to book a reservation.');
 		}
+	
+
 		//if validation succeed, create a new booking information
 		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
+
+		$check_account = $this->account->findByEmail($input['Email'])->first();
+		
+
+		if($check_account)
+		$input['confirmation_code'] = $check_account->confirmationcode;
+		else
 		$input['confirmation_code'] = str_random(10).'k'.str_random(5).'e'.str_random(15);
 		$input['booking_confirmation_code'] = str_random(10).'p'.str_random(5).'e'.str_random(15);
 		//create an account
@@ -160,6 +169,7 @@ class BookingController extends BaseController  {
 		$input['paymenttype'] = $input['paymenttype'];
  		$booking = $this->booking->create($input);
 		$input['bookingid'] = $booking->bookingid;
+
 		if($booking) 
 		{
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);

@@ -1,15 +1,17 @@
 <div class="row mt">
+	
+	</h4>
+	<div class="col-md-12">
+	<div class="content-panel"> 
 	<h4 >> {{$title}} 
 		<span class='badge'>
 			{{count($products)}} records found.
 		</span>
-	</h4>
-	<div class="col-md-12">
-	<div class="content-panel"> 
+		<hr/>
 		@foreach($products as $product)	
 		 <div class="container">
 			<div class="row mt">
-		  		<div class="col-md-6" style=" border-right: 2px dashed #333;">
+		  		<div class="col-lg-6" style=" border-right: 2px dashed #333;">
 		  			<div class="content content-default">
 					  	<div class="content-heading">
 					  		> Product: {{$product->productname}}

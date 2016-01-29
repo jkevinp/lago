@@ -71,7 +71,7 @@
                       	
 						    <div class="btn-group btn-group-justified" role=""> 
 						    	<div class="btn-group" role="group">
-						     		{{Form::submit('Create' ,['class' => 'btn btn-primary'])}} 
+						     		{{Form::submit('Update' ,['class' => 'btn btn-primary'])}} 
 						  		</div>  	
 						  	<div class="btn-group" role="group">
 						      {{Form::reset('Reset' ,['class' => 'btn btn-default'])}} 

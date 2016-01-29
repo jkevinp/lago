@@ -10,6 +10,8 @@ Route::get('/about' ,  ['uses' => 'PageController@about' , 'as' => 'static.about
 Route::get('/gallery' ,['uses'=>'PageController@explore' ,'as' => 'static.explore' ]);
 Route::get('/rates' ,['uses'=>'PageController@rates' ,'as' => 'static.rates' ]);
 Route::get('/roomsAndCottages' ,['uses'=>'PageController@roomsAndCottages' ,'as' => 'static.roomscottages' ]);
+Route::get('/reservenow' ,['uses'=>'PageController@reservenow' ,'as' => 'static.reservenow' ]);
+
 Route::get('t', function(){
     var_dump(DB::getQueryLog());
     dd(Session::all());

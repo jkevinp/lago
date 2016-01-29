@@ -70,7 +70,11 @@
     <div class="col-md-4 col-md-4">
         <div class="thumbnail">
             <a data-lightbox="image-1"class="example-image-link" data-title="{{$c['title']}}<hr>{{$c['value']}}" href="{{Helpers::Assets($c['media'])}}" >
-                <img src="{{Helpers::Assets($c['media'])}}"  class="image-control example-image img-responsive " />
+                 @if(File::exists(public_path('default/img-uploads/'.$c['media'])))
+                     <img src="{{Helpers::Assets($c['media'])}}"  class="image-control example-image img-responsive " />
+                @else
+                    <img src="{{URL::asset('media/photos/default-image.png')}}"  class="image-control example-image img-responsive "/>
+                @endif
             </a>
         </div>             
     </div>

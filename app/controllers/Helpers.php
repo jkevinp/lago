@@ -15,7 +15,7 @@ class Helpers extends \BaseController {
 			return asset('default/img-uploads/');
 		}else{
 			//return asset('default/img-uploads/');
-			return asset(getenv('OPENSHIFT_DATA_DIR')."default/img-uploads/");
+			return getenv('OPENSHIFT_DATA_DIR')."default/img-uploads/";
 		}
 	}
 

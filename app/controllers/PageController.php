@@ -2,6 +2,9 @@
 
 class PageController extends \BaseController 
 {
+	public function reservenow(){
+		return View::make('default.static.reserve');
+	}
 	public function index(){
 		//return View::make('hello');
 		$news = SiteContents::join('contenttype', function($j){

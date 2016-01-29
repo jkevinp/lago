@@ -25,7 +25,7 @@
                       <select class="form-control padded-text" name="lenofstay" id="lenofstay" disabled>
                       <option value="0">Length of stay</option>
                       <?php
-                        for($x = 1 ; $x <= 60; $x ++)
+                        for($x = 1 ; $x <= 60; $x++)
                         {
                           echo '<option value="'.(($x*12) /24).'">'.($x * 12).' Hours</option>';
                         }

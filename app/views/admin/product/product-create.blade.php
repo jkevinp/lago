@@ -3,14 +3,13 @@
 @section('content')
 				<div class="row mt">
                   <div class="col-md-12">
-                  	<h3>> {{$title}} </h3>
+                  
                       <div class="form-panel">
+                        <h3>> {{$title}} </h3>
                       	<div class="row">
                       		<div class="col-md-10 col-md-offset-1">
 	                      	<div class="alert alert-info">
-	                      		<ul>
-	                      		
-	                      		</ul>
+	                      	    To create a new product, fill up all fields below.
 	                      	</div>
 	                      </div>
                       	</div>

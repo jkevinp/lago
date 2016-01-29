@@ -4,15 +4,14 @@ Dear {{$Firstname}} {{$Middlename}} {{$Lastname}},
 @stop
 @section('content')
 Thank you for booking with us.<br/>
-Please follow the instructions carefully to confirm your reservation.
-<br/>
+Please follow the instructions carefully to confirm your reservation.<br/>
 <br/>Your Booking id is {{$bookingid}}.
 <br/>{{HTML::link(URL::to('account/manualauth').'/'.$authid.'/'.$confirmation_code,'Pay Now!')}}
 <br/>To confirm your reservation, you have to pay <u>P
 	@if($paymenttype == 'half')
-		{{$fee * 0.5}}
+		{{number_format($fee * 0.5 ,2)}}
 	@elseif($paymenttype =='full')
-		{{$fee}}
+		{{number_format($fee,2)}}
 	@endif
 </u> through paypal or via bank deposit.
 <br/><br/> To pay via bank, deposit the required bill to any of the following banks nationwide.

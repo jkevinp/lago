@@ -45,8 +45,12 @@
     @foreach($carousel as $c)
         
         <div class="item <?php if($counter == 0)echo 'active'; ?>">
-            <img class="img-responsive" style="width:100%;height:600px;" src="{{Helpers::Assets($c['imagename'])}}" alt="">
-          <div class="container">
+            @if(File::exists(public_path('default/img-uploads/'.$c['imagename'])))
+                    <img class="img-responsive" style="width:100%;height:600px;" src="{{Helpers::Assets($c['imagename'])}}" alt="">
+            @else
+                    <img src="{{URL::asset('media/photos/default-image.png')}}" style="width:100%;height:600px;" class="img-responsive "/>
+                @endif
+           <div class="container">
             <div class="carousel-caption">
               <h2>{{$c['title']}}</h2>
               <p class="lead">{{$c['value']}}</p>
@@ -77,8 +81,13 @@
         @foreach($rooms as $room)
           <div class="col-md-4 col-md-4">
             <div class="thumbnail">
+
                 <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                    @if(File::exists(public_path('default/img-uploads/'.$room['imagename'])))
+                     <img src="{{Helpers::Assets($room['imagename'])}}"  class="image-control example-image img-responsive " />
+                @else
+                    <img src="{{URL::asset('media/photos/default-image.png')}}"  class="image-control example-image img-responsive "/>
+                @endif
                 </a>
             </div>             
         </div>
@@ -93,7 +102,11 @@
           <div class="col-md-4 col-md-4">
             <div class="thumbnail">
                 <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                    @if(File::exists(public_path('default/img-uploads/'.$room['imagename'])))
+                     <img src="{{Helpers::Assets($room['imagename'])}}"  class="image-control example-image img-responsive " />
+                @else
+                    <img src="{{URL::asset('media/photos/default-image.png')}}"  class="image-control example-image img-responsive "/>
+                @endif
                 </a>
             </div>             
         </div>
@@ -108,7 +121,11 @@
           <div class="col-md-4 col-md-4">
             <div class="thumbnail">
                 <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}<hr>{{$room['productdesc']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['imagename']}}" >
-                    <img src="{{asset('default/img-uploads')}}/{{$room['imagename']}}"  class="image-control example-image img-responsive"/>
+                    @if(File::exists(public_path('default/img-uploads/'.$room['imagename'])))
+                     <img src="{{Helpers::Assets($room['imagename'])}}"  class="image-control example-image img-responsive " />
+                @else
+                    <img src="{{URL::asset('media/photos/default-image.png')}}"  class="image-control example-image img-responsive "/>
+                @endif
                 </a>
             </div>             
         </div>

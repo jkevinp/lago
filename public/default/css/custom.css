@@ -5,6 +5,9 @@
       top:0;
       position:absolute;
 }
+*{
+	font-family: Century Gothic;
+}
 
 #fixed { 
 	height:150px; 

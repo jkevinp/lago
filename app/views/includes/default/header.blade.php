@@ -34,7 +34,7 @@
           <div class="col-md-4 col-md-offset-2">
             <ul>
                 <li> 
-                    <a href="{{route('static.home')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
+                    <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
                 </li>
                 <li> 
                     <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>

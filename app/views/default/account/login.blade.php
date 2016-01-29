@@ -12,7 +12,7 @@
     <div class="intro-header1">
         <div class="">
             <div class="row">
-                <div class="col-lg-12">
+            	<div class="col-lg-8 col-lg-offset-2">
                     <div class="intro-message">
                      	<h3><i class="fa fa-sign-in"></i> User Panel Login</h3>
 						{{Form::Open(
