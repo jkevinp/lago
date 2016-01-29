@@ -51,16 +51,20 @@ class PDFController extends \BaseController
 		 		$param['sales'] =  Sales::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
 		 		$param['sum'] = $param['sales']->get()->sum('totalprice');
 		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
-		 		if($input['sort'] == 'ascending'){
-		 			$param['sales'] = $param['sales']->CreatedAscending()->get()->toArray();
-		 		}else{
-		 			$param['sales'] = $param['sales']->CreatedDescending()->get()->toArray();
+		 		if(count($param['sales'])){
+			 		if($input['sort'] == 'ascending'){
+			 			$param['sales'] = $param['sales']->CreatedAscending()->get()->toArray();
+			 		}else{
+			 			$param['sales'] = $param['sales']->CreatedDescending()->get()->toArray();
+			 		}
 		 		}
+		 		else die("No entries found.");
 		 		
 		 		$pdf = PDF::loadView('pdf.sales.sales-list' , $param);
 		 	break;
 		 	case 'account':
 		 		$param['accounts'] =  Account::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
+		 		if(count($param['accounts']) == 0)die("No entries found.");
 		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
 		 		if($input['sort'] == 'ascending'){
 		 			$param['accounts'] = $param['accounts']->CreatedAscending()->get()->toArray();
@@ -75,6 +79,7 @@ class PDFController extends \BaseController
 		 		$param['booking'] =  Booking::join('account', function($j){
 			$j->on('booking.account_id', '=' , 'account.id');
 		})->whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
+		 		if(count($param['booking']) == 0)die("No entries found.");
 		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
 		 		if($input['sort'] == 'ascending'){
 		 			$param['booking'] = $param['booking']->CreatedAscending()->get()->toArray();
