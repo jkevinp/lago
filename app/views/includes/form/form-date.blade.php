@@ -18,8 +18,9 @@
                 <div class="btn-group btn-group-justified" role="group" id="custom" style="">
                     <select class="form-control padded-text" name="timeofday" id="timeofday">
                       <option value="0" selected disabled="true">Start</option>
-                      <option value="06" id='morning'>6:00 AM</option>
-                      <option value="18" id='evening'>6:00 PM</option>
+                      <option value="06" id='morning'>Day</option>
+                      <option value="18" id='evening'>Night</option>
+                      <option value="24" id='overnight'>Overnight</option>
                     </select>
                   
                       <select class="form-control padded-text" name="lenofstay" id="lenofstay" disabled>

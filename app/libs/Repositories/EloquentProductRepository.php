@@ -27,6 +27,7 @@ class EloquentProductRepository implements ProductRepository
 		$p->productquantity = 1;
 		$p->fileid = $input['fileid'];
 		$p->producttypeid = $input['producttypeid'];
+
 		if($p->save()){
 			$lastInsertId = $p->id;
 			return $lastInsertId;
@@ -145,6 +146,7 @@ class EloquentProductRepository implements ProductRepository
 	{
 		$p = $this->find($id);
 		$p->productname = $input['productname'];
+		$p->productprice = $input['productprice'];
 		$p->paxmin = $input['paxmin'];
 		$p->paxmax = $input['paxmax'];
 		$p->producttypeid = $input['producttypeid'];
