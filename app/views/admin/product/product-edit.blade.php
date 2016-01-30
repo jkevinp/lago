@@ -48,10 +48,28 @@
                               		{{Form::textarea('productdesc' ,$product['productdesc'],['class' => 'form-control'])}}
                               </div>
                          </div>
-                         <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Price</label>
+                        <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Day Rate/Price</label>
                               <div class="col-sm-10">
                                   {{Form::number('productprice' ,$product['productprice'],['class' => 'form-control'])}}
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Night Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('nightproductprice' ,$product['nightproductprice'],['class' => 'form-control'])}}
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Overnight Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('overnightproductprice' ,$product['overnightproductprice'],['class' => 'form-control'])}}
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Extension Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('extensionproductprice' ,$product['extensionproductprice'],['class' => 'form-control'])}}
                               </div>
                          </div>
                          <div class="form-group">

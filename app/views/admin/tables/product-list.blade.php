@@ -32,6 +32,22 @@
 						   			<td>{{$product['producttypeid']}}</td>
 						   		</tr>
 						   		<tr>
+						   			<td>Day Rate/Price: </td>
+						   			<td>{{$product['productprice']}}</td>
+						   		</tr>
+						   		<tr>
+						   			<td>Night Rate/Price: </td>
+						   			<td>{{$product['nightproductprice']}}</td>
+						   		</tr>
+						   		<tr>
+						   			<td>Overnight Rate/Price: </td>
+						   			<td>{{$product['overnightproductprice']}}</td>
+						   		</tr>
+						   		<tr>
+						   			<td>Extension Rate/Price: </td>
+						   			<td>{{$product['extensionproductprice']}}</td>
+						   		</tr>
+						   		<tr>
 						   			<td>Quantity: </td>
 						   			<td>{{$product['productquantity']}}</td>
 						   		</tr>

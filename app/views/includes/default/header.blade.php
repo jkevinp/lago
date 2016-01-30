@@ -100,9 +100,11 @@
                     E-mail Address: {{Session::get('account_info')['email']}}<br/>
                     @endif
                     @if(Session::get('date_info'))
-                      Children : {{Session::get('date_info')['children']}}<br/>
-                      Adult: {{Session::get('date_info')['adult']}} <br/>
-                      Total Duration: {{Session::get('date_info')['lenofstay']}} days.
+                      Children/Adult Count: {{Session::get('date_info')['children']}}<br/>
+                      Senior Citizen Count: {{Session::get('date_info')['adult']}} <br/>
+                      Total Duration: {{Session::get('date_info')['lenofstay'] * 24}} hours.
+                      <br/>Mode: {{Session::get('date_info')['modeofstay']}}
+                   
                     @endif
 
 
@@ -161,7 +163,7 @@
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-lg-6"><p>Category: {{$i['type']}}</p> </div>
-                                                    <div class="col-lg-6"><p>Price Per Unit : {{$i['price']}}
+                                                    <div class="col-lg-6"><p>Price/unit: {{$i['price']}}
                                                         <div class="btn-group " role="group" aria-label="...">
                                                       @if(isset($i['removable']))
                                                         @if($i['removable'] == false)

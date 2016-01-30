@@ -162,6 +162,20 @@
 						<p style="text-align:justify">•	A responsible adult must accompany children / minors at all times.</p>
 						<p style="text-align:justify">•	Main Gate CLOSE at 12 MN.</p>
 						<p style="text-align:justify"><b>•	PAY AS YOU ENTER</b></p>
+						<p style="text-align:justify;">• For 24 hours check-in: Complimentary use of swimming pool is included according to the number of occupants.</p>
+
+<p style="text-align:justify;">• Extension per hour is P150 depends on the availability of the room.</p>
+
+<p style="text-align:justify;">• Children below 12 years old sharing bed with parents are free-of-charge. Maximum of (2) Children.</p>
+
+<p style="text-align:justify;">• In excess of allowed number of guest per room: additional P250 per head will be charged. This includes a complete bet set up. Maximum (10) Occupants in a room.</p>
+
+<p style="text-align:justify;">• Cooking inside the room is strictly prohibited. We have food and drinks available at D' One Restaurant.</p>
+
+<p style="text-align:justify;">• Guests are strictly prohibited of bringing in any hazardous objects, pets, and prohibited drugs inside the room.</p>
+
+<p style="text-align:justify;">• Guests shall be responsible for any damages or losses of items in the rooms.</p>
+
 						</td>
 					</tr>
 				</table>

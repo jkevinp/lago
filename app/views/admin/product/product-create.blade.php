@@ -39,12 +39,32 @@
                               		{{Form::textarea('productdesc' ,null,['class' => 'form-control'])}}
                               </div>
                          </div>
+
                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Price</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Day Rate/Price</label>
                               <div class="col-sm-10">
                                   {{Form::number('productprice' ,null,['class' => 'form-control'])}}
                               </div>
                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Night Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('nightproductprice' ,null,['class' => 'form-control'])}}
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Overnight Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('overnightproductprice' ,null,['class' => 'form-control'])}}
+                              </div>
+                         </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Extension Rate/Price</label>
+                              <div class="col-sm-10">
+                                  {{Form::number('extensionproductprice' ,null,['class' => 'form-control'])}}
+                              </div>
+                         </div>
+
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Minimum Capacity</label>
                               <div class="col-sm-10">

@@ -134,9 +134,11 @@
                     E-mail Address: {{Session::get('account_info')['email']}}<br/>
                     @endif
                     @if(Session::get('date_info'))
-                      Children : {{Session::get('date_info')['children']}}<br/>
-                      Adult: {{Session::get('date_info')['adult']}} <br/>
-                      Total Duration: {{Session::get('date_info')['lenofstay']}} days.
+                      Children/Adult Count: {{Session::get('date_info')['children']}}<br/>
+                      Senior Citizen Count: {{Session::get('date_info')['adult']}} <br/>
+                      Total Duration: {{Session::get('date_info')['lenofstay'] * 24}} hours.
+                      <br/>Mode: {{Session::get('date_info')['modeofstay']}}
+                   
                     @endif
 
 

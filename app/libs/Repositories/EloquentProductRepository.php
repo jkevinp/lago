@@ -22,6 +22,9 @@ class EloquentProductRepository implements ProductRepository
 		$p->productname = $input['productname'];
 		$p->productdesc = $input['productdesc'];
 		$p->productprice= $input['productprice'];
+		$p->nightproductprice= $input['nightproductprice'];
+		$p->overnightproductprice= $input['overnightproductprice'];
+		$p->extensionproductprice= $input['extensionproductprice'];
 		$p->paxmin = $input['paxmin'];
 		$p->paxmax = $input['paxmax'];
 		$p->productquantity = 1;
@@ -146,7 +149,10 @@ class EloquentProductRepository implements ProductRepository
 	{
 		$p = $this->find($id);
 		$p->productname = $input['productname'];
-		$p->productprice = $input['productprice'];
+		$p->productprice= $input['productprice'];
+		$p->nightproductprice= $input['nightproductprice'];
+		$p->overnightproductprice= $input['overnightproductprice'];
+		$p->extensionproductprice= $input['extensionproductprice'];
 		$p->paxmin = $input['paxmin'];
 		$p->paxmax = $input['paxmax'];
 		$p->producttypeid = $input['producttypeid'];

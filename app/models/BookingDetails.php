@@ -35,6 +35,10 @@ class BookingDetails extends Eloquent implements UserInterface, RemindableInterf
 	{
 		return $this->belongsTo('Booking' , 'bookingreferenceid' , 'bookingid');
 	}
+	public function b()
+	{
+		return $this->belongsTo('booking' , 'bookingreferenceid');
+	}
 	public function getDates()
 	{
 	    return array('bookingstart', 'bookingend');

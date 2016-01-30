@@ -40,7 +40,9 @@ class Account extends Eloquent implements UserInterface, RemindableInterface
     {
         return $this->belongsToMany('usergroup');
     }
-
+    public function fullname(){
+    	return $this->firstname." ".$this->lastName;
+    }
 	/*
 	public function booking()
 	{

@@ -28,25 +28,47 @@ $(document).ready(function(){
         var isToday = checkToday($('#date_start').val());
         if(isToday){
           $('#morning').hide();
+          $('#overnight1').hide();
         }else{
           $('#morning').show();
+          $('#overnight1').show();
         }
         $('#custom').fadeIn();
       }
     });
      $('#timeofday').on('change', function(){
+        $('#date_end').val('');
+
+
         if($('#timeofday').val() == '0')
         {
            $('#lenofstay').prop('disabled', true);
         }
         else
         {
+          var value = $('#timeofday option:selected').attr("mode");
+          $('#modeofstay').val(value);
+          $('#lenofstay').html('');
+          if(value == "day" || value == "night"){
+               $('#lenofstay').append('<option value="0" selected disabled>Select Length of Stay</option>');
+               for(var ctr = 1 ; ctr <= 1; ctr++){
+                  $('#lenofstay').append('<option value="'+((ctr * 9) /24)+'">'+(ctr * 9)+' Hours</option>');
+                }
+          }else{
+               $('#lenofstay').append('<option value="0" selected disabled>Select Length of Stay</option>');
+              for(var ctr = 1 ; ctr <= 1; ctr++){
+                $('#lenofstay').append('<option value="'+((ctr * 20) /24)+'">'+(ctr * 20)+' Hours</option>');
+              }
+          }
           $('#lenofstay').removeAttr('disabled');
         }
+        
      });
       $('#lenofstay').on('change',function(){
         //('2011','01','02');
+
           var lendays = $('#lenofstay').val();
+          console.log(lendays);
           var actualDate = new Date($('#date_start').val().split('/')[2] , $('#date_start').val().split('/')[0] -1 ,$('#date_start').val().split('/')[1], $('#timeofday').val(), 0, 0,0);
           var nd = addDays(actualDate, lendays);
        

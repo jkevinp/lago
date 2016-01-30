@@ -27,9 +27,9 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsToMany('Account','id');
 	}*/
-	public function getAccountAttribute(){
-	    return $this->account;
-	}
+	// public function getAccountAttribute(){
+	//     return $this->account;
+	// }
 	public function bookingdetails(){
 		return $this->hasMany('BookingDetails', 'bookingreferenceid' ,'bookingid');
 	}

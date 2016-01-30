@@ -1,4 +1,4 @@
-                        <div class="row mt">
+                        <div class="row mt content-panel">
                               <div class="col-md-12">
                                       <table class="table table-striped table-advance table-hover">
                                         <h4><i class="fa fa-angle-right"></i> Check In

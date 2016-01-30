@@ -367,9 +367,12 @@ class AdminController extends \BaseController
 			$rules = ['start' => 'required',
 						'end' => 'required',
 						'email' => 'required|email',
-						'timeofday' => 'required','lenofstay' => 'required',
+						'timeofday' => 'required',
+						'lenofstay' => 'required',
 						'children' =>'required|integer|between:0,1000',
-						'adult' => 'required|integer|between:0,1000'];
+						'adult' => 'required|integer|between:0,1000',
+						'modeofstay' => 'required'
+					];
 	    	$validator =Validator::make($input, $rules);
 	    	if($validator->fails())
 				return Redirect::back()->withErrors($validator->messages())->withInput($input);
@@ -494,12 +497,23 @@ class AdminController extends \BaseController
 	public function computeFee($arr)
 	{
 		$price =0;
-		foreach ($arr as $key => $value) 
-		{
-			if($value['type'] == 'Admission' || $value['type'] == 'Rentals')
+		$divider = 0;
+		if(Session::get('date_info')['modeofstay'] == "day") $divider = 9;
+		else if(Session::get('date_info')['modeofstay'] == "night")$divider = 9;
+		else $divider = 20;
+
+		$coeff = ((Session::get('date_info')['lenofstay'] * 24) /$divider);
+		foreach ($arr as $key => $value) {
+			if($value['type'] == 'Admission' || $value['type'] == 'Rentals'){
 				$price += (($value['price'] * $value['quantity']));
+			}
+			else{
+				$price += (($value['price'] * $value['quantity']) * $coeff);
+			}	
 		}
-		return $price;
+		Session::put('originalFee', $price);
+		$price += $price * AppConfig::getTax();
+		return  number_format($price, 2, '.', '');
 	}
 
 

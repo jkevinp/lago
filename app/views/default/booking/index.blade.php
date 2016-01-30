@@ -10,16 +10,16 @@
 	
         <div class="row content">
             <legend>
-            <h1>Select Rooms and services</h1>
+            <h1> > Select Rooms and services</h1>
             </legend>
             
              <div class="row">
                 <div class="col-md-3" style="">
                      <ul class="nav nav-list nav-stacked">
-                        <li class="nav-header">Search Options</li>
-                        <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">Any</a></li>
-                        <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=recommended">Recommended</a></li>
-                         <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">One - Total</a></li>
+                        <li class="nav-header" style="color:#00b356;font-weight:bold;">By Capacity</li>
+                            <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">Any</a></li>
+                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=recommended">Recommended</a></li>
+                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">One - Total</a></li>
                     </ul>
                 </div>
                 <div class="col-md-8" style=" border-left:1px solid #e5e5e5" > 
@@ -52,11 +52,23 @@
                                         {{Form::hidden('producttotalqty', $room['productquantity'])}}
                                         {{Form::hidden('productdescription', $room['productdesc'])}}
                                         {{Form::hidden('producttype', $room->producttype['producttypename'])}}
-                                        {{Form::hidden('price', $room['productprice'])}}
+                                        
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
                                         <p>Min Capacity: {{$room['paxmin']}}</p>
                                         <p>Max Capacity: {{$room['paxmax']}}</p>
-                                        <p>Price: PHP {{$room['productprice']}} / 12 hours</p>
+
+                                        @if(Session::get('date_info')['modeofstay'])
+                                            @if(Session::get('date_info')['modeofstay'] == "day")
+                                                <p>Price: PHP {{$room['productprice']}} / 9 hours</p>
+                                                {{Form::hidden('price', $room['productprice'])}}
+                                            @elseif(Session::get('date_info')['modeofstay'] == "night")
+                                                <p>Price: PHP {{$room['nightproductprice']}} / 9 hours</p>
+                                                {{Form::hidden('price', $room['nightproductprice'])}}
+                                            @else
+                                                <p>Price: PHP {{$room['overnightproductprice']}} / 20 hours</p>
+                                                {{Form::hidden('price', $room['overnightproductprice'])}}
+                                            @endif
+                                        @endif
                                         <p>{{$room['roomdesc']}}</p>
 
                                         <p class="text-success text-center">Booking Information</p>

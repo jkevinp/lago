@@ -1,8 +1,12 @@
-<div class="container">
-	<div class="row mt">
-		<div class="col-md-10"><h4>> {{$title}} </h4>
+
+	
+	<div class="col-md-10 col-md-offset-1">
+	<div class="row mt ">
  			<div class="panel panel-info">
+
  				<div class="panel-heading">
+
+		<div class="col-md-12"><h4>> {{$title}} </h4>
  					Booking Details 
  					<span class="badge">
  						 @if($booking['active'] == 0)
@@ -29,6 +33,14 @@
 	 					</div>
 	 					<div class="col-md-3">
 	 						{{$booking->bookingid}}
+	 					</div>
+ 					</div>
+ 					<div class="row">
+	 					<div class="col-md-3">
+	 						Reserved By:
+	 					</div>
+	 					<div class="col-md-3">
+	 						{{($booking->account->fullname())}}
 	 					</div>
  					</div>
  					<div class="row">
@@ -74,9 +86,9 @@
 </div>
 
  @foreach($details as $bookingdetails)	
- <div class="container">
-	<div class="row">
-  		<div class="col-md-6" style=" border-right: 2px dashed #333;">
+ <div class="">
+	<div class="row mt">
+  		<div class="col-md-6 col-md-offset-1" style=" border-right: 2px dashed #333;">
   			<div class="panel panel-default">
 			  	<div class="panel-heading">
 			  		Product: {{$bookingdetails->productname}}
