@@ -199,7 +199,7 @@ class AdminController extends \BaseController
 				case 'cashier':
 				if($params =='pay')
 				{
-					$rooms = $this->product->getObject()->where('producttypeid' , '>' ,2)->paginate(6);
+					$rooms = $this->product->getObject()->where('producttypeid' , '>' ,2)->where('producttypeid' , '<' , 5)->paginate(6);
 					$rooms->totalCount = $rooms->count();
 					foreach ($rooms as $room)
 					{

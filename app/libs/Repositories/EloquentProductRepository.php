@@ -66,7 +66,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->where('producttypeid' , '<=' ,2)
+			->whereNotBetween('producttypeid', [2, 4])
 			->where('paxmin' , '>=' , $paxmin)
 			->where('paxmax' , '<=' , $paxmin)
 			->paginate(6);
@@ -82,7 +82,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->where('producttypeid' , '<=' ,2)
+			->whereNotBetween('producttypeid', [2, 4])
 			->where('paxmax' , '>=' , $paxmax)
 			->paginate(6);
 		}
@@ -98,7 +98,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 		->where('active', '=' , '1')
-		->where('producttypeid' , '<=' ,2)->paginate(6);
+		->whereNotBetween('producttypeid', [2, 4])->paginate(6);
 			
 		}
 		

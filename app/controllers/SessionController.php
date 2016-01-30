@@ -36,7 +36,7 @@ class SessionController extends \BaseController
 			array_push($products, array(
 							'productid' => $product->id,
 							'product' => $product->productname , 
-							'quantity' => $input['adult'],
+							'quantity' => $input['children'],
 							'description' => $product->productdesc,
 							'totalquantity' => 'unlimited',
 							'type' => 'Admission',

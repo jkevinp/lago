@@ -217,6 +217,7 @@
                                     <th>Product</th>
                                     <th>Quantity</th>
                                     <th>Unit Price</th>
+                                    <th>Price</th>
                                 </tr>
                            
                             @foreach (Session::get('items') as $i)
@@ -224,24 +225,29 @@
                                     <td align="left">{{$i['product']}}</td>
                                     <td align="right">{{$i['quantity']}}</td>
                                     <td align="right">{{Helpers::ToNumber($i['price'])}}</td>
+                                    <td align="right">{{Helpers::ToNumber($i['price'] * $i['quantity'])}}</td>
                                 </tr>
                             @endforeach
                             <tr> 
+                                    <td></td>
                                     <td></td>
                                     <td>Sub-total:</td>
                                     <td align="right"><b>{{Helpers::ToNumber(Session::get('originalFee'))}}</b></td>
                             </tr>
                             <tr> 
                                     <td></td>
-                                    <td>Tax:</td>
-                                    <td align="right"><b>{{AppConfig::getTax() * 100;}}%</b></td>
+                                    <td></td>
+                                    <td>Tax({{AppConfig::getTax() * 100;}}%): </td>
+                                    <td align="right"><b>{{Helpers::ToNumber(Session::get('originalFee')  * (AppConfig::getTax()))}} </b></td>
                             </tr>
                             <tr> 
+                                    <td></td>
                                     <td></td>
                                     <td>Total Bill:</td>
                                     <td align="right"><b>{{Helpers::ToNumber(Session::get('totalFee'))}}</b></td>
                             </tr>
                              <tr> 
+                                    <td></td>
                                     <td></td>
                                     <td>Deposit Amount: </td>
                                     <td align="right"><b class="deposit_amount" data-fullamount="{{Session::get('totalFee')}}">{{Helpers::ToNumber(Session::get('totalFee')/2) }}</b></td>

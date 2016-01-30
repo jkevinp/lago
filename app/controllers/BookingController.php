@@ -117,7 +117,7 @@ class BookingController extends BaseController  {
 						'children' =>'required|integer|between:0,1000',
 						'adult' => 'required|integer|between:0,1000',
 						'modeofstay' => 'required'
-					 ];
+					];
 	    	$validator =Validator::make($input, $rules);
 	    	if($validator->fails())
 				return Redirect::back()->withErrors($validator->messages())->withInput($input);
@@ -297,7 +297,7 @@ class BookingController extends BaseController  {
 		foreach ($details as $detail){//First loop to check schedule
 			if($err == 0){
 				$product = $this->product->find($detail->productid);
-				if($product->producttypeid <= 2){
+				if($product->producttypeid <= 2 || $product->producttypeid >= 5){
 					$date['start'] = $detail->bookingend->addSeconds(1);
 					$date['end'] = $detail->bookingend->addHours($hours)->addSeconds(-1);
 					$check = $this->product->check($date, $detail->productid)->get();
@@ -313,7 +313,7 @@ class BookingController extends BaseController  {
 		}else{
 			foreach ($details as $detail){//Second loop to rewrite
 				$product = $this->product->find($detail->productid);
-				if($product->producttypeid <= 2){
+				if($product->producttypeid <= 2 || $product->producttypeid >= 5){
 					$date['start'] = $detail->bookingend->addSeconds(1);
 					$date['end'] = $detail->bookingend->addHours($hours)->addSeconds(-1);
 					$check = $this->product->check($date, $detail->productid)->get();
@@ -365,7 +365,7 @@ class BookingController extends BaseController  {
 		$details = $this->bookingdetails->getByRefId($i['bookingid'])->get();
 		foreach ($details as $detail){
 			$product = $this->product->find($detail->productid);
-			if($product->producttypeid <= 2){
+			if($product->producttypeid <= 2 || $product->producttypeid >= 5){
 					$i['start'] = new Carbon($i['start']);
 					$i['start'] =$i['start']->addHours($i['timeofday'])->addSeconds(1);
 					$i['end'] = new Carbon($i['start']);
