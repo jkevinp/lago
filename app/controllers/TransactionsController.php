@@ -41,6 +41,7 @@ class TransactionsController extends \BaseController
 		$bookingdetails = $this->bookingdetails->getByRefId($bookingid)->get();
 		$transaction = $this->transaction->find($transactionid)->first();
 		$account = $this->account->find($transaction->account_id);
+		$reservation = $this->booking->find($bookingid)->first();
 		switch($transaction->paymenttype)
 		{
 			case 'half':
@@ -51,10 +52,23 @@ class TransactionsController extends \BaseController
 				$status = 'fullypaid';
 			break;
 		}
-		$bookingdetails->each(function($detail) use ($id,$coeff, $transaction ){
-			$detail->productprice = $this->product->find($detail->productid)->productprice;
+		$bookingdetails->each(function($detail) use ($id,$coeff, $transaction, $reservation ){
+
+			switch ($reservation->bookingmode) {
+				case 'day':
+					$detail->productprice  =$this->product->find($detail->productid)->productprice;
+				break;
+				case 'night':
+					$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+				break;
+				default:
+					$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+				break;
+
+			}
 			$p = $detail->productprice * $coeff;
 			$this->sale->create($id,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
+		
 		});
 		$check = $this->transaction->changeStatus($transactionid, $status);
 		if($check){
@@ -84,12 +98,16 @@ class TransactionsController extends \BaseController
 			else return Redirect::back()->withErrors('An error has occured. Invalid Coupon Code');
 		}
 		if($validator->fails())return Redirect::back()->withInput($input)->withErrors($validator->messages());
+		
 		$booking = $this->booking->find($input['bookingId'])->first();
 		if($this->transaction->findByBookingId($input['bookingId'])->first())
 			return Redirect::back()->withErrors('Cannot proceed with the transaction. Duplicate record found!');
 		if($this->transaction->findByCode($input['code'])->first())
 			return Redirect::back()->withErrors('Cannot proceed with the transaction. Deposit Code Already used in other transaction!');
+		
+
 		$result = $this->transaction->create(Auth::user(), $booking, $input['token'], $input['paymentmode'] ,$input['notes'], $input['code'], $coupon);
+		
 		$find = $this->transaction->find($result->id);
 		if($find->id === $result->id){
 			$id = $find->bookingid;

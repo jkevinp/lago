@@ -15,4 +15,5 @@ interface AccountRepository
 	public function generateAccountId();
 	public function search($keyword);
 	public function edit($id,$input ,$userGroup);
+	public function Lock($account);
 }

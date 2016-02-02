@@ -36,6 +36,14 @@ function isNumberKey(evt)
     return true;
 }
 
+function isLetter(myString){
+	console.log(myString);
+if (myString.match(/^[a-zA-Z\s]*$/)) { 
+		return true;
+	}
+	return false;
+}
+
 /*! URI.js v1.11.2 http://medialize.github.com/URI.js/ */
 /* build contains: IPv6.js, punycode.js, SecondLevelDomains.js, URI.js, URITemplate.js */
 (function(f,l){"object"===typeof exports?module.exports=l():"function"===typeof define&&define.amd?define(l):f.IPv6=l(f)})(this,function(f){var l=f&&f.IPv6;return{best:function(h){h=h.toLowerCase().split(":");var f=h.length,d=8;""===h[0]&&""===h[1]&&""===h[2]?(h.shift(),h.shift()):""===h[0]&&""===h[1]?h.shift():""===h[f-1]&&""===h[f-2]&&h.pop();f=h.length;-1!==h[f-1].indexOf(".")&&(d=7);var q;for(q=0;q<f&&""!==h[q];q++);if(q<d)for(h.splice(q,1,"0000");h.length<d;)h.splice(q,0,"0000");for(q=0;q<d;q++){for(var f=

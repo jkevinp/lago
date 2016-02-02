@@ -22,7 +22,7 @@
 	 					</div>
 	 					<div class="col-md-8">
 	 						{{Form::hidden('bookingid',$booking['bookingid'])}}
-	 						{{Form::text('',$booking['bookingid'],['class' => 'form-control', 'disabled' => 'true'])}}
+	 						{{Form::text('',$booking['bookingid'],['class' => 'form-control', 'readonly' => 'true'])}}
 	 					</div>
  					</div>
  					<div class="row">
@@ -30,17 +30,25 @@
 	 						Arrival:
 	 					</div>
 	 					<div class="col-md-8">
-	 						{{Form::text('',$booking['bookingstart'],['class' => 'form-control', 'disabled' => 'true'])}}
+	 						{{Form::text('',$booking['bookingstart'],['class' => 'form-control', 'readonly' => 'true'])}}
 	 					</div>
  					</div>
  					<div class="row">
-	 					<div class="col-md-4">
-	 						Departure:
-	 					</div>
-	 					<div class="col-md-8">
-	 						{{Form::text('',$booking['bookingend'],['class' => 'form-control', 'disabled' => 'true'])}}
-	 					</div>
- 					</div>
+            <div class="col-md-4">
+              Departure:
+            </div>
+            <div class="col-md-8">
+              {{Form::text('',$booking['bookingend'],['class' => 'form-control', 'readonly' => 'true'])}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              Mode:
+            </div>
+            <div class="col-md-8">
+              {{Form::text('modeofstay',(str_replace('2', '' ,str_replace('1','',$booking['bookingmode']))),['class' => 'form-control', 'readonly' => 'true'])}}
+            </div>
+          </div>
  					
  				</div>
 				<div class="row mt">
@@ -54,13 +62,28 @@
                              	</div>
                         </div>
                         <div class="form-group" id="custom">
+
                               <label class="col-sm-2 col-sm-2 control-label">Session Options:</label>
                               <div class="col-sm-5">
-                                 <select class="form-control" name="timeofday" id="timeofday">
-                                  <option value="0">Starting Session</option>
-                                  <option value="06">6:00 AM</option>
-                                  <option value="18">6:00 PM</option>
-                                </select>
+                                   <select class="form-control" name="timeofday" id="timeofday">
+
+                                    <option value="0"  selected disabled="true">Start</option>
+                                    @if($booking['bookingmode'] == "day")
+                                    <option value="8"  mode="day"        id='morning'>Day          [8:00am-5:00pm]</option>
+                                    @elseif($booking['bookingmode'] == "night")
+                                    <option value="19" mode="night"      id='evening'>Night        [7:00pm-4:00am]</option>
+                                    @elseif($booking['bookingmode'] == "overnight1")
+
+                                    <option value="8"  mode="overnight1" id='overnight1'>Overnight [8:00am-4:00am]</option>
+                                    @else
+
+                                    <option value="19" mode="overnight2" id='overnight2'>Overnight [7:00pm-5:00pm]</option>
+
+                                    @endif
+                                   
+
+
+                                  </select>
                               </div>
                               <div class="col-sm-5">
                                 <select class="form-control" name="lenofstay" id="lenofstay" disabled>
@@ -100,3 +123,4 @@
  	</div>
 </div>
 @stop
+

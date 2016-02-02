@@ -17,9 +17,8 @@
                 <div class="col-md-3" style="">
                      <ul class="nav nav-list nav-stacked">
                         <li class="nav-header" style="color:#00b356;font-weight:bold;">By Capacity</li>
-                            <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">Any</a></li>
-                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=recommended">Recommended</a></li>
-                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">One - Total</a></li>
+                            <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">All</a></li>
+                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">Recommended</a></li>
                     </ul>
                 </div>
                 <div class="col-md-8" style=" border-left:1px solid #e5e5e5" > 

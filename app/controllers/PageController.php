@@ -51,7 +51,9 @@ class PageController extends \BaseController
 
 		$carousel = Product::join('files', function($j){
 			$j->on('product.fileid', '=' , 'files.id');
-		})->orderBy(DB::raw('RAND()'))->take(5)->get();
+		})
+		->whereNotBetween('producttypeid' , [3,4])
+		->orderBy(DB::raw('RAND()'))->take(5)->get();
 		return View::make('default.static.explore')->withRooms($rooms)
 		->with('cottages' , $cottages)
 		->with('pools' , $pools)->with('carousel' , $carousel);

@@ -3,6 +3,7 @@ namespace Sunrock\Repositories;
 use Account;
 use Sunrock\Interfaces\AccountRepository;
 use Hash;
+use Helpers;
 
 class EloquentAccountRepository implements AccountRepository
 {
@@ -102,11 +103,17 @@ class EloquentAccountRepository implements AccountRepository
 		else $account->active = 0;
 		$account->save();
 	}
+	public function Lock($account){
+		$account->attempt = 0;
+		$account->active = 2;
+		$account->save();
+	}
 	public function updatePassword($account,$oldPassword ,$newPassword)
 	{
 		if($account->password == $oldPassword)
 		{
 			$account->password = Hash::make($newPassword);
+			$account->active =1;
 			$account->save();
 			return $account;
 		}

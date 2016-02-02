@@ -15,9 +15,16 @@
       minDate: 1,  //Date + 1
       onClose: function( selectedDate ) {
         //$("#date_end" ).datepicker( "option", "minDate", selectedDate );
+        $('#date_end').val('');
         $('#custom').fadeIn();
+        $('#lenofstay')[0].selectedIndex =0;
+        $('#timeofday')[0].selectedIndex = 0;
+
       }
     });
+
+
+
      $('#timeofday').on('change', function(){
         if($('#timeofday').val() == '0'){
            $('#lenofstay').prop('disabled', true);

@@ -19,7 +19,7 @@
                                 <tr>
                                   <th>Discount</th>
                                   <th><i class="fa fa-bullhorn"></i> Booking ID</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> Account ID</th>
+                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> Name</th>
                                   <th><i class="fa fa-bookmark"></i> Total Bill</th>
                                   <th><i class="fa fa-bookmark"></i> Discounted Bill</th>
                                   <th><i class="fa fa-bookmark"></i> Downpayment</th>
@@ -41,7 +41,7 @@
                               	  	@endif
                               	  </td>
                                   <td>{{$transaction['bookingid']}}</a></td>
-                                  <td class="hidden-phone">{{$transaction['account_id']}}</td>
+                                  <td class="hidden-phone">{{$transaction->account->fullname()}}</td>
                                   <td>{{$transaction['totalbill']}}</td>
                                   <td>{{$transaction['discountedbill']}}</td>
                                   <td>{{$transaction['downpayment']}}</td>
@@ -58,7 +58,12 @@
                                        <i class="fa fa-remove"></i>Reject
                                       </a>
                                    @endif
+                                   @if($transaction['status'] == 'confirmed')
+                                   <a id="reject"  class="reject btn btn-warning btn-xs"  data-href="{{URL::action('cpanel.transaction.reject' ,array('id' => $transaction['id'] , 'status' => 'rejected' ,'bookingid' => $transaction['bookingid']))}}">
+                                       <i class="fa fa-remove"></i>Cancel
+                                      </a>
                                        
+                                       @endif
                                   </td>
                               </tr>
                               @endforeach
@@ -87,11 +92,21 @@
   });  
     $('td').on('click', 'a.reject', function(e) {
     var href = $(this).attr('data-href');
-       bootbox.prompt("<h3>Changeing reservation status to rejected.</h3><hr/>Are you sure you want to reject reservation? <br/><font color='red'>Please specify the reason of rejection.</font>", function(result) {
+       bootbox.prompt("<h3>Changing reservation status to rejected/cancelled.</h3><hr/>Are you sure you want to reject or cancel the reservation? <br/><font color='red'>Please specify the reason of rejection.</font>", function(result) {
           if(result)
             document.location = href + '/' + result;
           else
-            bootbox.alert('Please enter a valid reason to reject the reservation.');
+            bootbox.alert('Please enter a valid reason to reject or cancel the reservation.');
+      }); 
+
+       $('td').on('click', 'a.reject', function(e) {
+    var href = $(this).attr('data-href');
+       bootbox.prompt("<h3>Changing reservation status to cancelled.</h3><hr/>Are you sure you want to reject reservation? <br/><font color='red'>Please specify the reason of rejection.</font>", function(result) {
+          if(result)
+            document.location = href + '/' + result;
+          else
+            bootbox.alert('Please enter a valid reason to cancel the reservation.');
+      });
       }); 
   });  
   function msg()

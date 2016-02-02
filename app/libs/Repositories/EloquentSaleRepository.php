@@ -3,7 +3,7 @@ namespace Sunrock\Repositories;
 use Sales;
 use Sunrock\Interfaces\SaleRepository as srepo;
 use Hash;
-
+use AppConfig;
 class EloquentSaleRepository implements srepo
 {
 	private $page = 6;

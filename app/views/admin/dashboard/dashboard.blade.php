@@ -45,7 +45,7 @@
            <div class="row mt">
             <div class="col-md-12">
               <div class="content-panel">
-                <h4><i class="fa fa-angle-right"></i>Reservations Not Attendeded
+                <h4><i class="fa fa-angle-right"></i>Reservations Not Attended
                   <span class="badge badge-success">
                     {{count($reservations['notattended'])}} reservations found
                   </span>

@@ -36,6 +36,7 @@ class EloquentTransactionsRepository implements TransactionRepository
 		}*/
 		$t = new Transactions();
 		$id = $this->generateTransactionId($token);
+		
 		$t->id = $id;
 		$t->account_id = $account->id;
 		$t->bookingid = $booking->bookingid;
@@ -47,6 +48,7 @@ class EloquentTransactionsRepository implements TransactionRepository
 		$t->notes = $notes;
 		$t->totalbill = $booking->fee;
 		$t->paymenttype = $booking->paymenttype;
+
 		if($discount){
 			$t->discountedbill = $newBill;
 			if($booking->paymenttype == 'half')

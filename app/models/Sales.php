@@ -20,4 +20,8 @@ class Sales extends Eloquent implements UserInterface, RemindableInterface
     {
         return $query->orderBy('created_at','DESC');
     } 
+    public function account()
+    {
+        return $this->belongsTo('Account' , 'account_id');
+    }
 }

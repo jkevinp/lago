@@ -75,7 +75,7 @@
                         <div class="col-md-6">
                             <div class="thumbnail">
                                 <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" >
-                                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  class="example-image img-responsive"/>
+                                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  style="min-height:200px;max-height:200px;" class="example-image img-responsive"/>
                                 </a>
                                 <div class="caption">
 

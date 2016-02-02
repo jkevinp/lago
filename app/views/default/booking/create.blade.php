@@ -79,8 +79,9 @@
                                 </div>
                                 <div class='col-md-7'>
                         {{Form::text('Firstname', isset(Session::get('account_info')['firstname']) ? Session::get('account_info')['firstname'] : '' , 
-                                    array('class' => 'form-control',
-                                        'placeholder' => 'First Name'
+                                    array('class' => 'form-control text-only',
+                                        'placeholder' => 'First Name',
+
                                         ))
                         }}
                                 </div>
@@ -93,8 +94,9 @@
                                 </div>
                                 <div class='col-md-7'>
                         {{Form::text('Middlename',  isset(Session::get('account_info')['middleName']) ? Session::get('account_info')['middleName'] : '', 
-                                    array('class' => 'form-control',
-                                        'placeholder' => 'Middle Name'
+                                    array('class' => 'form-control text-only',
+                                        'placeholder' => 'Middle Name',
+
                                         ))
                         }}
                                 </div>
@@ -107,8 +109,9 @@
                                 </div>
                                 <div class='col-md-7'>
                         {{Form::text('Lastname', isset(Session::get('account_info')['lastName']) ? Session::get('account_info')['lastName'] : '' , 
-                                    array('class' => 'form-control',
-                                        'placeholder' => 'Last Name'
+                                    array('class' => 'form-control text-only',
+                                        'placeholder' => 'Last Name',
+
                                         ))
                         }}
                                 </div>

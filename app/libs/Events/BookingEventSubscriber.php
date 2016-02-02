@@ -64,7 +64,7 @@ class BookingEventSubscriber
                       'receiveremail' => SiteContents::where('title' ,'email')->first()->value,
                       'receivername' => 'System',
                       'subject' => 'New Reservation',
-                      'message' => 'A new reservation was booked.<br/> Booking id: '.$input['bookingid'].'<br/>Booked by: '.$input['id'],
+                      'message' => 'A new reservation was booked.<br/> Booking id: '.$input['bookingid'].'<br/>Booked by: '.$input['Firstname']." ".$input['Lastname'],
                       'status' => 5
                     ]
                   );
@@ -78,6 +78,7 @@ class BookingEventSubscriber
   {
        $pdfController =  App::make('PDFController');
        $file = $pdfController->invoiceSlip($id);
+       
        Helpers::SendMail(
                       'emails.auth.transaction-confirmed',
                       [     

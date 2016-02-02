@@ -54,8 +54,7 @@ class EloquentProductRepository implements ProductRepository
 	public function getAvailable($date , $paxmin = false , $paxmax = false)
 	{
 		if($paxmin && !$paxmax){
-
-		$t = Product::whereNotExists(function($q) use ($date)
+			$t = Product::whereNotExists(function($q) use ($date)
 			{
 				$q->select(DB::raw(1))
 						->from('booking_details')
@@ -66,10 +65,11 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->whereNotBetween('producttypeid', [2, 4])
+			->whereNotBetween('producttypeid', [3, 4])
 			->where('paxmin' , '>=' , $paxmin)
 			->where('paxmax' , '<=' , $paxmin)
 			->paginate(6);
+
 		}else if($paxmin && $paxmax){
 			$t = Product::whereNotExists(function($q) use ($date)
 			{
@@ -82,7 +82,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->whereNotBetween('producttypeid', [2, 4])
+			->whereNotBetween('producttypeid', [3, 4])
 			->where('paxmax' , '>=' , $paxmax)
 			->paginate(6);
 		}
@@ -98,7 +98,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 		->where('active', '=' , '1')
-		->whereNotBetween('producttypeid', [2, 4])->paginate(6);
+		->whereNotBetween('producttypeid', [3, 4])->paginate(6);
 			
 		}
 		

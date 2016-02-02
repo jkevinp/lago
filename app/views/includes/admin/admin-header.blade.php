@@ -156,9 +156,9 @@
               </div>
               @if(Session::get('date_info'))
               <div align="right">
-              <a href="/#booknow" class="btn btn-default">Edit Information</a>
+              <a href="{{route('cpanel.show' ,array('action' => 'walkin' , 'param' => '1'))}}" class="btn btn-default">Edit Information</a> 
               {{HTML::linkRoute('book.removeAllItems', 'Reset' ,null, array('class' => 'btn btn-default'))}}
-              {{HTML::linkRoute('book.index', 'Add Product' ,null, array('class' => 'btn btn-primary'))}}
+              {{HTML::linkRoute('cpanel.show.product', 'Add Product' ,null, array('class' => 'btn btn-primary'))}}
             </div>
               @endif
             </h5>

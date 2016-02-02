@@ -13,7 +13,7 @@ Please follow the instructions carefully to confirm your reservation.<br/>
 	@elseif($paymenttype =='full')
 		{{number_format($fee,2)}}
 	@endif
-</u> through paypal or via bank deposit.
+</u> through bank deposit.
 <br/><br/> To pay via bank, deposit the required bill to any of the following banks nationwide.
 <br/>
 <br/>

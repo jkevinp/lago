@@ -55,7 +55,18 @@
             {{Form::open(['route' => 'guest.mail.create' , 'method' => 'post'])}}
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="contactModalLabel">Contact Us</h4>
-              For urgent matters, please call or text  <br/><strong>{{SiteContents::where('title' , 'phone')->first()->value}}</strong>
+              For urgent matters, please call or text  <br/>
+                        @foreach(SiteContents::where('title' , 'phone')->get() as $v)
+                            <p><i class="fa fa-phone"></i>  {{$v->value}}</p>
+                        @endforeach
+
+                        @foreach(SiteContents::where('title' , 'name')->get() as $v)
+                            <p><i class="fa fa-user"></i> Look for: {{$v->value}}</p>
+                        @endforeach
+                        
+                        @foreach(SiteContents::where('title' , 'email')->get() as $v)
+                            <p><i class="fa fa-google"></i> Email: {{$v->value}}</p>
+                        @endforeach
          
           </div>
           <div class="modal-body">
@@ -122,7 +133,7 @@
               </div>
               @if(Session::get('date_info'))
               <div align="right">
-              <a href="/#booknow" class="btn btn-default">Edit Information</a>
+              <a href="{{route('static.reservenow')}}" class="btn btn-default">Edit Information</a>
               {{HTML::linkRoute('book.removeAllItems', 'Reset' ,null, array('class' => 'btn btn-default'))}}
               {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
             </div>

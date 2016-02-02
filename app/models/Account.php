@@ -9,7 +9,7 @@ class Account extends Eloquent implements UserInterface, RemindableInterface
 {
 	use UserTrait, RemindableTrait;
 	public $timestamps = true;
-	public $fillable = ['id' ,'gender', 'confirmationcode' ,'title', 'firstname', 'middleName' , 'lastName' , 'email' , 'contactnumber' , 'username' , 'password' , 'usergroupid' , 'active'];
+	public $fillable = ['attempt', 'id' ,'gender', 'confirmationcode' ,'title', 'firstname', 'middleName' , 'lastName' , 'email' , 'contactnumber' , 'username' , 'password' , 'usergroupid' , 'active'];
 	protected $table = 'account';
 	protected $hidden = array('password', 'remember_token');
 	public function getRememberToken()

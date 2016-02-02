@@ -21,8 +21,7 @@
                      <ul class="nav nav-list nav-stacked">
                         <li class="nav-header">Search Options</li>
                         <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">Any</a></li>
-                        <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=recommended">Recommended</a></li>
-                        <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">One - Total</a></li>
+                        <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">Recommended</a></li>
                     </ul>
                     <hr>
                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-github fa-fw"></i> Reservation List</a>
@@ -41,7 +40,7 @@
                         <div class="col-md-6">
                             <div class="thumbnail">
                                 <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" >
-                                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  class="example-image img-responsive"/>
+                                    <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" style="height:200px;"  class="example-image img-responsive"/>
                                 </a>
                                     <div class="caption">
 

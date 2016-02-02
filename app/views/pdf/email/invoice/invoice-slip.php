@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>Booking Information</title>
-     <link href="{{URL::asset('default')}}/css/bootstrap.css" rel="stylesheet">
-     <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-     <style type="text/css">
+    <style type="text/css">
+    	*{
+    		font-family: Arial;
+    	}
      table, th, td 
      {
     	border: 2px solid #AAA;
@@ -16,16 +17,21 @@
 	</style>
 </head>
 <body>
+		<center>
+		<img src="media/photos/logo.jpg" style="width:400px;height:100px;" />
+
+		</center>
 		<p align="right">
 
 				<?php echo date('Y-m-d h:i:s');?>	
 		</p>
 		<h2>Invoice Slip</h2>
+		<h4>Name: <?= $account ?></h4>
 	<hr>
 	<table class="table table-bordered" width='100%'>
 		<thead>
 			<tr> 
-				<th colspan="4">Purchase Details</th>
+				<th colspan="4">Reservation Details</th>
 			</tr>
 			<tr>
 				<th>Product ID</th>

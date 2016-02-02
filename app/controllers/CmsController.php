@@ -69,7 +69,10 @@ class CmsController extends \BaseController {
 	public function update()
 	{
 		$input = Input::all();
-		$rules = ['image' => 'mimes:jpeg,bmp,png' , 'id' => 'required' , 'content-category' => 'required' , 'contenttype' => 'required'];
+		$rules = [	'image' => 'mimes:jpeg,bmp,png' , 
+					'id' => 'required' , 
+					'content-category' => 'required' , 
+					'contenttype' => 'required'];
     	$validator = Validator::make($input, $rules);
 		if($validator->fails())
 		{
@@ -146,7 +149,7 @@ class CmsController extends \BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$rules = ['image' => 'mimes:jpeg,bmp,png|required'];
+		$rules = ['image' => 'mimes:jpeg,bmp,png'];
     	$validator = Validator::make($input, $rules);
 		if($validator->fails())
 		{
@@ -154,27 +157,30 @@ class CmsController extends \BaseController {
 		}
 		else
 		{
-			$file = Input::file('image');
+
+			if($file = Input::file('image')){
 			//$destinationPath =  URL::asset('public\default').'\img-uploads\\';
 			$destinationPath = public_path('/default/img-uploads/');
 			//$destinationPath =  Helpers::AssetsDir();
 			$filename = str_random(8).$file->getClientOriginalName();
 			Input::file('image')->move($destinationPath, $filename);
 			$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
+			}
 			$content = new SiteContents();
-			$content->media = $filename;
+			if($file)$content->media = $filename;
 			$content->title = Input::get('title');
 			$content->value = Input::get('textcontent');
 			$content->orderposition = 0;
 			$content->contenttype=  ContentType::where('contentkey', $input['contenttype'])->where('contentvalue', $input['content-category'])->pluck('id');
 			if($content->save())
 			{ 
-				if(file_exists($destinationPath.$filename))
-				{
+				
 					$lastInsertId = $content->id;
-					SessionController::flash("Content saved.");
+						SessionController::flash("Content saved.");
 					return Redirect::back();
-				}
+				
+				
+
 			}
 			else
 			{

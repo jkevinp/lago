@@ -12,7 +12,7 @@
 		<div class="col-md-11">
  			<div class="panel panel-warning">
  				<div class="panel-heading">
-      			Conflict Detected
+      			Rebook Reservation
  				</div>
  				<div class="panel-body">
           <div class="alert alert-info">
@@ -50,14 +50,9 @@
               <input type="text" readonly value="{{$bookingInfo['bookingid']}}" class="form-control" name="bookingid">
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              Days:
-            </div>
-            <div class="col-md-7">
-              <input type="text" readonly value="{{$bookingInfo['lenofstay']}}" class="form-control" name="lenofstay">
-            </div>
-          </div>
+       
+              <input type="hidden" readonly value="{{$bookingInfo['lenofstay']}} " class="form-control" name="lenofstay">
+    
           <div class="row">
             <div class="col-md-4">
               Time of day:

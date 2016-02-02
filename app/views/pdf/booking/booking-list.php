@@ -57,7 +57,7 @@
 				<tr><td>Checked-in: <?php echo $s3;?></td></tr>
 				<tr><td>Checked-out/Past Reservation: <?php echo $s4;?></td></tr>
 				<tr><td>Expired: <?php echo $s5;?></td></tr>
-				<tr><td>Rejected: <?php echo $s6;?></td></tr>
+				<tr><td>Rejected/Cancelled: <?php echo $s6;?></td></tr>
 				<tr><td>Total: <?php echo count($booking);?></td></tr>
 		</table>
 	<hr>
@@ -133,6 +133,120 @@
 		</tr>
 	</table>
 	<hr>	
+
+<?php foreach($groups as $b){ ?>
+<div style="page-break-before: always;"></div>
+	<table class="table table-bordered" width='100%'>
+		<thead>
+			<tr> 
+
+				<th colspan="7">Reservation Details [<?php if(isset($b[0]))switch ($b[0]['active']) {
+	    			case 0:
+	    				echo 'Awaiting Payment';
+	    				break;
+	    			case 1:
+	    				echo 'Awaiting Payment Confirmation';
+	    			break;
+	    			case 2:
+	    				echo 'Payment Confirmed';
+	    			break;
+	    			case 3:
+	    				echo 'Checked-in';
+	    			break;
+	    			case 4:
+	    				echo 'Checked-out/Past';
+	    			break;
+	    			case 5:
+	    				echo 'Expired';
+	    			break;
+	    			case 6:
+	    				echo 'Rejected';
+	    			break;
+	    		}?>]</th>
+			</tr>
+			<tr>
+				<th>Booking ID</th>
+				<th>Booking Reference Id</th>
+				<th>Name</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Status</th>
+				<th>Date/Time</th>
+			</tr>
+		</thead>
+		<?php 
+		$TotalQty= 0;
+			foreach ($b as $book ) 
+	    	{
+	    		echo '<tr>';
+	    		echo '<td>'.$book['bookingid'].'</td>';
+	    		echo '<td>'.$book['bookingreferenceid'].'</td>';
+	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
+	    		echo '<td>'.$book['bookingstart'].'</td>';
+	    		echo '<td>'.$book['bookingend'].'</td>';
+	    		echo '<td>';
+	    		switch ($book['active']) {
+	    			case 0:
+	    				echo 'Awaiting Payment';
+	    				break;
+	    			case 1:
+	    				echo 'Awaiting Payment Confirmation';
+	    			break;
+	    			case 2:
+	    				echo 'Payment Confirmed';
+	    			break;
+	    			case 3:
+	    				echo 'Checked-in';
+	    			break;
+	    			case 4:
+	    				echo 'Checked-out/Past';
+	    			break;
+	    			case 5:
+	    				echo 'Expired';
+	    			break;
+	    			case 6:
+	    				echo 'Rejected';
+	    			break;
+	    		}
+	    		echo '</td>';
+	    		echo '<td>'.$book['created_at'].'</td>';
+	    		//created_at
+	    		/*echo '<td>'.$account['title'].'</td>';
+	    		echo '<td>'.$account['lastName'].', '.$account['firstname'].' '.$account['middleName'].'</td>';
+	    		echo '<td>'.$account['email'].'</td>';
+	    		echo '<td>'.$account['contactnumber'].'</td>';
+	    		echo '<td>'.$account['usergroupid'].'</td>';
+	    		echo '<td>'.$account['active'].'</td>';*/
+	    		echo "</tr>";
+	    		//$TotalQty += $book->quantity;
+	    	}
+    ?>
+	</table>
+	Total <?php if(isset($b[0]))switch ($b[0]['active']) {
+	    			case 0:
+	    				echo 'Awaiting Payment';
+	    				break;
+	    			case 1:
+	    				echo 'Awaiting Payment Confirmation';
+	    			break;
+	    			case 2:
+	    				echo 'Payment Confirmed';
+	    			break;
+	    			case 3:
+	    				echo 'Checked-in';
+	    			break;
+	    			case 4:
+	    				echo 'Checked-out/Past';
+	    			break;
+	    			case 5:
+	    				echo 'Expired';
+	    			break;
+	    			case 6:
+	    				echo 'Rejected';
+	    			break;
+	    		}?> Reservations: <?= count($b) ?>
+	
+	<?php }?>
 
    
 </body>

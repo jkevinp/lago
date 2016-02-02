@@ -10,20 +10,20 @@
  					Booking Details 
  					<span class="badge">
  					 @if($booking['active'] == 0)
-                                                    Awaiting Payment
-                                                @elseif($booking['active'] == 1)
-                                                    Waiting Payment Confirmation
-                                                @elseif($booking['active'] == 2)
-                                                    Paid/Confirmed
-                                                @elseif($booking['active'] == 3)
-                                                    On Session/Checked-in
-                                                @elseif($booking['active'] == 4)
-                                                    Past/Checked-out
-                                                @elseif($booking['active'] == 5)
-                                                    Expired
-                                                @elseif($booking['active'] == 6)
-                                                  Rejected
-                                                @endif						
+                        Awaiting Payment
+                    @elseif($booking['active'] == 1)
+                        Waiting Payment Confirmation
+                    @elseif($booking['active'] == 2)
+                        Paid/Confirmed
+                    @elseif($booking['active'] == 3)
+                        On Session/Checked-in
+                    @elseif($booking['active'] == 4)
+                        Past/Checked-out
+                    @elseif($booking['active'] == 5)
+                        Expired
+                    @elseif($booking['active'] == 6)
+                      Rejected/Cancelled
+                    @endif						
  					</span>
  				</div>
  				<div class="panel-body">
@@ -65,7 +65,11 @@
 	 						Downpayment:
 	 					</div>
 	 					<div class="col-md-4">
+	 						@if($booking->paymenttype == "full")
+	 						{{$booking->fee}}<font color="red">(May change if coupon applied.)</font>
+	 						@else
 	 						{{($booking->fee * 0.50)}} <font color="red">(May change if coupon applied.)</font>
+	 						@endif
 	 					</div>
  					</div>
  				</div>

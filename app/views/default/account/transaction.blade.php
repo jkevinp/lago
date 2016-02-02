@@ -18,10 +18,10 @@
        {{Form::open(['route' => 'transaction.pay', 'method' => 'post'])}}
            <hr/>
             <div class="col-md-12">
-                <div class="alert alert-info">
+                <div class="alert alert-info"> 
                     {{Form::hidden('token' , Session::getToken())}}
                     <p><b>We accept Bank deposits via BPI.</b></p>
-                    <p>Select the <u>Reservation ID</u> of the reservation you wish to pay then enter the reference/booking code that you received from the bank/paypal.</p>
+                    <p>Select the <u>Reservation ID</u> of the reservation you wish to pay then enter the reference/booking code that you received from the bank.</p>
                     <p>Our staff will verify if the payment has been made. After verification, the reservation will be confirmed.</p>
                     <p>For any notes or instruction, please specify at notes field.</p>
                     @foreach(SiteContents::where('title' , 'Bank Information')->get() as $content)
@@ -75,9 +75,7 @@
         <hr/>
       <div class="col-md-12">
             <div class="alert alert-info">
-                    <p><b>We accept payments via paypal.</b></p>
-                    <p>To pay via paypal, first create a payment using paypal.</p>
-                    <p>Once, payment is done. Copy and enter the transaction ID provided by paypal upon payment.</p>
+                  
                     <p>Select the <u>Reservation ID</u> of the reservation you wish to pay then enter the reference/booking code that you received from the bank/paypal.</p>
                     <p>Our staff will verify if the payment has been made. After verification, the reservation will be confirmed.</p>
                     <p>For any notes or instruction, please specify at notes field.</p>

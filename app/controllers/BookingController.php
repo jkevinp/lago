@@ -81,21 +81,24 @@ class BookingController extends BaseController  {
 		return  number_format($price, 2, '.', '');
 	}
 	public function index(){
-			$input = Input::all();
 
-			if(Session::has('date_info')){
+		$input = Input::all();
+		if(Session::has('date_info')){
 				$date_info = Session::get('date_info');
-				$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
 				$total = $date_info['children'] + $date_info['adult'];
+				$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
 				if(isset($input['type'])){
-					if($input['type'] == 'recommended'){
-						$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] , $total);
+					if($input['type'] == 'free'){
+					$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
+				
 					}else if ($input['type'] == 'max'){
-							$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] ,1, $total);
+						$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] ,1, $total);
 					}
 				}
 				
+				
 			$rooms->totalCount = $rooms->count();
+
 			foreach ($rooms as $room){
 					if(Files::find($room->fileid) == null) $room->attr = 0;
 					else $room->attr = Files::find($room->fileid);		
@@ -153,14 +156,9 @@ class BookingController extends BaseController  {
 			Session::flush();
 			return Redirect::to('/')->withErrors('Your Session has expired. Cannot proceed to book a reservation.');
 		}
-	
-
 		//if validation succeed, create a new booking information
 		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
-
 		$check_account = $this->account->findByEmail($input['Email'])->first();
-		
-
 		if($check_account)
 		$input['confirmation_code'] = $check_account->confirmationcode;
 		else
@@ -170,14 +168,16 @@ class BookingController extends BaseController  {
 		$count = $this->account->findByEmail($input['Email'])->count();
 		if($count == 0)$account = $this->account->create($input, 2, 0);
 		else $account = $this->account->findByEmail($input['Email'])->first();
+		
 		$input['start'] = Session::get('date_info')['start'];
 		$input['end'] = Session::get('date_info')['end'];
-		$input['id'] = $account->id;
-		$input['fee'] = Session::get('totalFee');
 		$input['paymenttype'] = $input['paymenttype'];
- 		$booking = $this->booking->create($input);
+		$input['bookingmode'] = Session::get('date_info')['modeofstay'];
+		$input['fee'] = Session::get('totalFee');
+		
+		$input['id'] = $account->id;
+		$booking = $this->booking->create($input);
 		$input['bookingid'] = $booking->bookingid;
-
 		if($booking) 
 		{
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);
@@ -232,6 +232,7 @@ class BookingController extends BaseController  {
 			$find = $this->booking->find($id)->first();
 			$transaction = $this->transaction->findByBookingId($id)->first();
 			$bookingdetails = $this->bookingdetails->getByRefId($transaction->bookingid)->get();
+			$reservation = $this->booking->find($id)->first();
 			switch($transaction->paymenttype){
 				case 'half':
 					$coeff = 0.5;
@@ -242,8 +243,20 @@ class BookingController extends BaseController  {
 			}
 			//creates sale
 			if($transaction->paymenttype =='half'){
-					$bookingdetails->each(function($detail) use ($sid,$coeff, $transaction ){
-					$detail->productprice = $this->product->find($detail->productid)->productprice;
+
+					$bookingdetails->each(function($detail) use ($sid,$coeff, $transaction,$reservation ){
+						switch ($reservation->bookingmode) {
+				case 'day':
+					$detail->productprice  =$this->product->find($detail->productid)->productprice;
+				break;
+				case 'night':
+					$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+				break;
+				default:
+					$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+				break;
+
+			}
 					$p = $detail->productprice * $coeff;
 					$this->sale->create($sid,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
 				});
@@ -254,9 +267,13 @@ class BookingController extends BaseController  {
 					if(isset($fullypaid)){
 						$check = $this->transaction->changeStatus($transaction->id, 'fullypaid');
 						if($check){
-							$url = URL::action('pdf.invoice', ['cartid' => $sid]);
-							$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
-							$msg ='<hr>'.$url;
+							
+							if($transaction->paymenttype == "half"){
+								$url = URL::action('pdf.invoice', ['cartid' => $sid]);
+								$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
+								$msg ='<hr>'.$url;
+							}else $msg = "";
+
 							SessionController::flash('The reservation status has been updated'.$msg);
 						}else{
 							return Redirect::back()->withErrors('An error has occured while changing the transaction status!');
@@ -322,9 +339,12 @@ class BookingController extends BaseController  {
 					$detail->bookingend = $date['end'];
 					$booking->save(); 
 					$detail->save();
+
+
 					$this->sale->create($sid, 
 									$product->id,
-									$detail->quantity,($product->productprice /12) * $hours, 
+									$detail->quantity,
+									($product->extensionproductprice) * $hours, 
 									Session::getToken(),
 									'extend'
 									);		
@@ -361,6 +381,8 @@ class BookingController extends BaseController  {
 		$b['timeofday'] = $i['timeofday'];
 		$b['lenofstay'] = $i['lenofstay'];
 		$b['bookingid'] = $i['bookingid'];
+		$b['modeofstay'] = $i['modeofstay'];
+
 		$conflict = [];
 		$details = $this->bookingdetails->getByRefId($i['bookingid'])->get();
 		foreach ($details as $detail){
@@ -398,6 +420,7 @@ class BookingController extends BaseController  {
 		return View::make('default.booking.rebook2')->withConflict($conflict)->with('bookingInfo',$b);
 	}
 	public function rebook3(){
+
 		$i = Input::all();
 		$r = ['count'=> 'required' , 'bookingid' => 'required' , 'date_start' => 'required', 'date_end' =>'required', 'lenofstay'
 		=> 'required' , 'timeofday' =>'required'];

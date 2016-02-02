@@ -57,8 +57,20 @@ class AccountController extends \BaseController
 		else{
 			if(Auth::attempt(array('email' => $input['username'], 'password' => $input['password'],'active' => '1')))
 				return Redirect::intended(route('account.dashboard'));
-			else
-				return Redirect::back()->withInput($input)->withErrors("Login Failed: Please check your login credentials or activate your account.");
+			else{
+				if($find = $this->account->findByEmail($input['username'])->first()){
+					if($find){
+						$find->attempt += 1;
+						$find->save();
+						if($find->attempt >= 3){
+							$this->account->Lock($find);
+							Event::fire('account.sendForgot', [$find]);
+							return Redirect::back()->withInput($input)->withErrors("Account Locked: Please check your E-mail.");
+						}
+					}
+				}
+				return Redirect::back()->withInput($input)->withErrors("Please check your login credentials or check if your account is activated and not locked.");
+			}
 		}
 	}
 	public function logout(){
@@ -271,7 +283,9 @@ class AccountController extends \BaseController
 	public function passwordResetForm($code)
 	{
 		
-		$account = $this->account->findByCode($code)->where('active' ,'=' ,'1')->first();
+		$account = $this->account->findByCode($code)->where('active' ,'=' ,'1')
+					->orWhere('active' , '=', 2)
+					->first();
 		if($account)
 		{
 			return View::make('default.account.account-resetpassword')->withAccount($account)->withCode($account->confirmationcode);

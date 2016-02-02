@@ -35,6 +35,7 @@ class PDFController extends \BaseController
 	}
 	public function generateReport()
 	{
+
 		$input = Input::all();
 		$rules = ['datestart' => 'date|required', 'dateend' => 'date|required'];
 		$val = Validator::make($input, $rules);
@@ -106,7 +107,10 @@ class PDFController extends \BaseController
 			$sale->each(function($s){
 				$s->productname = $this->product->find($s->productid)->productname;
 			});
+
 			if($sale){
+
+				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
 				$param['sales'] = $sale;
 				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
 				return $pdf->stream();
@@ -122,8 +126,14 @@ class PDFController extends \BaseController
 		if(isset($cartid))
 		{
 			$sale = $this->sale->findByCartId($cartid)->get();
+			$sale->each(function($s){
+				$s->productname = $this->product->find($s->productid)->productname;
+			});
+
 			if($sale)
 			{
+
+				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
 				$param['sales'] = $sale;
 				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
 				return $pdf->output();
@@ -152,12 +162,15 @@ class PDFController extends \BaseController
 				break;
 				case 'sales':
 					$data['sales'] = $this->sale->all()->first()->CreatedDescending()->get()->toArray();
+
 					$data['sum'] =$this->sale->all()->first()->CreatedDescending()->get()->sum('totalprice');
 					$pdf = PDF::loadView('pdf.sales.sales-list' , $data);
 				break;
 
 				case 'booking':
-				$b =  $this->booking->all()->first()->CreatedDescending()->get();
+
+					$b =  $this->booking->all()->first()->CreatedDescending()->get();
+					$data['groups'] = Booking::all()->groupBy('active');
 			
 			 		$data['booking'] =$b;
 			 		$pdf = PDF::loadView('pdf.booking.booking-list' , $data);
