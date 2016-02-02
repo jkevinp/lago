@@ -155,12 +155,14 @@ class PDFController extends \BaseController
 				case 'account':
 					switch ($param) {
 						case 'all':
+						if($this->account->all()->count == 0)die("Cannot generate report. No records found.");
 							$data['accounts'] = $this->account->all()->toArray();
 							$pdf = PDF::loadView('pdf.account.account-list' , $data);
 						break;
 					}
 				break;
 				case 'sales':
+				if($this->sale->all()->count == 0)die("Cannot generate report. No records found.");
 					$data['sales'] = $this->sale->all()->first()->CreatedDescending()->get()->toArray();
 
 					$data['sum'] =$this->sale->all()->first()->CreatedDescending()->get()->sum('totalprice');
@@ -168,7 +170,7 @@ class PDFController extends \BaseController
 				break;
 
 				case 'booking':
-
+					if($this->booking->all()->count == 0)die("Cannot generate report. No records found.");
 					$b =  $this->booking->all()->first()->CreatedDescending()->get();
 					$data['groups'] = Booking::all()->groupBy('active');
 			
