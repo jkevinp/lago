@@ -9,7 +9,7 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 	public $timestamps = true;
-	public $fillable = array('bookingmode', 'notes', 'paymenttype','fee','bookingid' , 'confirmationcode','bookingreferenceid' ,'bookingstart' , 'bookingend', 'totalduration', 'account_id' , 'active');
+	public $fillable = array('time_checkin' ,'time_checkout',  'bookingmode', 'notes', 'paymenttype','fee','bookingid' , 'confirmationcode','bookingreferenceid' ,'bookingstart' , 'bookingend', 'totalduration', 'account_id' , 'active');
 	protected $primaryKey = 'bookingid';
 	protected $table = 'booking';
 	public function account(){
@@ -46,5 +46,15 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
     public function scopeStatusIsOnSession($query){
         return $query->where('active' ,'=' ,3);
     }
-
+ 	public static function sgetStartingToday()
+	{
+		$time = Carbon::today('Asia/Manila');
+		return Booking::where('bookingstart', '=' , $time );
+	}
+	public static function sgetEndingToday()
+	{
+		$time = Carbon::today('Asia/Manila');
+		$b= Booking::where('bookingend', '=' , $time);
+		return $b;
+	}
 }

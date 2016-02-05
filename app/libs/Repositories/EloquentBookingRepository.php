@@ -22,9 +22,16 @@ class EloquentBookingRepository implements BookingRepository
 	public function changeStatus($id,$status)
 	{
 		$booking = Booking::where('bookingid', '=' , $id)->first();
-		
+		date_default_timezone_set('Asia/Manila');
 		if($booking)
 		{
+			if($status == 3)//checkin
+			{
+				$booking->time_checkin= date('Y-m-d G:i:s');
+			}
+			else if($status == 4){
+				$booking->time_checkout = date('Y-m-d G:i:s');
+			}
 			$booking->active = $status;
 			$booking->save();
 			return $booking;
@@ -67,7 +74,7 @@ class EloquentBookingRepository implements BookingRepository
 		$time = Carbon::today('Asia/Manila');
 		return Booking::where('bookingstart', '=' , $time );
 	}
-	public function getEndingToday()
+	public  function getEndingToday()
 	{
 		$time = Carbon::today('Asia/Manila');
 		return Booking::where('bookingend', '=' , $time );

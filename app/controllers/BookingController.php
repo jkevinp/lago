@@ -7,6 +7,7 @@ use Sunrock\Interfaces\MailsRepository as MailsRepo;
 use Sunrock\Interfaces\ProductRepository as ProductRepo;
 use Sunrock\Interfaces\TransactionRepository as trepo;
 use Sunrock\Interfaces\SaleRepository as srepo;
+
 class BookingController extends BaseController  {
 	public function __construct(srepo $s,trepo $t ,ProductRepo $product,MailsRepo $mails, AccountsRepo $account , BookingRepo $booking , BookingDetailsRepo $bookingdetails)
 	{
@@ -80,6 +81,16 @@ class BookingController extends BaseController  {
 		$price += $price * AppConfig::getTax();
 		return  number_format($price, 2, '.', '');
 	}
+
+	public function getAvailableRooms(){
+		$input = Input::all();
+		$d = Carbon::today('Asia/Manila');
+		$date_info = ['datetime_start' => $d, 'datetime_end' => $d];
+		$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
+		$rooms->totalCount = $rooms->count();
+		return View::make('admin.booking.booking-available')->withProducts($rooms);
+	}
+
 	public function index(){
 
 		$input = Input::all();
@@ -109,10 +120,14 @@ class BookingController extends BaseController  {
 			return Redirect::intended('/#booknow')->withErrors('Please Specify the required informations.');
 		}
 	}
+
+
+
 	public function SetInfo(){
 			Session::flush();
 			$input = Input::all();
-			$rules = ['start' => 'required',
+			$rules = [
+						'start' => 'required',
 						'end' => 'required',
 						'email' => 'required|email',
 						'timeofday' => 'required',
@@ -121,14 +136,21 @@ class BookingController extends BaseController  {
 						'adult' => 'required|integer|between:0,1000',
 						'modeofstay' => 'required'
 					];
+
+					if(empty($input['adult']))$input['adult']=0;
 	    	$validator =Validator::make($input, $rules);
+	    	
+	    	if($input['children'] + $input['adult'] <= 2)return Redirect::back()->withErrors("Minimun of 3 guest per reservation.");
+	    	
 	    	if($validator->fails())
-				return Redirect::back()->withErrors($validator->messages())->withInput($input);
+				return Redirect::back()
+					->withErrors("Please fill all fields.")
+					->withInput($input);
 			else 
 			{
 				//set the date on session
-				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::intended('/#booknow')->withErrors('Please select the schedule of reservation')->withInput($input);
-				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::intended('/#booknow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
+				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::route('static.reservenow')->withErrors('Please select the schedule of reservation')->withInput($input);
+				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::route('static.reservenow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
 				SessionController::BookingSession('setinfo' , $input);
 				Session::put('totalFee' ,$this->computeFee(Session::get('items')));
 				if(isset($input['route'] ))return  Redirect::route($input['route']);
@@ -456,7 +478,19 @@ class BookingController extends BaseController  {
 	//	$booking->time = ''.explode(':', $i['timeofday'])[0].'';
 		$booking->save();
 
-		return Redirect::to(route('account.show', ['action' =>'reservation' , 'param' =>2]))->withErrors('Reservation has been rebooked.');
+		$mailsController =  App::make('MailsController');
+    	$mailsController->mail->create(
+                    [
+                      'sendername' => 'System',
+                      'senderemail' => SiteContents::where('title' ,'email')->first()->value,
+                      'receiveremail' => SiteContents::where('title' ,'email')->first()->value,
+                      'receivername' => 'System',
+                      'subject' => 'Rebook Notification',
+                      'message' => 'A reservation was re-booked.<br/> Booking id: '.$booking->bookingid.'<br/>Re-booked by: '.$booking->account->fullname(),
+                      'status' => 5
+                    ]
+                  );
+		return Redirect::to(route('account.show', ['action' =>'reservation' , 'param' =>2]))->with('flash_message','Reservation has been rebooked.');
 		
 		
 	}

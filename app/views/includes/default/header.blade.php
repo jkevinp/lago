@@ -125,7 +125,7 @@
                         Arrival : {{Session::get('date_info')['start']}} <br/>
                         Departure: {{Session::get('date_info')['end']}} <br/>
                         @if (Session::get('totalFee'))
-                          Total Fee: {{Session::get('totalFee')}}<br/>
+                          Total Fee: {{number_format(Session::get('totalFee'),2)}}<br/>
                         @endif
                     @endif
 

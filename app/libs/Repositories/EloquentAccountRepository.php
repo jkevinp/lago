@@ -99,8 +99,10 @@ class EloquentAccountRepository implements AccountRepository
 	}
 	public function changeStatus($account)
 	{
-		if($account->active === 0)$account->active=1;
-		else $account->active = 0;
+		if($account->active== 0 || $account->active== 2)
+			$account->active= 1;
+		else 
+			$account->active = 0;
 		$account->save();
 	}
 	public function Lock($account){
@@ -108,12 +110,12 @@ class EloquentAccountRepository implements AccountRepository
 		$account->active = 2;
 		$account->save();
 	}
-	public function updatePassword($account,$oldPassword ,$newPassword)
+	public function updatePassword($account,$oldPassword ,$newPassword , $active = 1)
 	{
 		if($account->password == $oldPassword)
 		{
 			$account->password = Hash::make($newPassword);
-			$account->active =1;
+			$account->active = $active;
 			$account->save();
 			return $account;
 		}

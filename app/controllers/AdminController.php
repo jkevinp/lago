@@ -47,6 +47,7 @@ class AdminController extends \BaseController
 			}
 		}
 	}
+	
 	public function logout(){
 		Auth::logout();
 		SessionController::flash('Successfully Logged out! Come again!');
@@ -373,14 +374,19 @@ class AdminController extends \BaseController
 						'adult' => 'required|integer|between:0,1000',
 						'modeofstay' => 'required'
 					];
+			if(empty($input['adult']))$input['adult']=0;
+
 	    	$validator =Validator::make($input, $rules);
+
+	    	if($input['children'] + $input['adult'] <= 2)return Redirect::back()->withErrors("Minimun of 3 guest per reservation.");
+	    	
 	    	if($validator->fails())
-				return Redirect::back()->withErrors($validator->messages())->withInput($input);
+				return Redirect::back()->withErrors("Please fill all fields")->withInput($input);
 			else 
 			{
 				//set the date on session
-				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::intended('/#booknow')->withErrors('Please select the schedule of reservation')->withInput($input);
-				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::intended('/#booknow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
+				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::route('static.reservenow')->withErrors('Please select the schedule of reservation')->withInput($input);
+				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::route('static.reservenow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
 				SessionController::BookingSession('setinfo' , $input);
 			
 				Session::put('totalFee' ,$this->computeFee(Session::get('items')));

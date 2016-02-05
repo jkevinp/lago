@@ -292,14 +292,29 @@
 @stop
 
 @section('script')
+
     <script type="text/javascript">
+    function formatNumber(number)
+{
+    number = number.toFixed(2) + '';
+    x = number.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+
     $(document).ready(function(){
         $('#select-mode').on('change' , function(e){
             if($(this).val() == "full"){
-                $('.deposit_amount').html($('.deposit_amount').data('fullamount'));
+                var full = parseFloat($('.deposit_amount').data('fullamount'));
+                $('.deposit_amount').html(formatNumber(full));
             }else{
                 var half = parseFloat($('.deposit_amount').data('fullamount')) /2;
-                $('.deposit_amount').html(half.toFixed(2));
+                $('.deposit_amount').html(formatNumber(half));
             }
             //;
         });

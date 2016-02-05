@@ -8,7 +8,7 @@ interface AccountRepository
 	public function paginate();
 	public function create($input ,$userGroup, $active);
 	public function changeStatus($account);
-	public function updatePassword($account,$oldPassword ,$newPassword);
+	public function updatePassword($account,$oldPassword ,$newPassword, $active= 1);
 	public function findByEmail($email);
 	public function findByEmailCode($email ,$code);
 	public function findByCode( $code);

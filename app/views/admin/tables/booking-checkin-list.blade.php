@@ -15,7 +15,8 @@
                                             <tr>
                                              <th><i class="fa fa-bookmark"></i> Full name</th>
                                               <th><i class="fa fa-bullhorn"></i> Booking ID</th>
-                                              <th class="hidden-phone"><i class="fa fa-question-circle"></i> Account ID</th>
+                                              <th><i class="fa fa-bullhorn"></i> Payment Type</th>
+                                              <th><i class="fa fa-bullhorn"></i> Balance</th>
                                               <th><i class="fa fa-bookmark"></i> Date start</th>
                                               <th><i class="fa fa-bookmark"></i> Date end</th>
                                               <th><i class=" fa fa-edit"></i> Status</th>
@@ -30,8 +31,16 @@
                                             <td><a href="#">
                                               {{($booking['detail']->firstname)}} {{($booking['detail']->middleName)}} {{($booking['detail']->lastName)}}
                                             </a></td>
-                                              <td><a href="#">{{$booking['bookingid']}}</a></td>
-                                              <td class="hidden-phone">{{$booking['account_id']}}</td>
+                                              <td>{{$booking['bookingid']}}</td>
+                                              <td>{{$booking['paymenttype']}}</td>
+                                              <td>
+                                                @if($booking['paymenttype'] == "full")
+                                                  0.00
+                                                @else
+                                                  {{number_format($booking['fee'] /2,2)}}
+                                                @endif
+
+                                              </td>
                                               <td>{{$booking['bookingstart']}}</td>
                                               <td>{{$booking['bookingend']}}</td>
                                               <td><span class="label label-info label-mini">

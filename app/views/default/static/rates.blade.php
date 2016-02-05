@@ -17,29 +17,29 @@
 			<div class="col-md-6" style="padding:10px !important;">
 				<table width="100%" cellspacing= "5" border="0" class="content table table-hover" style="margin:5px !important;">
 			<tr>
-				<td style="text-align:center"><p>Entrance Fees:</p></td>
-				<td style="text-align:center"><p>Day:<br>8am-5pm</p></td>	
-				<td style="text-align:center"><p>Night:<br>7pm-4am</p></td>
-				<td style="text-align:center"width="30%"><p>Overnight:<br>8am-4am/7pm-5pm</p></td>
+				<td style="text-align:"><p>Entrance Fees:</p></td>
+				<td style="text-align:"><p>Day:<br>8am-5pm</p></td>	
+				<td style="text-align:"><p>Night:<br>7pm-4am</p></td>
+				<td style="text-align:"width="30%"><p>Overnight:<br>8am-4am/7pm-5pm</p></td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><p>Adults<br>*20% discount on senior citizens</p></td>
-				<td style="text-align:center"><p>Php 100.00</p></td>
-				<td style="text-align:center"><p>Php 150.00</p></td>
-				<td style="text-align:center"><p>Php 200.00</p></td>
+				<td style="text-align:"><p>Adults<br>*20% discount on senior citizens</p></td>
+				<td style="text-align:"><p>Php 100.00</p></td>
+				<td style="text-align:"><p>Php 150.00</p></td>
+				<td style="text-align:"><p>Php 200.00</p></td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><p>Children<br>*2 feet below are free</p></td>
-				<td style="text-align:center"><p>Php 100.00</p></td>
-				<td style="text-align:center"><p>Php 150.00</p></td>
-				<td style="text-align:center"><p>Php 200.00</p></td>
+				<td style="text-align:"><p>Children<br>*2 feet below are free</p></td>
+				<td style="text-align:"><p>Php 100.00</p></td>
+				<td style="text-align:"><p>Php 150.00</p></td>
+				<td style="text-align:"><p>Php 200.00</p></td>
 			</tr>
 		</table>
 		<table width="100%" class="table table-hover content" cellspacing= "5" border="0"  style="margin:5px !important;">
 			<tr>
 				<td><b>&nbsp&nbsp TYPE:</b></td>
 			<tr>
-				<td style="text-align:center"><b>Cottage</b></td>
+				<td style="text-align:"><b>Cottage</b></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -67,7 +67,7 @@
 				<td>Php 1,200.00</td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><b>Nipa Hut</b></td>
+				<td style="text-align:"><b>Nipa Hut</b></td>
 			</tr>
 			<tr>
 				<td>Santan</td>
@@ -100,7 +100,7 @@
 				<td>Php 1,800.00</td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><b>Main Bldg Rooms</b></td>
+				<td style="text-align:"><b>Main Bldg Rooms</b></td>
 			</tr>
 			<tr>
 				<td>Main Bldg, Family Main Room 1</td>
@@ -121,7 +121,7 @@
 				<td>Php 2,500.00</td>
 			</tr>
 			<tr>
-				<td style="text-align:center"><b>Annex Bldg Rooms</b></td>
+				<td style="text-align:"><b>Annex Bldg Rooms</b></td>
 			</tr>
 			<tr>
 				<td>Annex Bldg, Family Annex Room 1-2</td>

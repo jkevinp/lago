@@ -7,11 +7,9 @@ Thank you for booking with us.<br/>
 Please follow the instructions carefully to confirm your reservation.<br/>
 <br/>Your Booking id is {{$bookingid}}.
 <br/>{{HTML::link(URL::to('account/manualauth').'/'.$authid.'/'.$confirmation_code,'Pay Now!')}}
-<br/>To confirm your reservation, you have to pay <u>P
-	@if($paymenttype == 'half')
-		{{number_format($fee * 0.5 ,2)}}
-	@elseif($paymenttype =='full')
-		{{number_format($fee,2)}}
+<br/>To confirm your reservation, you have to pay <u>₱
+	@if($paymenttype == 'half'){{number_format($fee * 0.5 ,2)}}
+	@elseif($paymenttype =='full'){{number_format($fee,2)}}
 	@endif
 </u> through bank deposit.
 <br/><br/> To pay via bank, deposit the required bill to any of the following banks nationwide.
@@ -25,6 +23,9 @@ Account branch: BPI tanay<br/>
 <b>Please indicate at the comment box what bank you deposit/payed the bill.</b>
 <br/>
 <br/><hr>
-<b>Once, we've received/confirmed your payment. The reservation will be confirmed and activated.</b>
-<br/>You can pay the remaining fee once you've arrived in our resort.
+<h3>INSTRUCTIONS:</h3><br/>
+1.	After paying, kindly login to your account at the website (<a href="http://www.doneresort.com/account/login">Login</a>).<br/>
+2.	Click the “Pay” button and then fill-up the form provided for “Reference Number / Deposit Code” <br/>
+3.	Lastly, click the “Confirmation” button.<br/>
+
 @stop

@@ -18,7 +18,7 @@
 </head>
 <body>
 		<center>
-		<img src="media/photos/logo.jpg" style="width:400px;height:100px;" />
+		<img src="media/photos/logo-invoice.jpg" style="width:400px;height:100px;" />
 
 		</center>
 		<p align="right">

@@ -43,13 +43,17 @@
                                   <td>{{$account['usergroupid']}}</td>
                                   <td>
                                     @if($account['active'] == 1)
-                                    <label class="label label-mini label-success">
-                                      Activated
-                                    </label>
+                                      <label class="label label-mini label-success">
+                                        Activated
+                                      </label>
+                                    @elseif($account['active'] == 2)
+                                      <label class="label label-mini label-warning">
+                                        Locked
+                                      </label>
                                     @else 
                                       <label class="label label-mini label-danger">
                                        Inactive
-                                    </label>
+                                      </label>
                                     @endif
                                     
                                   </td>
@@ -60,9 +64,8 @@
                                     
                                       @if($account['active'] == 0)
                                         <a href="{{URL::action('account.manualactivation' ,['email' => $account['email'] , 'code' => $account['confirmationcode']])}}" class="btn btn-success btn-xs"><i class="fa fa-check"></i>Activate</a>
-                                      @else 
+                                      @elseif($account['active'] == 1)
                                         <a href="{{URL::action('account.manualactivation' ,['email' => $account['email'] , 'code' => $account['confirmationcode']])}}" class="btn btn-warning btn-xs"><i class="fa fa-check"></i>Deactivate</a>
-                                   
                                       @endif
                                   </td>
                               </tr>

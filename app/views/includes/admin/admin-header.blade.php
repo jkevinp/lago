@@ -21,6 +21,8 @@
                                     @endif
                             </span>
                         </a>
+
+
                         <ul class="dropdown-menu extended inbox" >
                           <div class="notify-arrow notify-arrow-green"></div>
                             <li>
@@ -61,6 +63,61 @@
                         </ul>
                     </li>
                     <!-- settings end -->
+
+
+<li id="header_inbox_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color:white">
+                            <i class="fa fa-book"></i>
+                            <span class="badge bg-theme">
+                              {{count(Booking::sgetStartingToday()->statusIsConfirmed()->get()) + count(Booking::sgetEndingToday()->statusIsOnSession()->get())}}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-green"></div>
+                            <li>
+                                <p class="green">Check-in/out Notification</p>
+                            </li>
+                          
+                         
+                                @foreach(Booking::sgetStartingToday()->statusIsConfirmed()->take(5)->get() as $mail)
+                                <li>
+                                  <a href="">
+                                      <span class="photo"><i class="fa fa-check"></i></span>
+                                      <span class="subject">Check-in Today
+                                      <span class="from"></span>
+                                      
+                                      </span>
+                                      <span class="message">
+                                          Booking ID: {{$mail->bookingid}}
+                                      </span>
+                                      <span class="time">{{$mail->account->fullname()}}</span>
+                                  </a>
+                                </li>
+                            @endforeach
+
+                            @foreach(Booking::sgetEndingToday()->statusIsOnSession()->take(5)->get() as $mail)
+                                <li>
+                                  <a href="">
+                                      <span class="photo"><i class="fa fa-remove"></i></span>
+                                      <span class="subject">
+                                      <span class="from">Check-out today</span>
+                                      </span>
+                                      <span class="message">
+                                          Booking ID: {{$mail->bookingid}}
+                                      </span>
+                                       <span class="time">{{$mail->account->fullname()}}</span>
+                                     
+                                  </a>
+                                </li>
+                            @endforeach
+                            
+                            <li>
+                                <a href="{{URL::action('cpanel.dashboard' , ['action' => 'message' , 'params' => 'all'])}}">See All</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="color:white">
@@ -148,7 +205,7 @@
                         Arrival : {{Session::get('date_info')['start']}} <br/>
                         Departure: {{Session::get('date_info')['end']}} <br/>
                         @if (Session::get('totalFee'))
-                          Total Fee: {{Session::get('totalFee')}}<br/>
+                          Total Fee: {{number_format(Session::get('totalFee'),2)}}<br/>
                         @endif
                     @endif
 

@@ -23,7 +23,7 @@
     var msg= "";
     var makeFullyPaid = false;
     if(paymenttype == "half" && status == 'confirmed') {
-      msg = "Outstanding balance found! <br/> PHP: " + balance + "<br/> Please ask the customer to pay the balance before proceeding. <br/> Pressing 'OK' will mark the transaction as fully payed. ";
+      msg = "Outstanding balance found! <br/> PHP: " + balance + "<br/> Please ask the customer to pay the balance before proceeding. <br/> Pressing 'OK' will mark the transaction as fully paid. ";
       makeFullyPaid = $(this).attr('data-id');
     }
        bootbox.confirm("Check in this reservation? " + msg  , function(result) 

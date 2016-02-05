@@ -22,7 +22,9 @@
                                   <th class="hidden-phone"><i class="fa fa-question-circle"></i> Name</th>
                                   <th><i class="fa fa-bookmark"></i> Total Bill</th>
                                   <th><i class="fa fa-bookmark"></i> Discounted Bill</th>
+                                  
                                   <th><i class="fa fa-bookmark"></i> Downpayment</th>
+                                  <th><i class="fa fa-bookmark"></i> Balance</th>
                                   <th><i class="fa fa-bookmark"> </i> Deposit/transaction Code</th>
                                   <th><i class=" fa fa-edit"></i> Status</th>
                                   <th><i class=" fa fa-edit"></i> Actions</th>
@@ -37,14 +39,28 @@
                               	  	@if($transaction['couponcode'])
                               	  		<i class="fa fa-check"></i>{{$transaction['couponcode']}}
                               	  	@else
-                              	  		<i clas="fa fa-remove"></i>
+                              	  		<i clas="fa fa-remove"></i>N/A
                               	  	@endif
                               	  </td>
                                   <td>{{$transaction['bookingid']}}</a></td>
                                   <td class="hidden-phone">{{$transaction->account->fullname()}}</td>
-                                  <td>{{$transaction['totalbill']}}</td>
-                                  <td>{{$transaction['discountedbill']}}</td>
-                                  <td>{{$transaction['downpayment']}}</td>
+                                  <td>{{number_format($transaction['totalbill'],2)}}</td>
+                                  <td>
+                                    @if($transaction['discountedbill'])
+                                    {{number_format($transaction['discountedbill'],2)}}
+                                    @else
+                                      0.00
+                                    @endif
+
+                                  </td>
+                                  <td>{{number_format($transaction['downpayment'],2)}}</td>
+                                  <td>
+                                    @if($transaction['paymenttype'] == "full")
+                                      0.00
+                                    @else
+                                      {{number_format(($transaction['downpayment'] /2),2)}}
+                                    @endif
+                                  </td>
                                   <td>{{$transaction['codeprovided']}}</td>
                                   <td><span class="label label-info label-mini">{{$transaction['status']}}</span></td>
                                   <td>

@@ -87,9 +87,9 @@ class AccountController extends \BaseController
 		else
 		{	
 			$account = $this->account->findByEmailCode(Input::get('email') , Input::get('code'))->first();
-			$account = $this->account->updatePassword($account, $account->password, Input::get('password'));
 			if($account){
 				$this->account->changeStatus($account);
+				$account = $this->account->updatePassword($account, $account->password, Input::get('password'));
 				SessionController::flash('The account has been activated.');
 				return Redirect::to('/');
 			}
@@ -101,9 +101,12 @@ class AccountController extends \BaseController
 	}
 	public function manualactivation($email, $code){
 			$account = $this->account->findByEmailCode($email ,$code)->first();
-			$result = $this->account->updatePassword($account, $account->password, $account->lastName);
-			if($result){
-				$this->account->changeStatus($result);
+			if($account){
+				$account->password = Hash::make($account->lastName);
+				$account->save();
+				$account = $this->account->findByEmailCode($email ,$code)->first();
+			
+				$this->account->changeStatus($account);
 				SessionController::flash('Your account has been activated. <br/> Default password set to lastname: <u>'.$account->lastName .'</u>');
 				return Redirect::back();
 			}

@@ -12,6 +12,6 @@ class AppConfig extends \BaseController {
 		return 'Sunrock Resort';
 	}
 	public static function getTax(){
-		return 0.12;
+		return 0;
 	}
 }

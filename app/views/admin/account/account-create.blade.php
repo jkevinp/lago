@@ -27,19 +27,19 @@
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Firstname</label>
                               <div class="col-sm-10">
-                              		{{Form::text('Firstname' ,null,['class' => 'form-control'])}}
+                              		{{Form::text('Firstname' ,null,['class' => 'form-control text-only'])}}
                               </div>
                          </div>
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Middlename</label>
                               <div class="col-sm-10">
-                                  {{Form::text('Middlename' ,null,['class' => 'form-control'])}}
+                                  {{Form::text('Middlename' ,null,['class' => 'form-control text-only'])}}
                               </div>
                          </div>
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Lastname</label>
                               <div class="col-sm-10">
-                                  {{Form::text('Lastname' ,null,['class' => 'form-control'])}}
+                                  {{Form::text('Lastname' ,null,['class' => 'form-control text-only'])}}
                               </div>
                          </div>
                           <div class="form-group">
@@ -79,4 +79,22 @@
 
 
 
+@stop
+
+
+@section('script')
+<script type="text/javascript">
+function isLetter(myString){
+  console.log(myString);
+if (myString.match(/^[a-zA-Z\s]*$/)) { 
+    return true;
+  }
+  return false;
+}
+
+    $('.text-only').keypress(function(e){
+        var letter = String.fromCharCode(e.which);
+       if(!isLetter(letter))e.preventDefault();
+    });
+</script>
 @stop

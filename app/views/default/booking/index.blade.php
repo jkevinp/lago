@@ -73,7 +73,7 @@
                                         <p class="text-success text-center">Booking Information</p>
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon" id="sizing-addon1">Quantity</span>
-                                                {{Form::number('quantity', 1 ,array( 'min' =>'1' , 'max' => ($room['productquantity'] - $room->reservedqty) ,'class' => 'form-control', 'style' => 'height:50px' , 'placeholder' => 'Quantity?'))}}
+                                                {{Form::number('quantity', 1 ,array( 'min' =>'1' , 'max' => ($room['productquantity'] - $room->reservedqty) ,'class' => 'form-control', 'style' => 'height:50px' , 'placeholder' => 'Quantity?', 'readonly' => 'true'))}}
                                                 </div>
                                                 <br/>
                                                 <div class="btn-group btn-group-justified" role="group" aria-label="...">

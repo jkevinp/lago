@@ -1,5 +1,5 @@
 <?php
-
+ 
 $subscriber = new Sunrock\Events\BookingEventSubscriber;
 Event::subscribe($subscriber);
 //Event::subscribe(new Sunrock\Events\BookingDetailsEventSubscriber);
@@ -72,6 +72,8 @@ Route::group(['prefix' => 'account'], function(){
 
 Route::group(['prefix' => 'file'], function(){
     Route::post('/create' , [ 'uses' => 'FilesController@create' , 'as' => 'cpanel.file.create']);
+    Route::get('/list' , [ 'uses' => 'FilesController@index' , 'as' => 'cpanel.file.list']);
+    Route::get('/delete/{id}' , [ 'uses' => 'FilesController@delete' , 'as' => 'cpanel.file.delete']);
 });
 
 Route::post('account/register', 'UsersController@store');
@@ -134,6 +136,9 @@ Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
     Route::post('edit/product/' ,['uses' => 'ProductsController@edit' , 'as' => 'cpanel.product.edit']);
     //delete
     //gets
+    Route::get('availablerooms' , ['uses' => 'BookingController@getAvailableRooms' , 'as' => 'cpanel.booking.availablerooms']);
+   
+
     Route::get('transaction/edit/{id}/{status}/{bookingid}' , ['uses' => 'TransactionsController@verifytransaction' , 'as' => 'cpanel.transaction.confirm']);
     Route::get('transaction/reject/{id}/{status}/{bookingid}/{notes?}' , ['uses' => 'TransactionsController@reject' , 'as' => 'cpanel.transaction.reject']);
   

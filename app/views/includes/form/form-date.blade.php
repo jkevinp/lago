@@ -51,6 +51,7 @@
 	               <span class="help-block">Select the starting and ending date will be automatically generated for your reservation. Click "Find Available Rooms" to proceed to the next step.</span>
 	                Children 2 feet and below are free. Don't add it to the Number of Children/Adults<br/>
                   Senior Citizen must present their Senior citizen ID<br/>
+                  Minimum of 3 Guest per reservation.
                  
              </div>
       <button type="submit" class="btn btn-success" id="btn_submit_date">Find Available Rooms</button>

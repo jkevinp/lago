@@ -10,7 +10,7 @@
                     {{Form::open(['class' => 'form-horizontal style-form' ,'route' => 'report.generate' , 'method' => 'post'])}}
                     <label>Model:</label>
 					{{Form::select('model' , [
-												'account' => 'Account',
+												
 												'sale' => 'Sales',
 												'booking' => 'Reservations',
 
@@ -49,7 +49,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<!-- <tr>
 							<td>Accounts</td>
 							<td><a href="{{URL::action('pdf.stream' , ['action' => 'account' ,'param' => 'all'])}}" class="btn btn-primary btn-xs">
 							  	<i class="fa fa-info-circle"></i> View
@@ -59,7 +59,7 @@
 							  	<i class="fa fa-download"></i> Download
 							  </a>
 							</td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>Sales</td>
 							<td><a href="{{URL::action('pdf.stream' , ['action' => 'sales' ,'param' => 'all'])}}" class="btn btn-primary btn-xs">

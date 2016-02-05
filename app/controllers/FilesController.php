@@ -40,6 +40,29 @@ class FilesController extends \BaseController {
 
 		}	
 	}
+	public function index(){
+		$files = Files::all();
+		return View::make('admin.file.file-list')->with(compact('files'));
+	}
+	public function delete($id){
+		$file = Files::find($id);
+		if($file){
+			if($file->delete())
+			{
+				$products = Product::where('fileid' , $id)->get();
+				foreach ($products as $p) {
+					$p->fileid = 1;
+					$p->save();
+				}
+				SessionController::flash('The image has been deleted. All products using the file was reset to default.');
+				return Redirect::back();
+			}else{
+				return Redirect::Back()->withErrors("Something Went Wrong.");
+			}
+		}else{
+			return Redirect::Back()->withErrors("Could not find file.");
+		}
 
+	}
 
 }

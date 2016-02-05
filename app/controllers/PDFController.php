@@ -109,8 +109,10 @@ class PDFController extends \BaseController
 			});
 
 			if($sale){
-
+				$transactionid = $sale->first()->transactionid;
+				$transaction = Transactions::find($sale->first()->transactionid);
 				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
+				
 				$param['sales'] = $sale;
 				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
 				return $pdf->stream();

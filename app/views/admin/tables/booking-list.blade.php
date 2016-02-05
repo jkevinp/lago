@@ -1,7 +1,7 @@
                         <div class="row mt content-panel">
                               <div class="col-md-12">
                                       <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i> Check In
+                                        <h4><i class="fa fa-angle-right"></i> All Reservations
                                           <span class="badge">
                                             @if(count($bookings) == 0)
                                               No records found
@@ -13,11 +13,12 @@
                                         <hr>
                                           <thead>
                                             <tr>
-                                             
                                               <th><i class="fa fa-bullhorn"></i> Booking ID</th>
-                                              <th class="hidden-phone"><i class="fa fa-question-circle"></i> Account ID</th>
+                                              <th class="hidden-phone"><i class="fa fa-question-circle"></i> Full Name</th>
                                               <th><i class="fa fa-bookmark"></i> Date start</th>
                                               <th><i class="fa fa-bookmark"></i> Date end</th>
+                                              <th><i class="fa fa-bookmark"></i> Check-in Time</th>
+                                              <th><i class="fa fa-bookmark"></i> Check-out Time</th>
                                               <th><i class=" fa fa-edit"></i> Status</th>
                                               <th><i class="fa fa-book"></i>Remarks</th>
                                               <th><i class=" fa fa-edit"></i> Actions</th>
@@ -28,9 +29,22 @@
                                           <tbody>
                                           <tr>
                                               <td><a href="#">{{$booking['bookingid']}}</a></td>
-                                              <td class="hidden-phone">{{$booking['account_id']}}</td>
+                                              <td class="hidden-phone">{{$booking->account->fullname()}}</td>
                                               <td>{{$booking['bookingstart']}}</td>
                                               <td>{{$booking['bookingend']}}</td>
+                                              <td>
+                                                @if($booking['active'] >= 3)
+                                                {{$booking['time_checkin']}}
+                                                @else
+                                                N/A
+                                                @endif
+
+                                              </td>
+                                              <td>@if($booking['active'] >= 4)
+                                                {{$booking['time_checkout']}}
+                                                @else
+                                                N/A
+                                                @endif</td>
                                               <td><span class="label label-info label-mini">
                                                  @if($booking['active'] == 0)
                                                     Awaiting Payment

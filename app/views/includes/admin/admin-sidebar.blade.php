@@ -38,6 +38,8 @@
                       </a>
                       <ul class="sub">
                          <li> <a  href="{{URL::action('cpanel.show' ,array('action' => 'walkin' , 'param' => '1'))}}">Add new Reservation</a></li>
+                         <li> <a  href="{{URL::action('cpanel.booking.availablerooms')}}">View Available Rooms</a></li>
+                     
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -111,6 +113,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="{{URL::action('cpanel.create',['action' => 'file'])}}">Upload File</a></li>
+                          <li><a  href="{{URL::action('cpanel.file.list')}}">View Files</a></li>
                       </ul>
                   </li>
                    <li class="sub-menu">
