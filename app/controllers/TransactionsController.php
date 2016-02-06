@@ -71,6 +71,7 @@ class TransactionsController extends \BaseController
 		
 		});
 		$check = $this->transaction->changeStatus($transactionid, $status);
+		
 		if($check){
 				$this->booking->changeStatus($bookingid, 2);
 				$url = URL::action('pdf.invoice', ['cartid' => $id]);

@@ -139,6 +139,17 @@
     ?>
 	</table>
 	<br/>
+	<br/><br/><br/>
+	<table width="100%" border="0">
+		<tr>
+			<td style="font-size:12px;">Prepared By</td>
+			<td style="font-size:12px;text-align:right;">Approved  By</td>
+		</tr>
+		<tr>
+			<td style="font-size:12px;">___________________________</td>
+			<td style="font-size:12px;text-align:right;">___________________________</td>
+		</tr>
+	</table>
 	
 <?php foreach($groups as $b){ ?>
 <div style="page-break-before: always;"></div>
@@ -242,7 +253,17 @@
 	    	}
     ?>
 	</table>
-	
+	<br/><br/><br/>
+	<table width="100%" border="0">
+		<tr>
+			<td style="font-size:12px;">Prepared By</td>
+			<td style="font-size:12px;text-align:right;">Approved  By</td>
+		</tr>
+		<tr>
+			<td style="font-size:12px;">___________________________</td>
+			<td style="font-size:12px;text-align:right;">___________________________</td>
+		</tr>
+	</table>
 	<?php }?>
 
    

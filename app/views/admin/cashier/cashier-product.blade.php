@@ -86,9 +86,15 @@
                                         {{Form::hidden('producttotalqty', $room['productquantity'])}}
                                         {{Form::hidden('productdescription', $room['productdesc'])}}
                                         {{Form::hidden('producttype', $room->producttype['producttypename'])}}
-                                        {{Form::hidden('price', $room['productprice'])}}
+                                        @if(Carbon::now('Asia/Manila')->hour >= 19 && Carbon::now('Asia/Manila')->hour <= 24)
+                                            {{Form::hidden('price', $room['nightproductprice'])}}
+                                            <p>Price: PHP {{$room['nightproductprice']}}/unit</p>
+                                        @else
+                                            {{Form::hidden('price', $room['productprice'])}}
+                                            <p>Price: PHP {{$room['productprice']}}/unit</p>
+                                        @endif
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
-                                        <p>Price: PHP {{$room['productprice']}}/unit</p>
+                                        
                                         <p>{{$room['roomdesc']}}</p>
                                          <div class="input-group input-group-lg">
                                             <span class="input-group-addon" id="sizing-addon1">Quantity</span>

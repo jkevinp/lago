@@ -89,7 +89,7 @@ class BookingEventSubscriber
 
                       ], 
                       [
-                           'title' => 'Transactin Confirmed.[No-reply]' ,
+                           'title' => 'Transaction Confirmed.[No-reply]' ,
                            'email' =>  $account->email , 
                            'Lastname' =>  $account->lastName , 
                            'Firstname' =>$account->firstname,

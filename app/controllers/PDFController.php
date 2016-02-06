@@ -49,43 +49,64 @@ class PDFController extends \BaseController
 		  $pdf = null;
 		 switch($input['model']){
 		 	case 'sale':
-		 		$param['sales'] =  Sales::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
-		 		$param['sum'] = $param['sales']->get()->sum('totalprice');
-		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
-		 		if(count($param['sales'])){
+
+		 			if(!$this->sale->all()->first())die("Cannot generate report. No records found.");
+					
+					$param['saleshalf'] = Sales::whereExists(function($q){
+						$q->select(DB::raw(1))
+						->from('transactions')
+						->whereRaw('transactions.status = "confirmed" ');}
+					)
+					->where('type' , '=','reservation-half')
+					->whereBetween('sales.created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])])
+					;
+
+
+
+					$param['salesfull'] = Sales::whereExists(function($q){
+						$q->select(DB::raw(1))
+						->from('transactions')
+						->whereRaw('transactions.status <> "confirmed"');}
+					)
+					->whereBetween('sales.created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])])
+					;
+
+
+				if(count($param['saleshalf']) + count($param['salesfull']) == 0)die("No entries found.");
+
+		 		if(count($param['saleshalf'])){
 			 		if($input['sort'] == 'ascending'){
-			 			$param['sales'] = $param['sales']->CreatedAscending()->get()->toArray();
+			 			$param['saleshalf'] = $param['saleshalf']->CreatedAscending()->get();
 			 		}else{
-			 			$param['sales'] = $param['sales']->CreatedDescending()->get()->toArray();
+			 			$param['saleshalf'] = $param['saleshalf']->CreatedDescending()->get();
 			 		}
 		 		}
-		 		else die("No entries found.");
+		 		if(count($param['salesfull'])){
+			 		if($input['sort'] == 'ascending'){
+			 			$param['salesfull'] = $param['salesfull']->CreatedAscending()->get();
+			 		}else{
+			 			$param['salesfull'] = $param['salesfull']->CreatedDescending()->get();
+			 		}
+		 		}
+		 		 
 		 		
 		 		$pdf = PDF::loadView('pdf.sales.sales-list' , $param);
 		 	break;
-		 	case 'account':
-		 		$param['accounts'] =  Account::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
-		 		if(count($param['accounts']) == 0)die("No entries found.");
-		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
-		 		if($input['sort'] == 'ascending'){
-		 			$param['accounts'] = $param['accounts']->CreatedAscending()->get()->toArray();
-		 		}else{
-		 			$param['accounts'] = $param['accounts']->CreatedDescending()->get()->toArray();
-		 		}
-		 		
-		 		$pdf = PDF::loadView('pdf.account.account-list' , $param);
-		 	break;
 
 		 	case 'booking':
-		 		$param['booking'] =  Booking::join('account', function($j){
-			$j->on('booking.account_id', '=' , 'account.id');
-		})->whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
-		 		if(count($param['booking']) == 0)die("No entries found.");
-		 		$param['date'] = $input['datestart'].' ~ '.$input['dateend'];
+
+			
+				$param['booking'] = Booking::whereBetween('created_at' , [new Carbon($input['datestart']) , new Carbon($input['dateend'])]);
+				if(count($param['booking']) == 0)die("No entries found.");
+		 		
 		 		if($input['sort'] == 'ascending'){
-		 			$param['booking'] = $param['booking']->CreatedAscending()->get()->toArray();
+		 			$param['groups'] =  Booking::whereBetween('created_at' , [ new Carbon($input['datestart']) , new Carbon($input['dateend'])])->CreatedAscending()->get()->groupBy('active');
+
+					$param['booking'] = $param['booking']->CreatedAscending()->get();
 		 		}else{
-		 			$param['booking'] = $param['booking']->CreatedDescending()->get()->toArray();
+		 			$param['groups'] =  Booking::whereBetween('created_at' , [ new Carbon($input['datestart']) , new Carbon($input['dateend'])])->CreatedDescending()->get()->groupBy('active');
+
+		 			$param['booking'] = $param['booking']->CreatedDescending()->get();
 		 		}
 		 		$pdf = PDF::loadView('pdf.booking.booking-list' , $param);
 		 	break;
@@ -110,10 +131,9 @@ class PDFController extends \BaseController
 
 			if($sale){
 				$param['transactionid'] = $transactionid = $sale->first()->transactionid;
-
 				$transaction = Transactions::find($sale->first()->transactionid);
+				if(Transactions::find($sale->first()->transactionid)->account)
  				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
-				
 				$param['sales'] = $sale;
 				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
 				return $pdf->stream();
@@ -121,33 +141,29 @@ class PDFController extends \BaseController
 			else{
 				die('Could not find sales record');
 			}
-			
 		}
 	}
 	public function invoiceSlip($cartid)
 	{
-	// 	if(isset($cartid))
-	// 	{
-	// 		$sale = $this->sale->findByCartId($cartid)->get();
-	// 		$sale->each(function($s){
-	// 			$s->productname = $this->product->find($s->productid)->productname;
-	// 		});
+	if(isset($cartid)){
+			$sale = $this->sale->findByCartId($cartid)->get();
+			$sale->each(function($s){
+				$s->productname = $this->product->find($s->productid)->productname;
+			});
 
-	// 		if($sale)
-	// 		{
-
-	// $param['transactionid'] = $transactionid = $sale->first()->transactionid;
-	// 			$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
-	// 			$param['sales'] = $sale;
-	// 			$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
-	// 			return $pdf->output();
-	// 		}
-	// 		else{
-	// 			die('Could not find sales record');
-	// 		}
-			
-	// 	}
-		$this->invoice($cartid);
+			if($sale){
+				$param['transactionid'] = $transactionid = $sale->first()->transactionid;
+				$transaction = Transactions::find($sale->first()->transactionid);
+				if(Transactions::find($sale->first()->transactionid)->account)
+ 				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
+				$param['sales'] = $sale;
+				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
+				return $pdf->output();
+			}
+			else{
+				die('Could not find sales record');
+			}
+		}
 	}
 	public function streamPDF($action , $param)
 	{
@@ -160,10 +176,19 @@ class PDFController extends \BaseController
 				case 'sales':
 				if(!$this->sale->all()->first())die("Cannot generate report. No records found.");
 					
-					$data['sales'] = Sales::where('type' , '=','reservation-half')->get();
-					// die($data['sales']);
-					$data['sum'] = 0;
-					//$data['sum'] =$this->sale->all()->first()->CreatedDescending()->get()->sum('totalprice');
+					$data['saleshalf'] = Sales::whereExists(function($q){
+						$q->select(DB::raw(1))
+						->from('transactions')
+						->whereRaw('transactions.status = "confirmed" ');}
+					)->where('type' , '=','reservation-half')->get();
+
+
+					$data['salesfull'] = Sales::whereExists(function($q){
+						$q->select(DB::raw(1))
+						->from('transactions')
+						->whereRaw('transactions.status <>  "confirmed"');}
+					)->get();
+
 					$pdf = PDF::loadView('pdf.sales.sales-list' , $data);
 				break;
 
@@ -171,6 +196,7 @@ class PDFController extends \BaseController
 					if(!$this->booking->all()->first())die("Cannot generate report. No records found.");
 					$b =  $this->booking->all()->first()->CreatedDescending()->get();
 					$data['groups'] = Booking::all()->groupBy('active');
+
 			
 			 		$data['booking'] =$b;
 			 		$pdf = PDF::loadView('pdf.booking.booking-list' , $data);

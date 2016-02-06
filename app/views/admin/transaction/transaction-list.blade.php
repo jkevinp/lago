@@ -47,7 +47,13 @@
                               	  	@endif
                               	  </td>
                                   <td>{{$transaction['bookingid']}}</a></td>
-                                  <td class="hidden-phone">{{$transaction->account->fullname()}}</td>
+                                  <td class="hidden-phone">
+                                    @if($transaction->account)
+                                      {{$transaction->account->fullname()}}
+                                    @endif
+
+
+                                  </td>
                                   <td>{{number_format($transaction['totalbill'],2)}}</td>
                                   <td>
                                     @if($transaction['discountedbill'])
@@ -62,7 +68,7 @@
                                     @if($transaction['paymenttype'] == "full")
                                       0.00
                                     @else
-                                      <span style="color:red;">{{number_format(($transaction['downpayment'] /2),2)}}
+                                      <span style="color:red;">{{number_format(($transaction['downpayment']),2)}}
                                     </span>
                                     @endif
                                   </td>

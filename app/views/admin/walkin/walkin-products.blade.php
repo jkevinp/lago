@@ -51,11 +51,21 @@
                                         {{Form::hidden('producttotalqty', $room['productquantity'])}}
                                         {{Form::hidden('productdescription', $room['productdesc'])}}
                                         {{Form::hidden('producttype', $room->producttype['producttypename'])}}
-                                        {{Form::hidden('price', $room['productprice'])}}
+                                         @if(Session::get('date_info')['modeofstay'])
+                                            @if(Session::get('date_info')['modeofstay'] == "day")
+                                                <p>Price: PHP {{$room['productprice']}} / 9 hours</p>
+                                                {{Form::hidden('price', $room['productprice'])}}
+                                            @elseif(Session::get('date_info')['modeofstay'] == "night")
+                                                <p>Price: PHP {{$room['nightproductprice']}} / 9 hours</p>
+                                                {{Form::hidden('price', $room['nightproductprice'])}}
+                                            @else
+                                                <p>Price: PHP {{$room['overnightproductprice']}} / 20 hours</p>
+                                                {{Form::hidden('price', $room['overnightproductprice'])}}
+                                            @endif
+                                        @endif
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
                                          <p>Min Capacity: {{$room['paxmin']}}</p>
                                         <p>Max Capacity: {{$room['paxmax']}}</p>
-                                        <p>Price: PHP {{$room['productprice']}} / 12 hours</p>
                                         <p>{{$room['roomdesc']}}</p>
 
                                         <p class="text-success text-center">Booking Information</p>

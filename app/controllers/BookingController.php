@@ -212,8 +212,8 @@ class BookingController extends BaseController  {
 		{
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);
 				$this->bookingdetails->updateBookingReference(Session::getToken(), $input['bookingid']);
-					if(!isset($input['paymentmode']))Session::flush();
-				Event::fire('book.store' , array($input,$count));
+				if(!isset($input['paymentmode']))Session::flush();
+				if(!isset($input['paymentmode']))Event::fire('book.store' , array($input,$count));
 				Session::put('flash_message', 'Your reservation has been saved. Please check your email to continue');
 				
 				if(isset($input['paymentmode']))
@@ -222,8 +222,10 @@ class BookingController extends BaseController  {
 					$bb= $this->booking->find($input['bookingid'])->first();
 					$bb->active = 1;
 					$bb->save();
-
-					$result = $this->transaction->create($account, $b, $input['_token'], $input['paymentmode'] ,'Auto generated from walk-in.', 'N/A', null);
+ 
+					$result = $this->transaction->create($account, $b, $input['_token'], $input['paymentmode'] ,'Auto generated from walk-in.', 'cashier'.$this->sale->generateId(), null);
+					$result->bankname = "N/A";
+					$result->save();
 					//cpanel.transaction.confirm' ,array('id' => $transaction['id'] , 'status' => 'confirmed' ,'bookingid' => $transaction['bookingid']
 					return Redirect::route('cpanel.transaction.confirm' , [
 						'id' => $result->id , 

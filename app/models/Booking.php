@@ -38,10 +38,10 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
 	}
 	//Scopes
 	public function scopeCreatedAscending($query){
-        return $query->orderBy('created_at','ASC');
+        return $query->orderBy('booking.created_at','ASC');
     } 
     public function scopeCreatedDescending($query){
-        return $query->orderBy('created_at','DESC');
+        return $query->orderBy('booking.created_at','DESC');
     } 
     public function scopeStatusIsConfirmed($query){
         return $query->where('active' ,'=' ,2);

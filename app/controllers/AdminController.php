@@ -461,21 +461,54 @@ class AdminController extends \BaseController
 		}
 	}
 	public function checkout(){
+		//create new transaction for this
+		//CHECK THE CASHIER TRANSACTION :PARAM :BANKS
 		$id = $this->sale->generateId();
+
+		$t = new Transactions();
+		$t->account_id = "N/A";
+		$t->bookingid = "N/A";
+		$t->modeofpayment = "cashier";
+		$t->codeprovided = 'cashier'.$this->sale->generateId();
+		$t->bankname= "N/A";
+		$t->downpayment = 0;
+		$t->payeremail = "N/A";
+		$t->status= "fullypaid";
+		$t->notes = "Auto Generated from sales";
+		$t->totalbill = 0;
+		$t->paymenttype = "full";
+		$t->modeofpayment = "cashier";
+		$t->save();
+		$totalbill = 0;
+
+		
 		foreach (Session::get('items') as $item) {
 			$product = $this->product->find($item['productid']);
-			
-			$p = $product->productprice ;
-			$this->sale->create($id, $product->id, $item['quantity'], $p, Session::getToken(),'addons'
-								);
-			
+			//$this->sale->create($id, $product->id, $item['quantity'], $p, Session::getToken(),'addons');
+			$price  = $item['price'];
+			Sales::create([
+					'id' => $this->sale->generateId(),
+					'transactionid' => $t->id,
+					'productid' => $product->id,
+					'productquantity' => $item['quantity'],
+					'productprice' => $price,
+					'totalprice' => $price * $item['quantity'],
+					'type' => 'addons',
+					'bookingid' => 'N/A',
+					'cartid' => $id
+				]);
+			$totalbill += $price * $item['quantity'];
+
 		}	
-				$this->RemoveAllItems();
-				$url = URL::action('pdf.invoice', ['cartid' => $id]);
-				$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
-				$msg ='Sales Record saved.<hr>'.$url;
-				SessionController::flash($msg);
-				return Redirect::back();
+		$t->totalbill = $totalbill;
+		$t->save();
+
+		$this->RemoveAllItems();
+		$url = URL::action('pdf.invoice', ['cartid' => $id]);
+		$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
+		$msg ='Sales Record saved.<hr>'.$url;
+		SessionController::flash($msg);
+		return Redirect::back();
 
 	}
 	public function RemoveAllItems()

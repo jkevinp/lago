@@ -3,8 +3,6 @@ $localhost = 0;
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "D'One Resort");
 
-
-
 if($localhost){
 	define('DB_HOST', 'localhost'); 
 	define('DB_USER', 'root');

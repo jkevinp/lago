@@ -29,8 +29,10 @@
 <center style="font-size:20px;"><b><i>Invoice Slip</i></b></center>
 <center><h4>Invoice No: <?= str_pad($transactionid, 4, "0" , STR_PAD_LEFT) ?></h4></center>
 <center><?= Carbon::now(); ?></center>
-		
+	
+	<?php if(isset($account)){ ?>
 	<h4>Guest Name: <?= $account ?></h4><br/>
+	<?php } ?>
 	<table class="table table-bordered" width='100%'>
 		<thead>
 			<tr>
