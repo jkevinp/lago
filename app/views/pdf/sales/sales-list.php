@@ -7,37 +7,38 @@
      <style type="text/css">
      table, th, td 
      {
-    	border: 2px solid #AAA;
+    	
 		padding: 2px;
 		font-size: 75%;
-
 	}
 	</style>
 </head>
 <body>
-	<h2>Sales Report</h2>
+<center> <img src="media/photos/logo-invoice.jpg" style="width:400px;height:100px;" /> </center>
 		
-		<table border='0' width="100%">
-			<tr>
-				<td>Total Income: <?php echo $sum;?></td>
-				<td>Total vat: <?php echo number_format(($sum * 0.12),2);?></td>
-				<td>Total Income w/vat: <?php echo number_format($sum + ($sum * 0.12),2)?></td>
-			</tr>
-		</table>
+     
+<center style="font-size:12px;">
+<p>Maharlika Road, Brgy.</p>
+<p>San Salvador, Baras, Rizal</p>
+<p>0922 807 1360 | 0917 517 6510 | 0917 516 1226</p>
+
+</center>
+<center style="font-size:20px;"><b><i>Sales Report</i></b></center>
+<center><?= Carbon::now(); ?></center>
+	
+		
 	<hr>
-	<table class="table table-bordered" width='100%'>
+	<table class="" border='1' width='100%'>
 		<thead>
 			<tr> 
-				<th colspan="7">Sale Details [<?php if(isset($date))echo $date;?>]</th>
+				<th colspan="7">Sale Details</th>
 			</tr>
 			<tr>
-				<th>Sales ID</th>
-				<th>Sales Type</th>
-				<th>Product Id</th>
-				<th>Quantity</th>
-				<th>Price</th>
+				<th>Date</th>
+				<th>Guest Name</th>
+				<th>Product Name</th>
+				<th>Total Balance</th>
 				<th>Total Price</th>
-				<th>Date/Time</th>
 			</tr>
 		</thead>
 		<?php 
@@ -45,14 +46,13 @@
 			foreach ($sales as $sale ) 
 	    	{
 	    		echo '<tr>';
-	    		echo '<td>'.$sale['id'].'</td>';
+	    		echo '<td>'.$sale['created_at'].'</td>';
 	    		echo '<td>'.$sale['type'].'</td>';
 
-	    		echo '<td>'.$sale['productid'].'</td>';
+	    		echo '<td>'.$sale->product->productname.'</td>';
 	    		echo '<td>'.$sale['productquantity'].'</td>';
 	    		echo '<td>'.$sale['productprice'].'</td>';
 	    		echo '<td>'.$sale['totalprice'].'</td>';
-	    		echo '<td>'.$sale['created_at'].'</td>';
 	    		//created_at
 	    		/*echo '<td>'.$account['title'].'</td>';
 	    		echo '<td>'.$account['lastName'].', '.$account['firstname'].' '.$account['middleName'].'</td>';
@@ -68,9 +68,8 @@
 	<br/>
 	<table width="100%" border=0> 
 		<tr>
-			<td>Total Quantity:</td>
-			<td><?php echo count($sales);?>		
-			</td>
+			<td>Total INCOME: Php</td>
+			<td><?php echo number_format($sum,2);?>	</td>
 		</tr>
 	</table>
 	<hr>	

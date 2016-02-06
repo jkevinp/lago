@@ -15,7 +15,17 @@
 	</style>
 </head>
 <body>
-		<h2>Reservation Report</h2>
+<center> <img src="media/photos/logo-invoice.jpg" style="width:400px;height:100px;" /> </center>
+		
+
+		<center style="font-size:12px;">
+<p>Maharlika Road, Brgy.</p>
+<p>San Salvador, Baras, Rizal</p>
+<p>0922 807 1360 | 0917 517 6510 | 0917 516 1226</p>
+
+</center>
+<center style="font-size:20px;"><b><i>RESERVATION REPORT</i></b></center>
+<center><?= Carbon::now(); ?></center>
 		<?php
 		$s0 =0;
 		$s1 = 0;
@@ -50,7 +60,7 @@
 	    		}
 	    	}
 	    ?>
-		<table border='0' width="100%" style="">
+	<!-- 	<table border='0' width="100%" style="">
 				<tr><td>Awaiting Payment: <?php echo $s0;?></td></tr>
 				<tr><td>Awaiting Payment Confirmation: <?php echo $s1;?></td></tr>
 				<tr><td>Confirmed(Fully Paid/Downpayment Paid): <?php echo $s2;?></td></tr>
@@ -59,21 +69,19 @@
 				<tr><td>Expired: <?php echo $s5;?></td></tr>
 				<tr><td>Rejected/Cancelled: <?php echo $s6;?></td></tr>
 				<tr><td>Total: <?php echo count($booking);?></td></tr>
-		</table>
-	<hr>
+		</table> -->
+	<br>
 	<table class="table table-bordered" width='100%'>
 		<thead>
-			<tr> 
-				<th colspan="7">Reservation Details [<?php if(isset($date))echo $date;?>]</th>
-			</tr>
+		
 			<tr>
-				<th>Booking ID</th>
-				<th>Booking Reference Id</th>
-				<th>Name</th>
 				<th>Start Date</th>
 				<th>End Date</th>
+				<th>Guest Name</th>
+				<th>Email Address</th>
+				<th>Contact Number</th>
+				<th>Reference Number</th>
 				<th>Status</th>
-				<th>Date/Time</th>
 			</tr>
 		</thead>
 		<?php 
@@ -81,11 +89,17 @@
 			foreach ($booking as $book ) 
 	    	{
 	    		echo '<tr>';
-	    		echo '<td>'.$book['bookingid'].'</td>';
-	    		echo '<td>'.$book['bookingreferenceid'].'</td>';
-	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
 	    		echo '<td>'.$book['bookingstart'].'</td>';
 	    		echo '<td>'.$book['bookingend'].'</td>';
+	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
+	    		echo '<td>'.$book->account()->first()['email'].'</td>';
+	    		echo '<td>'.$book->account()->first()['contactnumber'].'</td>';
+	    		if($book->transaction){
+	    			echo '<td>'.$book->transaction->codeprovided.'</td>';
+	    		}else{
+	    			echo "<td>N/A</td>";
+	    		}
+
 	    		echo '<td>';
 	    		switch ($book['active']) {
 	    			case 0:
@@ -111,7 +125,7 @@
 	    			break;
 	    		}
 	    		echo '</td>';
-	    		echo '<td>'.$book['created_at'].'</td>';
+	    	
 	    		//created_at
 	    		/*echo '<td>'.$account['title'].'</td>';
 	    		echo '<td>'.$account['lastName'].', '.$account['firstname'].' '.$account['middleName'].'</td>';
@@ -125,22 +139,19 @@
     ?>
 	</table>
 	<br/>
-	<table width="100%" border=0> 
-		<tr>
-			<td>Total Quantity:</td>
-			<td><?php echo count($booking);?>		
-			</td>
-		</tr>
-	</table>
-	<hr>	
-
+	
 <?php foreach($groups as $b){ ?>
 <div style="page-break-before: always;"></div>
-	<table class="table table-bordered" width='100%'>
-		<thead>
-			<tr> 
+<center> <img src="media/photos/logo-invoice.jpg" style="width:400px;height:100px;" /> </center>
+		
 
-				<th colspan="7">Reservation Details [<?php if(isset($b[0]))switch ($b[0]['active']) {
+		<center style="font-size:12px;">
+<p>Maharlika Road, Brgy.</p>
+<p>San Salvador, Baras, Rizal</p>
+<p>0922 807 1360 | 0917 517 6510 | 0917 516 1226</p>
+
+</center>
+<center style="font-size:20px;"><b><i>RESERVATION REPORT (<?php if(isset($b[0]))switch ($b[0]['active']) {
 	    			case 0:
 	    				echo 'Awaiting Payment';
 	    				break;
@@ -162,16 +173,20 @@
 	    			case 6:
 	    				echo 'Rejected';
 	    			break;
-	    		}?>]</th>
-			</tr>
+	    		}?>)</i></b></center>
+<center><?= Carbon::now(); ?></center>
+
+<br/>
+	<table class="table table-bordered" width='100%'>
+		<thead>
 			<tr>
-				<th>Booking ID</th>
-				<th>Booking Reference Id</th>
-				<th>Name</th>
 				<th>Start Date</th>
 				<th>End Date</th>
+				<th>Guest Name</th>
+				<th>Email Address</th>
+				<th>Contact Number</th>
+				<th>Reference Number</th>
 				<th>Status</th>
-				<th>Date/Time</th>
 			</tr>
 		</thead>
 		<?php 
@@ -179,11 +194,17 @@
 			foreach ($b as $book ) 
 	    	{
 	    		echo '<tr>';
-	    		echo '<td>'.$book['bookingid'].'</td>';
-	    		echo '<td>'.$book['bookingreferenceid'].'</td>';
-	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
 	    		echo '<td>'.$book['bookingstart'].'</td>';
 	    		echo '<td>'.$book['bookingend'].'</td>';
+	    		echo '<td>'.$book->account()->first()['firstname']." ".$book->account()->first()['lastName'].'</td>';
+	    		echo '<td>'.$book->account()->first()['email'].'</td>';
+	    		echo '<td>'.$book->account()->first()['contactnumber'].'</td>';
+	    		if($book->transaction){
+	    			echo '<td>'.$book->transaction->codeprovided.'</td>';
+	    		}else{
+	    			echo "<td>N/A</td>";
+	    		}
+
 	    		echo '<td>';
 	    		switch ($book['active']) {
 	    			case 0:
@@ -209,7 +230,7 @@
 	    			break;
 	    		}
 	    		echo '</td>';
-	    		echo '<td>'.$book['created_at'].'</td>';
+	    	
 	    		//created_at
 	    		/*echo '<td>'.$account['title'].'</td>';
 	    		echo '<td>'.$account['lastName'].', '.$account['firstname'].' '.$account['middleName'].'</td>';
@@ -218,33 +239,9 @@
 	    		echo '<td>'.$account['usergroupid'].'</td>';
 	    		echo '<td>'.$account['active'].'</td>';*/
 	    		echo "</tr>";
-	    		//$TotalQty += $book->quantity;
 	    	}
     ?>
 	</table>
-	Total <?php if(isset($b[0]))switch ($b[0]['active']) {
-	    			case 0:
-	    				echo 'Awaiting Payment';
-	    				break;
-	    			case 1:
-	    				echo 'Awaiting Payment Confirmation';
-	    			break;
-	    			case 2:
-	    				echo 'Payment Confirmed';
-	    			break;
-	    			case 3:
-	    				echo 'Checked-in';
-	    			break;
-	    			case 4:
-	    				echo 'Checked-out/Past';
-	    			break;
-	    			case 5:
-	    				echo 'Expired';
-	    			break;
-	    			case 6:
-	    				echo 'Rejected';
-	    			break;
-	    		}?> Reservations: <?= count($b) ?>
 	
 	<?php }?>
 

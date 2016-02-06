@@ -3,7 +3,7 @@
                   <div class="col-md-12">
                       
                           <table class="table table-striped table-advance table-hover">
-	                  	  	  <h4><i class="fa fa-angle-right"></i>Transactions
+	                  	  	  <h4><i class="fa fa-angle-right"></i>Transactions1
                               <span class="badge">
                                 @if(count($transactions) == 0)
                                   No records found

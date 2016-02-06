@@ -13,7 +13,10 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
 	protected $primaryKey = 'bookingid';
 	protected $table = 'booking';
 	public function account(){
-	     return $this->belongsTo('account' ,'account_id');
+	     return $this->belongsTo('Account' ,'account_id');
+	}
+	public function transaction(){
+	     return $this->hasOne('Transactions' , 'bookingid');
 	}
 	public function getReservationsByStatus($s){
 		return Booking::where(['active' => $s])->get();

@@ -17,6 +17,7 @@
 	                  	  	  <hr>
                               <thead>
                                 <tr>
+                                  <th>Transaction ID</th>
                                   <th>Discount</th>
                                   <th><i class="fa fa-bullhorn"></i> Booking ID</th>
                                   <th class="hidden-phone"><i class="fa fa-question-circle"></i> Name</th>
@@ -35,6 +36,9 @@
                               @foreach($transactions as $transaction)
                               <tbody>
                               <tr>
+                                  <tD style="color:green;">
+                                    {{str_pad($transaction->id,4,"0",STR_PAD_LEFT)}}
+                                  </tD>
                               	  <td>
                               	  	@if($transaction['couponcode'])
                               	  		<i class="fa fa-check"></i>{{$transaction['couponcode']}}
@@ -54,11 +58,12 @@
 
                                   </td>
                                   <td>{{number_format($transaction['downpayment'],2)}}</td>
-                                  <td>
+                                  <td >
                                     @if($transaction['paymenttype'] == "full")
                                       0.00
                                     @else
-                                      {{number_format(($transaction['downpayment'] /2),2)}}
+                                      <span style="color:red;">{{number_format(($transaction['downpayment'] /2),2)}}
+                                    </span>
                                     @endif
                                   </td>
                                   <td>{{$transaction['codeprovided']}}</td>
@@ -99,6 +104,7 @@
        bootbox.alert(notes, function() {
       }); 
   });  
+
    $('td').on('click', 'a.confirm', function(e) {
     var href = $(this).attr('data-href');
        bootbox.confirm("<h3>Changing reservation status</h3><hr/>Confirm reservation?", function(result) {
@@ -129,5 +135,6 @@
   {
        
   }
+
 </script>
 @stop

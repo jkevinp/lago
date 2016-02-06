@@ -81,7 +81,7 @@
                          
                                 @foreach(Booking::sgetStartingToday()->statusIsConfirmed()->take(5)->get() as $mail)
                                 <li>
-                                  <a href="">
+                                  <a href="{{URL::action('cpanel.show' ,array('action' => 'session' , 'param' => 'checkin'))}}">
                                       <span class="photo"><i class="fa fa-check"></i></span>
                                       <span class="subject">Check-in Today
                                       <span class="from"></span>
@@ -97,7 +97,7 @@
 
                             @foreach(Booking::sgetEndingToday()->statusIsOnSession()->take(5)->get() as $mail)
                                 <li>
-                                  <a href="">
+                                  <a href="{{URL::action('cpanel.show' ,array('action' => 'session' , 'param' => 'checkout'))}}">
                                       <span class="photo"><i class="fa fa-remove"></i></span>
                                       <span class="subject">
                                       <span class="from">Check-out today</span>

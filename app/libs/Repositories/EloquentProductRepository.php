@@ -56,6 +56,7 @@ class EloquentProductRepository implements ProductRepository
 		if($paxmin && !$paxmax){
 			$t = Product::whereNotExists(function($q) use ($date)
 			{
+
 				$q->select(DB::raw(1))
 						->from('booking_details')
 						->whereRaw('
@@ -87,6 +88,7 @@ class EloquentProductRepository implements ProductRepository
 			->paginate(6);
 		}
 		else{
+
 		$t = Product::whereNotExists(function($q) use ($date)
 		{
 				$q->select(DB::raw(1))
@@ -101,10 +103,31 @@ class EloquentProductRepository implements ProductRepository
 		->whereNotBetween('producttypeid', [3, 4])->paginate(6);
 			
 		}
+	
+
+		return $t;
+	}
+
+	public function getAvailableReservables($date){
+		$t = Product::whereNotExists(function($q) use ($date)
+		{
+					$q->select(DB::raw('*'))
+					->from('booking_details')
+					->whereRaw("
+						product.id = booking_details.productid AND 
+						booking_details.bookingstart <= '".$date['start']."' AND 
+						booking_details.bookingend >= '".$date['start']."' 
+						");
+		})
+		->where('active', '=' , '1')
+		->whereNotBetween('producttypeid', [3, 4])
+		->get();
 		
 
 		return $t;
 	}
+
+
 	/*join('sales' , function($j)
 					{
 							$j->on('booking_details.productid' , '=' , 'sales.productid');

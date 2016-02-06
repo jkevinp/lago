@@ -10,6 +10,7 @@ class Transactions extends Eloquent implements UserInterface, RemindableInterfac
 	use UserTrait, RemindableTrait;
 	protected $fillable = ['paymenttype', 'downpayment','totalbill', 'discountedbill','couponcode', 'id' , 'account_id' ,'bookingid' ,'modeofpayment' ,'codeprovided' ,'bankname' ,'payeremail', 'status','notes'];
 	protected $table = 'transactions';
+	public $incrementing = true;
 	public function account()
 	{
 		return $this->belongsTo('Account' , 'account_id');

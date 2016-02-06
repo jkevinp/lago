@@ -333,7 +333,8 @@ class AccountController extends \BaseController
 		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);	//If validation fails..
 		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
 		$input['confirmation_code'] = str_random(10).'k'.str_random(5).'e'.str_random(15);
-		if(isset($input['active']))$active = 1;
+	
+		if(isset($input['active']))$active = $input['active'];
 		else $active = 0;
 		$account = $this->account->create($input, $input['usergroup'],$active);
 		if($account)

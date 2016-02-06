@@ -51,37 +51,37 @@
                         <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Day Rate/Price</label>
                               <div class="col-sm-10">
-                                  {{Form::number('productprice' ,$product['productprice'],['class' => 'form-control'])}}
+                                  {{Form::number('productprice' ,$product['productprice'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Night Rate/Price</label>
                               <div class="col-sm-10">
-                                  {{Form::number('nightproductprice' ,$product['nightproductprice'],['class' => 'form-control'])}}
+                                  {{Form::number('nightproductprice' ,$product['nightproductprice'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Overnight Rate/Price</label>
                               <div class="col-sm-10">
-                                  {{Form::number('overnightproductprice' ,$product['overnightproductprice'],['class' => 'form-control'])}}
+                                  {{Form::number('overnightproductprice' ,$product['overnightproductprice'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Extension Rate/Price</label>
                               <div class="col-sm-10">
-                                  {{Form::number('extensionproductprice' ,$product['extensionproductprice'],['class' => 'form-control'])}}
+                                  {{Form::number('extensionproductprice' ,$product['extensionproductprice'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Minimum Capacity</label>
                               <div class="col-sm-10">
-                                  {{Form::number('paxmin' ,$product['paxmin'],['class' => 'form-control'])}}
+                                  {{Form::number('paxmin' ,$product['paxmin'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Max Capacity</label>
                               <div class="col-sm-10">
-                                  {{Form::number('paxmax' ,$product['paxmax'],['class' => 'form-control'])}}
+                                  {{Form::number('paxmax' ,$product['paxmax'],['class' => 'form-control', 'min'=>0])}}
                               </div>
                          </div>
                          <hr>

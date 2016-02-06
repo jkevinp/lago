@@ -204,10 +204,26 @@
                         <div class="alert alert-success">
                            Please review your reservation before proceeding.
                         </div>
-                        <div class="col-md-8 col-md-offset-2" >
-                            <div class='row'>
-                                <div class='col-md-4'> <h5>Please select mode of payment.</h5></div>
-                                <div class='col-md-4'>   {{
+                        <div class="col-md-10 col-md-offset-1" >
+
+                                @if((Session::get('admin-checkout')))
+                                <div class='row'>
+                                 <div class='col-md-6'> <h5>Please select type of payment.</h5></div>
+                                  <div class='col-md-6'>
+                                  {{Form::select('paymentmode', array('bank' => 'Bank','cashier' => 'Cashier'),'bank',array('class' => 'form-control' , 'id' => 'select-modeofpayment'));
+                                   
+                                }}
+                                 </div>
+                                  </div>
+                                @endif
+
+
+
+                        <div class='row'>
+                               
+                            
+                                <div class='col-md-6'> <h5>Please select mode of payment.</h5></div>
+                                <div class='col-md-6'>   {{
                                 Form::select('paymenttype', 
                                                 array('half' => '50% downpayment','full' => 'Full payment'),'half',array('class' => 'form-control' , 'id' => 'select-mode'));
                             }}
@@ -237,12 +253,12 @@
                                     <td>Sub-total:</td>
                                     <td align="right"><b>{{Helpers::ToNumber(Session::get('originalFee'))}}</b></td>
                             </tr>
-                            <tr> 
+                            <!-- <tr> 
                                     <td></td>
                                     <td></td>
                                     <td>Tax({{AppConfig::getTax() * 100;}}%): </td>
                                     <td align="right"><b>{{Helpers::ToNumber(Session::get('originalFee')  * (AppConfig::getTax()))}} </b></td>
-                            </tr>
+                            </tr> -->
                             <tr> 
                                     <td></td>
                                     <td></td>
@@ -356,6 +372,19 @@
         });
         $('#btn_next1').click(function(){
             $('#next').click();
+        });
+
+        $('#select-modeofpayment').on('change', function(e){
+            var _value=  $(this).val();
+            if(_value == "bank"){
+              $('#select-mode').html('<option value="half" selected="selected">50% downpayment</option><option value="full">Full payment</option>');
+
+            }else{
+                $('#select-mode').html('<option value="full">Full payment</option>');
+              
+            }
+            $('#select-mode').change();
+            console.log(_value);
         });
         
     });

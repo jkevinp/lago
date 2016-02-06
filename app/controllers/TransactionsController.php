@@ -39,7 +39,7 @@ class TransactionsController extends \BaseController
 	{
 		$id = $this->sale->generateId();
 		$bookingdetails = $this->bookingdetails->getByRefId($bookingid)->get();
-		$transaction = $this->transaction->find($transactionid)->first();
+		$transaction = Transactions::find($transactionid);
 		$account = $this->account->find($transaction->account_id);
 		$reservation = $this->booking->find($bookingid)->first();
 		switch($transaction->paymenttype)
@@ -78,7 +78,7 @@ class TransactionsController extends \BaseController
 				$msg ='You have Confirmed transaction:<hr>'.$url;
 				Event::fire('book.confirm' , array($account ,$id));
 				SessionController::flash($msg);
-				return Redirect::back();
+				return Redirect::route('cpanel.dashboard');
 		}
 		return Redirect::back()->withErrors('Cannot Edit transaction status.');
 	}
@@ -114,7 +114,7 @@ class TransactionsController extends \BaseController
 			$affectedrows = $this->booking->changeStatus( $id, 1);
 			if($affectedrows)
 			{
-				SessionController::flash('The payment has been saved. An email will be sent after we verify your payment.<br/> Transaction Code: '.$result->id);
+				SessionController::flash('The payment has been saved. An email will be sent after we verify your payment.<br/> Transaction Code: '.str_pad($result->id,4,"0",STR_PAD_LEFT));
 				return Redirect::route('account.dashboard');
 			}else{
 					$this->transaction->delete($result->id);

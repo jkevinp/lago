@@ -388,7 +388,7 @@ class AdminController extends \BaseController
 				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::route('static.reservenow')->withErrors('Please select the schedule of reservation')->withInput($input);
 				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::route('static.reservenow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
 				SessionController::BookingSession('setinfo' , $input);
-			
+				Session::put('admin-checkout' , 1);
 				Session::put('totalFee' ,$this->computeFee(Session::get('items')));
 				if(isset($input['route'] ))return  Redirect::route($input['route']);
 				return Redirect::route('book.index');
@@ -466,11 +466,7 @@ class AdminController extends \BaseController
 			$product = $this->product->find($item['productid']);
 			
 			$p = $product->productprice ;
-			$this->sale->create($id, 
-								$product->id,
-								$item['quantity']	, $p, 
-								Session::getToken(),
-								'addons'
+			$this->sale->create($id, $product->id, $item['quantity'], $p, Session::getToken(),'addons'
 								);
 			
 		}	
@@ -480,6 +476,7 @@ class AdminController extends \BaseController
 				$msg ='Sales Record saved.<hr>'.$url;
 				SessionController::flash($msg);
 				return Redirect::back();
+
 	}
 	public function RemoveAllItems()
 	{

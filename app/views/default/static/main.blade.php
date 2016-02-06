@@ -18,7 +18,6 @@
                         <img src="{{URL::asset('media/photos')}}/1.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
                         <img src="{{URL::asset('media/photos')}}/2.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
                         <img src="{{URL::asset('media/photos')}}/3.JPG" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
-                        <img src="{{URL::asset('media/photos')}}/4.JPG" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
                         <img src="{{URL::asset('media/photos')}}/5.jpg" style="max-height:800px !important;min-height:800px !important;width:100%;" class="carousel-item img-thumbnail"/>
                      </div>
                 </div>

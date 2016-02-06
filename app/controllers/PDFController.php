@@ -109,9 +109,10 @@ class PDFController extends \BaseController
 			});
 
 			if($sale){
-				$transactionid = $sale->first()->transactionid;
+				$param['transactionid'] = $transactionid = $sale->first()->transactionid;
+
 				$transaction = Transactions::find($sale->first()->transactionid);
-				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
+ 				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
 				
 				$param['sales'] = $sale;
 				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
@@ -125,26 +126,28 @@ class PDFController extends \BaseController
 	}
 	public function invoiceSlip($cartid)
 	{
-		if(isset($cartid))
-		{
-			$sale = $this->sale->findByCartId($cartid)->get();
-			$sale->each(function($s){
-				$s->productname = $this->product->find($s->productid)->productname;
-			});
+	// 	if(isset($cartid))
+	// 	{
+	// 		$sale = $this->sale->findByCartId($cartid)->get();
+	// 		$sale->each(function($s){
+	// 			$s->productname = $this->product->find($s->productid)->productname;
+	// 		});
 
-			if($sale)
-			{
+	// 		if($sale)
+	// 		{
 
-				$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
-				$param['sales'] = $sale;
-				$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
-				return $pdf->output();
-			}
-			else{
-				die('Could not find sales record');
-			}
+	// $param['transactionid'] = $transactionid = $sale->first()->transactionid;
+	// 			$param['account'] = Transactions::find($sale->first()->transactionid)->account->fullname();
+	// 			$param['sales'] = $sale;
+	// 			$pdf = PDF::loadView('pdf.email.invoice.invoice-slip' , $param );
+	// 			return $pdf->output();
+	// 		}
+	// 		else{
+	// 			die('Could not find sales record');
+	// 		}
 			
-		}
+	// 	}
+		$this->invoice($cartid);
 	}
 	public function streamPDF($action , $param)
 	{
@@ -154,20 +157,13 @@ class PDFController extends \BaseController
 			$pdf = null;
 			switch ($action)
 			{
-				case 'account':
-					switch ($param) {
-						case 'all':
-						if(!$this->account->all()->first())die("Cannot generate report. No records found.");
-							$data['accounts'] = $this->account->all()->toArray();
-							$pdf = PDF::loadView('pdf.account.account-list' , $data);
-						break;
-					}
-				break;
 				case 'sales':
 				if(!$this->sale->all()->first())die("Cannot generate report. No records found.");
-					$data['sales'] = $this->sale->all()->first()->CreatedDescending()->get()->toArray();
-
-					$data['sum'] =$this->sale->all()->first()->CreatedDescending()->get()->sum('totalprice');
+					
+					$data['sales'] = Sales::where('type' , '=','reservation-half')->get();
+					// die($data['sales']);
+					$data['sum'] = 0;
+					//$data['sum'] =$this->sale->all()->first()->CreatedDescending()->get()->sum('totalprice');
 					$pdf = PDF::loadView('pdf.sales.sales-list' , $data);
 				break;
 

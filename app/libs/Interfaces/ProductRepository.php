@@ -12,4 +12,5 @@ interface ProductRepository
 	public function edit($id, $input);
 	public function check($date ,$id);
 	public function getObject();
+	public function getAvailableReservables($date);
 }

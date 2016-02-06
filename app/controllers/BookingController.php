@@ -84,9 +84,9 @@ class BookingController extends BaseController  {
 
 	public function getAvailableRooms(){
 		$input = Input::all();
-		$d = Carbon::today('Asia/Manila');
-		$date_info = ['datetime_start' => $d, 'datetime_end' => $d];
-		$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
+		$d = Carbon::now('Asia/Manila');
+		$date_info = ['start' => $d, 'end' => $d];
+		$rooms = $this->product->getAvailableReservables($date_info);
 		$rooms->totalCount = $rooms->count();
 		return View::make('admin.booking.booking-available')->withProducts($rooms);
 	}
@@ -176,7 +176,7 @@ class BookingController extends BaseController  {
 		if($check === 0)
 		{
 			Session::flush();
-			return Redirect::to('/')->withErrors('Your Session has expired. Cannot proceed to book a reservation.');
+			return Redirect::to('/')->withErrors('Your Session has expired or no pools/huts/rooms/cottages selected. Cannot proceed to book a reservation.');
 		}
 		//if validation succeed, create a new booking information
 		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
@@ -198,15 +198,39 @@ class BookingController extends BaseController  {
 		$input['fee'] = Session::get('totalFee');
 		
 		$input['id'] = $account->id;
+		
 		$booking = $this->booking->create($input);
+		
+		
 		$input['bookingid'] = $booking->bookingid;
+		
+
+
+
+
 		if($booking) 
 		{
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);
 				$this->bookingdetails->updateBookingReference(Session::getToken(), $input['bookingid']);
-				Session::flush();
+					if(!isset($input['paymentmode']))Session::flush();
 				Event::fire('book.store' , array($input,$count));
 				Session::put('flash_message', 'Your reservation has been saved. Please check your email to continue');
+				
+				if(isset($input['paymentmode']))
+				if($input['paymentmode'] == "cashier"){
+					$b = $this->booking->find($input['bookingid'])->first();
+					$bb= $this->booking->find($input['bookingid'])->first();
+					$bb->active = 1;
+					$bb->save();
+
+					$result = $this->transaction->create($account, $b, $input['_token'], $input['paymentmode'] ,'Auto generated from walk-in.', 'N/A', null);
+					//cpanel.transaction.confirm' ,array('id' => $transaction['id'] , 'status' => 'confirmed' ,'bookingid' => $transaction['bookingid']
+					return Redirect::route('cpanel.transaction.confirm' , [
+						'id' => $result->id , 
+						'status' => 'confirmed' ,
+						'bookingid' => $input['bookingid']
+						]);
+				}
 				return Redirect::to('/');
 		}
 		
@@ -367,15 +391,16 @@ class BookingController extends BaseController  {
 									$product->id,
 									$detail->quantity,
 									($product->extensionproductprice) * $hours, 
-									Session::getToken(),
+									$booking->transaction->id,
 									'extend'
 									);		
 				}
 			}
+			
 			$url = URL::action('pdf.invoice', ['cartid' => $sid]);
 			$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
 			$msg ="<hr>".$url;
-			SessionController::flash("Booking session has been extended". $msg);
+			SessionController::flash("Reservation has been extended". $msg);
 			return Redirect::back();
 		}
 	}

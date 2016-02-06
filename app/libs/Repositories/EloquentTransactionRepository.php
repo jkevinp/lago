@@ -35,9 +35,8 @@ class EloquentTransactionsRepository implements TransactionRepository
 			$discount = true;
 		}*/
 		$t = new Transactions();
-		$id = $this->generateTransactionId($token);
-		
-		$t->id = $id;
+		// $id = $this->generateTransactionId($token);
+		// $t->id = $id;
 		$t->account_id = $account->id;
 		$t->bookingid = $booking->bookingid;
 		$t->modeofpayment = $mode ;
@@ -63,7 +62,7 @@ class EloquentTransactionsRepository implements TransactionRepository
 		}
 		$temp = $t;
 		$t->save();
-		$temp->id = $id;
+		// $temp->id = $id;
 		return $temp;
 	}
 	public function generateTransactionId($token){
