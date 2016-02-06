@@ -213,7 +213,7 @@ class BookingController extends BaseController  {
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);
 				$this->bookingdetails->updateBookingReference(Session::getToken(), $input['bookingid']);
 				if(!isset($input['paymentmode']))Session::flush();
-				if(!isset($input['paymentmode']))Event::fire('book.store' , array($input,$count));
+				Event::fire('book.store' , array($input,$count));
 				Session::put('flash_message', 'Your reservation has been saved. Please check your email to continue');
 				
 				if(isset($input['paymentmode']))
