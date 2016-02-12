@@ -27,25 +27,33 @@ class ProductsController extends \BaseController
 	}
 	public function create(){
 		$input = Input::all();
-		$rules = ['productname' => 'required','fileid' => 'required','producttypeid' => 'required','productprice' => 'required|min:1|numeric|between:1,9999999',
-		'paxmin' => 'required|min:1|numeric|between:1,9999999',
-		'paxmax' => 'required|min:1|numeric|between:1,9999999'
-		];
+		//validation for product creation
+		$rules = Product::rules();
 		$val = Validator::make($input, $rules);
 		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);
+		//create a file entry for the image
+		$file = Input::file('image');
+		$destinationPath = public_path('/default/img-uploads/');
+		$filename = str_random(8).$file->getClientOriginalName();
+		Input::file('image')->move($destinationPath, $filename);//move the file to folder
+		$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
+		$classFile = new Files();
+		$classFile->imagename = $filename;
+		$classFile->directory = $HrefdestinationPath;
+		$classFile->description = $input['productdesc'];
+		$classFile->save();
+		$input['fileid'] = $classFile->id;
 		$result = $this->product->create($input);
 		if($result){
 			SessionController::flash('Created New product. <br/> Product id:'.$result);
 			return Redirect::back();
-		}return Redirect::back()->withErrors('Could not create new product!')->withInput($input);
+		}
+		return Redirect::back()->withErrors('Could not create new product!')->withInput($input);
 	}
 	public function edit()
 	{
 		$input = Input::all();
-		$rules = ['productname' => 'required','fileid' => 'required','producttypeid' => 'required',
-		'paxmin' => 'required|min:1|numeric|between:1,9999999',
-		'paxmax' => 'required|min:1|numeric|between:1,9999999',
-		'productprice' => 'required|min:1|numeric|between:1,9999999'];
+		$rules = Product::rules();
 		$val = Validator::make($input, $rules);
 		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);
 		$result = $this->product->find($input['id']);
@@ -65,11 +73,8 @@ class ProductsController extends \BaseController
 		if($result)
 		{
 			$result = $this->product->changeStatus($result);
-			if($result)
-			{
-				SessionController::flash('Product status has been updated!');
-				return Redirect::back();
-			}else return Redirect::back()->withErrors('Could not find product!');
+			SessionController::flash('Product status has been updated!');
+			return Redirect::back();
 		}
 		return Redirect::back()->withErrors('Could not find product!');
 	}

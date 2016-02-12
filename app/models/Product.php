@@ -47,4 +47,18 @@ class Product extends Eloquent implements UserInterface, RemindableInterface {
     public function scopeByName($query){
     	
     }
+    public static $rules = [
+			'productname' => 'required|unique:product,productname',
+			'producttypeid' => 'required',
+			'productprice' => 'required|min:1|numeric|between:1,9999999',
+			'nightproductprice' => 'required|min:1|numeric|between:1,9999999' ,
+			'overnightproductprice' => 'required|min:1|numeric|between:1,9999999',
+			'extensionproductprice' => 'required|min:1|numeric|between:1,9999999',
+			'paxmin' => 'required|min:1|numeric|between:1,9999999',
+			'paxmax' => 'required|min:1|numeric|between:1,9999999',
+			'image' => 	'mimes:image,jpeg,jpg,bmp,png|required'
+		];
+    public static function rules(){
+    	return Self::$rules;
+    }
 }

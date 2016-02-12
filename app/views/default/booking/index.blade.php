@@ -16,9 +16,10 @@
              <div class="row">
                 <div class="col-md-3" style="">
                      <ul class="nav nav-list nav-stacked">
-                        <li class="nav-header" style="color:#00b356;font-weight:bold;">By Capacity</li>
-                            <li role="presentation" id="Others"><a href="{{Request::url()}}?type=free">All</a></li>
-                            <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type=max">Recommended</a></li>
+                        <li class="nav-header" style="color:#00b356;font-weight:bold;">By Room Type</li>
+                        @foreach(ProductType::where('id' , '<>' ,3)->get() as $pt)
+                           <li role="presentation" id="Cottages"><a href="{{Request::url()}}?type={{$pt->id}}">{{$pt->producttypename}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="col-md-8" style=" border-left:1px solid #e5e5e5" > 
@@ -51,10 +52,19 @@
                                         {{Form::hidden('producttotalqty', $room['productquantity'])}}
                                         {{Form::hidden('productdescription', $room['productdesc'])}}
                                         {{Form::hidden('producttype', $room->producttype['producttypename'])}}
+                                        @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
+                                        {{Form::hidden('paxmax', $room['paxmax'])}}
+                                        @else
+                                        {{Form::hidden('paxmax', 0)}}
+                                        @endif
                                         
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
+
+                                        @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
+                                        
                                         <p>Min Capacity: {{$room['paxmin']}}</p>
                                         <p>Max Capacity: {{$room['paxmax']}}</p>
+                                        @endif
 
                                         @if(Session::get('date_info')['modeofstay'])
                                             @if(Session::get('date_info')['modeofstay'] == "day")
@@ -73,7 +83,7 @@
                                         <p class="text-success text-center">Booking Information</p>
                                         <div class="input-group input-group-lg">
                                             <span class="input-group-addon" id="sizing-addon1">Quantity</span>
-                                                {{Form::number('quantity', 1 ,array( 'min' =>'1' , 'max' => ($room['productquantity'] - $room->reservedqty) ,'class' => 'form-control', 'style' => 'height:50px' , 'placeholder' => 'Quantity?', 'readonly' => 'true'))}}
+                                                {{Form::number('quantity', 1 ,array( 'min' =>'1' , 'max' => ($room['productquantity'] - $room->reservedqty) ,'class' => 'form-control', 'style' => 'height:50px' , 'placeholder' => 'Quantity?'))}}
                                                 </div>
                                                 <br/>
                                                 <div class="btn-group btn-group-justified" role="group" aria-label="...">

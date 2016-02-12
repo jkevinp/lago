@@ -143,6 +143,8 @@ class PDFController extends \BaseController
 			}
 		}
 	}
+
+	//$dompdf->set_paper($paper_size);
 	public function invoiceSlip($cartid)
 	{
 	if(isset($cartid)){

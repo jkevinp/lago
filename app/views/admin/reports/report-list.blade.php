@@ -17,8 +17,10 @@
 											], '', ['class' => 'form-control'])}}
 					<label>Start date</label>
 					<input type="date" class="form-control" id="date_start" name="datestart" placeholder="Enter Start Date">
+					
 					<label>End date</label>
 					<input type="date" class="form-control" id="date_end" name="dateend" placeholder="Enter Start Date">
+					
 					<label>Sort:</label>
 					{{Form::select('sort' , [
 												'ascending' => 'ascending',
@@ -31,6 +33,31 @@
 												'download' => 'download'
 
 											], '', ['class' => 'form-control'])}}
+
+
+					<label>Product Type:</label>
+
+					{{Form::select('producttype' ,$producttype, '', ['class' => 'form-control'])}}
+
+					
+					{{Form::select('action' , [
+												'stream' => 'stream',
+												'download' => 'download'
+
+											], '', ['class' => 'form-control'])}}
+					<label>Mode of Payment:</label>
+					{{Form::select('modeofpayment' , [
+												'full' => 'Full Payment',
+												'half' => '50% Downpayment'
+
+											], '', ['class' => 'form-control'])}}
+					<label>Reservation Type:</label>
+					{{Form::select('paymenttype' , [
+												'walkin' => 'Walk-in Reservation',
+												'online' => 'Online Reservation'
+
+											], '', ['class' => 'form-control'])}}
+
 					<hr>
 					{{Form::submit('Generate' , ['class' => 'btn btn-theme03'])}}
 					{{Form::reset('Reset' , ['class' => 'btn btn-danger'])}}
@@ -89,8 +116,12 @@
 	</div>	
 @stop
 @section('script')
+	<script type="text/javascript">
+		alert(1);
+	</script>
 	<link rel="stylesheet" href="{{URL::asset('default')}}/css/morris.css">
     <script type="text/javascript" src="{{URL::asset('default')}}/js/raphael.js"></script>
 	<script type="text/javascript" src="{{URL::asset('default')}}/js/morris.min.js" ></script>
 	<script type="text/javascript" src="{{URL::asset('default')}}/ajax/charts.js"></script>
+
 @stop

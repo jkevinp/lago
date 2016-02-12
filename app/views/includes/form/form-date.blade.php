@@ -1,11 +1,20 @@
 <div class="col-md-10 col-md-offset-1 text-center">
 	<form class="form-horizontal" action="{{URL::route('book.SetInfo')}}" method="post" >
 	    <legend>Reservation Form</legend>
-                  <div class="control-group">
+                <div class="control-group">
                     <div class="controls">
-                    <input  type="text" id="email" name="email" value= ""class="padded-text form-control" placeholder="Your Email-Address">
+                    <input  type="text" id="email" name="email" value="{{Auth::user()->usergroupid == 2 ? Auth::user()->email : ''}}" class="padded-text form-control" placeholder="Your Email-Address">
                     </div>
                 </div>
+              <!--   <div class="control-group">
+                    <div class="controls">
+                      <select name="producttype" class="form-control padded-text">
+                        @foreach(ProductType::whereNotBetween('id' , [3,4])->get() as $pt)
+                             <option value="{{$pt->id}}">{{$pt->producttypename}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                </div> -->
                 <div class="control-group">
                     <div class="controls">
                     @if(Session::get('date_info'))
@@ -15,6 +24,11 @@
                     @endif
                     </div>
                 </div>
+
+                
+
+                  
+
                 <div class="btn-group btn-group-justified" role="group" id="custom" style="">
                     <select class="form-control padded-text" name="timeofday" id="timeofday">
                       <option value="0"  selected disabled="true">Start</option>

@@ -28,8 +28,23 @@
                         <hr/>
 
                         <h5 align='center'><p id="helper">Proceeding After <span id="time"> </span> seconds</p></h5>   
-                          <a href="#" class="btn btn-block btn-default " id="btn_next">
-                                    <i class="fa fa-check fa-fw" ></i>Proceed</a>
+                          
+                        <div style="width:100%" class="form-group">
+                            <div class="btn-group btn-group-justified" role="group" aria-label="..." >
+                                <div class="btn-group" role="group">
+                                       <a href="#" class="btn btn-block btn-default " id="btn_next">
+                                            <i class="fa fa-check fa-fw" ></i>Proceed</a>
+                                </a>
+                                  
+                                    <br>
+                                </div>
+                                <div class="btn-group" role="group">
+                                <a href="{{route('book.index' , ['type' => 4])}}" class="btn btn-default padded-text5 ">
+                                            <i class="" ></i> Avail Additional Services</a>
+                                </div>
+                            </div>
+                        </div>
+
                          
                 </div>
             </div>

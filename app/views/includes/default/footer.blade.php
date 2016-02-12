@@ -2,8 +2,7 @@
     <div class="col-md-10 col-md-offset-1">
         <div class="header-base">
             <div class="col-md-12">
-                <a href="{{URL::action('cpanel.account.login')}}"> <i class="fa fa-desktop"></i> Control Panel</a>
-          
+              <br/>
                 <div class="row">
                     <div class="col-md-9" style="color:white;">
                         <p class="copyright  small">Copyright &copy; {{APP_NAME}} 2016. All Rights Reserved</p>

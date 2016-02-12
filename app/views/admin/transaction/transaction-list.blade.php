@@ -21,9 +21,8 @@
                                   <th>Discount</th>
                                   <th><i class="fa fa-bullhorn"></i> Booking ID</th>
                                   <th class="hidden-phone"><i class="fa fa-question-circle"></i> Name</th>
-                                  <th><i class="fa fa-bookmark"></i> Total Bill</th>
                                   <th><i class="fa fa-bookmark"></i> Discounted Bill</th>
-                                  
+                                  <th><i class="fa fa-bookmark"></i> Total Bill</th>
                                   <th><i class="fa fa-bookmark"></i> Downpayment</th>
                                   <th><i class="fa fa-bookmark"></i> Balance</th>
                                   <th><i class="fa fa-bookmark"> </i> Deposit/transaction Code</th>
@@ -54,7 +53,7 @@
 
 
                                   </td>
-                                  <td>{{number_format($transaction['totalbill'],2)}}</td>
+                                 
                                   <td>
                                     @if($transaction['discountedbill'])
                                     {{number_format($transaction['discountedbill'],2)}}
@@ -63,6 +62,7 @@
                                     @endif
 
                                   </td>
+                                   <td>{{number_format($transaction['totalbill'],2)}}</td>
                                   <td>{{number_format($transaction['downpayment'],2)}}</td>
                                   <td >
                                     @if($transaction['paymenttype'] == "full")

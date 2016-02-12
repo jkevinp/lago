@@ -111,8 +111,8 @@
                     E-mail Address: {{Session::get('account_info')['email']}}<br/>
                     @endif
                     @if(Session::get('date_info'))
-                      Children/Adult Count: {{Session::get('date_info')['children']}}<br/>
-                      Senior Citizen Count: {{Session::get('date_info')['adult']}} <br/>
+                      Children/Adult Count: {{isset(Session::get('date_info')['children']) ? Session::get('date_info')['children'] : 0}}<br/>
+                      Senior Citizen Count: {{isset(Session::get('date_info')['adult'])    ? Session::get('date_info')['adult'] : 0}} <br/>
                       Total Duration: {{Session::get('date_info')['lenofstay'] * 24}} hours.
                       <br/>Mode: {{Session::get('date_info')['modeofstay']}}
                    
@@ -141,10 +141,12 @@
             </h5>
           </div>
           <div class="modal-body">
+          <?php $totalCapacity  = 0; ?>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                      @if((Session::get('items')))
                       <?php $ctr = 0;?>
                         @foreach (Session::get('items') as $i)
+                        <?php if(isset($i['paxmax'])) $totalCapacity += $i['paxmax'] * $i['quantity']; ?>
                               <div class="panel panel-info">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h5 class="panel-title">
@@ -153,9 +155,9 @@
                                           <span class="list-group-item">
 
                                             <span>{{$i['product']}} 
-
                                                 <span class="badge">
                                                     {{$i['quantity']}}
+
                                                 </span>
                                              </span>
 
@@ -209,8 +211,18 @@
                     @endif
           </div>
           <div class="modal-footer">  
-             @if((Session::get('items')))
-            {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
+            @if((Session::get('items')))
+              @if($totalCapacity >= (Session::get('date_info')['children'] + Session::get('date_info')['adult']))
+                {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
+
+              @else
+
+                  <div class="well text-center">
+                  <p>Total count of guest is less than the max capacity of all selected rooms,huts and cottages.</p>
+                  <p>Please select more rooms,huts or cottages.</p>
+                  </div>
+                  {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
+              @endif
             @endif
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>

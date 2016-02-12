@@ -45,33 +45,33 @@ class AccountController extends \BaseController
 					->withTotal($countAll);
 	}
 	public function login(){
-		return View::make('default.account.login');
+		return View::make('admin.access.login');
 	}
 	public function signin(){
-		$input = Input::all();
-		$rules = array('username' => 'required','password' => 'required');
-		$val  = Validator::make($input, $rules);
-		if($val->fails()){
-			return Redirect::back()->withInput($input)->withErrors($val->messages());
-		}
-		else{
-			if(Auth::attempt(array('email' => $input['username'], 'password' => $input['password'],'active' => '1')))
-				return Redirect::intended(route('account.dashboard'));
-			else{
-				if($find = $this->account->findByEmail($input['username'])->first()){
-					if($find){
-						$find->attempt += 1;
-						$find->save();
-						if($find->attempt >= 3){
-							$this->account->Lock($find);
-							Event::fire('account.sendForgot', [$find]);
-							return Redirect::back()->withInput($input)->withErrors("Account Locked: Please check your E-mail.");
-						}
-					}
-				}
-				return Redirect::back()->withInput($input)->withErrors("Please check your login credentials or check if your account is activated and not locked.");
-			}
-		}
+		// $input = Input::all();
+		// $rules = array('username' => 'required','password' => 'required');
+		// $val  = Validator::make($input, $rules);
+		// if($val->fails()){
+		// 	return Redirect::back()->withInput($input)->withErrors($val->messages());
+		// }
+		// else{
+		// 	if(Auth::attempt(array('email' => $input['username'], 'password' => $input['password'],'active' => '1')))
+		// 		return Redirect::intended(route('account.dashboard'));
+		// 	else{
+		// 		if($find = $this->account->findByEmail($input['username'])->first()){
+		// 			if($find){
+		// 				$find->attempt += 1;
+		// 				$find->save();
+		// 				if($find->attempt >= 3){
+		// 					$this->account->Lock($find);
+		// 					Event::fire('account.sendForgot', [$find]);
+		// 					return Redirect::back()->withInput($input)->withErrors("Account Locked: Please check your E-mail.");
+		// 				}
+		// 			}
+		// 		}
+		// 		return Redirect::back()->withInput($input)->withErrors("Please check your login credentials or check if your account is activated and not locked.");
+		// 	}
+		// }
 	}
 	public function logout(){
 		Auth::logout();

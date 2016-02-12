@@ -3,7 +3,8 @@
 class PageController extends \BaseController 
 {
 	public function reservenow(){
-		return View::make('default.static.reserve');
+		if(Auth::user())return View::make('default.static.reserve');
+		else return Redirect::route('cpanel.account.login');
 	}
 	public function index(){
 		//return View::make('hello');
@@ -59,7 +60,9 @@ class PageController extends \BaseController
 		->with('pools' , $pools)->with('carousel' , $carousel);
 	}
 	public function rates(){
-return View::make('default.static.rates');
+		$products = ProductType::all();
+	
+		return View::make('default.static.rates')->with(compact('products'));
 	}
 
 }

@@ -56,6 +56,7 @@ class EloquentBookingRepository implements BookingRepository
 		$booking->fee = $input['fee'];
 		$booking->bookingmode = $input['bookingmode'];
 		$booking->paymenttype = $input['paymenttype'];
+		$booking->bookingtype = $input['bookingtype'];
 		$booking->confirmationcode = $input['booking_confirmation_code'];
 		$temp = $booking;
 		$booking->save();

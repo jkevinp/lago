@@ -10,7 +10,7 @@ Route::get('/about' ,  ['uses' => 'PageController@about' , 'as' => 'static.about
 Route::get('/gallery' ,['uses'=>'PageController@explore' ,'as' => 'static.explore' ]);
 Route::get('/rates' ,['uses'=>'PageController@rates' ,'as' => 'static.rates' ]);
 Route::get('/roomsAndCottages' ,['uses'=>'PageController@roomsAndCottages' ,'as' => 'static.roomscottages' ]);
-Route::get('/reservenow' ,['uses'=>'PageController@reservenow' ,'as' => 'static.reservenow' ]);
+Route::get('/reservenow' ,['uses'=>'PageController@reservenow' ,'as' => 'static.reservenow' ])->before('auth.user');
 
 Route::get('t', function(){
     var_dump(DB::getQueryLog());
@@ -94,6 +94,11 @@ Route::group(['prefix' => 'book'], function()
     Route::get('/rebook/{id}', ['uses' => 'BookingController@rebook' , 'as' => 'book.rebook']);
     Route::post('/rebook/step2', ['uses' => 'BookingController@rebook2' , 'as' => 'book.rebook2']);
     Route::post('/rebook/step3', ['uses' => 'BookingController@rebook3' , 'as' => 'book.rebook3']);
+
+    Route::get('addOnSessionItems/{bookingid}' , ['uses' => 'BookingController@addOnSessionItems' , 'as' => 'cpanel.addOnSessionItems']);
+
+    Route::get('checkoutaddsessionitems/{bookingid}' , ['uses' => 'BookingController@checkoutaddsessionitems' , 'as' => 'cpanel.checkoutaddsessionitems']);
+
     
     Route::get('/',function(){return Redirect::route('book.index');});
     Route::get('resetSession', ['uses' => 'BookingController@RemoveAllItems' ,'as' => 'book.removeAllItems']);
@@ -123,6 +128,8 @@ Route::group(['prefix' => 'mail'] , function(){
     Route::get('/delete/{id}' , ['uses' => 'MailsController@delete' , 'as' => 'mail.delete']);  
     Route::post('/create' , ['uses' => 'MailsController@create' , 'as' =>'guest.mail.create']);
 });
+
+  
 Route::group(['prefix' => 'cpanel' ,'before' => 'auth.admin'], function()
 {  
     //store methods

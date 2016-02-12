@@ -36,111 +36,28 @@
 			</tr>
 		</table>
 		<table width="100%" class="table table-hover content" cellspacing= "5" border="0"  style="margin:5px !important;">
-			<tr>
-				<td><b>&nbsp&nbsp TYPE:</b></td>
-			<tr>
-				<td style="text-align:"><b>Cottage</b></td>
+			
+			@foreach($products as $type)
+					<tr>
+						<td colspan="4" style=";"><p><b>{{$type->producttypename}}</p></td>
+					</tr>
+					<tr>
+				<td style="text-align:"><p><b>Product Name</p></td>
+				<td style="text-align:"><p><b>Day Rate</p></td>
+				<td style="text-align:"><p><b>Night Rate</p></td>
+				<td style="text-align:"><p><b>Overnight Rate</p></td>
 			</tr>
-			<tr>
-				<td></td>
-				<td>Capacity:</td>
-				<td>Day/Night Rate:</td>
-				<td>Overnight Rate:</td>
-			</tr>
-			<tr></tr>
-			<tr>
-				<td>Cottage 1-7</td>
-				<td>15 pax</td>
-				<td>Php 400.00</td>
-				<td>Php 600.00</td>
-			</tr>
-			<tr>
-				<td>Cottage 8</td>
-				<td>25 pax</td>
-				<td>Php 500.00</td>
-				<td>Php 800.00</td>
-			</tr>
-			<tr>
-				<td>Cottage 9</td>
-				<td>35 pax</td>
-				<td>Php 700.00</td>
-				<td>Php 1,200.00</td>
-			</tr>
-			<tr>
-				<td style="text-align:"><b>Nipa Hut</b></td>
-			</tr>
-			<tr>
-				<td>Santan</td>
-				<td>10 pax</td>
-				<td>Php 650.00</td>
-				<td>Php 1,100.00</td>
-			</tr>
-			<tr>
-				<td>Camia</td>
-				<td>10 pax</td>
-				<td>Php 650.00</td>
-				<td>Php 1,100.00</td>
-			</tr>
-			<tr>
-				<td>Sampaguita</td>
-				<td>30 pax</td>
-				<td>Php 850.00</td>
-				<td>Php 1,500.00</td>
-			</tr>
-			<tr>
-				<td>Ilang-Ilang</td>
-				<td>15 pax</td>
-				<td>Php 1,000.00</td>
-				<td>Php 1,800.00</td>
-			</tr>
-			<tr>
-				<td>Gumamela</td>
-				<td>15 pax</td>
-				<td>Php 1,000.00</td>
-				<td>Php 1,800.00</td>
-			</tr>
-			<tr>
-				<td style="text-align:"><b>Main Bldg Rooms</b></td>
-			</tr>
-			<tr>
-				<td>Main Bldg, Family Main Room 1</td>
-				<td>6 pax</td>
-				<td>Php 1,800.00</td>
-				<td>Php 3,000.00</td>
-			</tr>
-			<tr>
-				<td>Main Bldg, Deluxe Main Room 2-3</td>
-				<td>2 pax</td>
-				<td>Php 1,200.00</td>
-				<td>Php 2,000.00</td>
-			</tr>
-			<tr>
-				<td>Main Bldg, Family Main Room 4-5</td>
-				<td>4 pax</td>
-				<td>Php 1,500.00</td>
-				<td>Php 2,500.00</td>
-			</tr>
-			<tr>
-				<td style="text-align:"><b>Annex Bldg Rooms</b></td>
-			</tr>
-			<tr>
-				<td>Annex Bldg, Family Annex Room 1-2</td>
-				<td>6 pax</td>
-				<td>Php 1,800.00</td>
-				<td>Php 3,500.00</td>
-			</tr>
-			<tr>
-				<td>Annex Bldg, Deluxe Annex Room 3-4</td>
-				<td>2 pax</td>
-				<td>Php 1,500.00</td>
-				<td>Php 2,500.00</td>
-			</tr>
-			<tr>
-				<td>Annex Bldg, Dorm Type Annex Room 5-6</td>
-				<td>28 pax</td>
-				<td>Php 4,500.00</td>
-				<td>Php 7,000.00</td>
-			</tr>
+
+				@foreach($type->products as $p)
+				<tr>
+					<td style="text-align:"><p>{{$p->productname}}</p></td>
+					<td style="text-align:"><p>{{$p->productprice}}</p></td>
+					<td style="text-align:"><p>{{$p->nightproductprice}}</p></td>
+					<td style="text-align:"><p>{{$p->overnightproductprice}}</p></td>
+				</tr>
+				@endforeach
+
+			@endforeach
 		</table>
 
 				

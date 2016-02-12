@@ -2,14 +2,15 @@
 
 @section('content')
 <div class="row content">
- <div class="intro-header3">
+ <!-- Header -->
+    <div class="intro-header1">
         <div class="">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
+              <div class="col-lg-8 col-lg-offset-2">
                     <div class="intro-message">
-                      <h3><i class="glyphicon glyphicon-fire"></i>Control Panel Login</h3>
+                      <h3><i class="fa fa-sign-in"></i> User's Login</h3>
             {{Form::Open(
-              array( 'route' => 'cpanel.account.auth',
+              array('route' => 'cpanel.account.auth' ,  
               'method' => 'post' , 
               'class' => 'form-horizontal'))
             }}
@@ -17,7 +18,7 @@
               <div class="form-group">
                   <div class="col-sm-12">
                     {{Form::text('username',null,array(
-                  'placeholder' => 'E-mail Address',
+                  'placeholder' => 'Username/E-mail Address',
                   'class' => 'form-control'
                   ))}}
                   </div>
@@ -35,7 +36,7 @@
                     }}  
                   </div>
               </div>
-              
+            
               
               <div class="intro-content" align="center">
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -45,6 +46,12 @@
                     <div class="btn-group" role="group">
                         {{ Form::reset('Reset', array('class' => 'btn btn-default btn-lg')) }}
                     </div>
+                    <div class="btn-group" role="group">
+                      <a class="btn btn-success btn-lg" href="{{URL::action('account.register')}}">Create Account</a>
+                      </div>
+                      <div class="btn-group" role="group">
+                      <a class="btn btn-danger btn-lg" href="{{URL::action('account.forgot')}}">Forgot Password</a>
+                      </div>
                   
                   </div>
               </div>
@@ -60,5 +67,5 @@
 
     </div>
     <!-- /.intro-header -->
-    </div>
+</div>
 @stop

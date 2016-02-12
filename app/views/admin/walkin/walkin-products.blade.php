@@ -63,9 +63,20 @@
                                                 {{Form::hidden('price', $room['overnightproductprice'])}}
                                             @endif
                                         @endif
+                                          @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
+                                        {{Form::hidden('paxmax', $room['paxmax'])}}
+                                        @else
+                                        {{Form::hidden('paxmax', 0)}}
+                                        @endif
+                                        
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
-                                         <p>Min Capacity: {{$room['paxmin']}}</p>
+
+                                        @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
+                                        
+                                        <p>Min Capacity: {{$room['paxmin']}}</p>
                                         <p>Max Capacity: {{$room['paxmax']}}</p>
+                                        @endif
+
                                         <p>{{$room['roomdesc']}}</p>
 
                                         <p class="text-success text-center">Booking Information</p>

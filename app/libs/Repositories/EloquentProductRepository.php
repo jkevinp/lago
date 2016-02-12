@@ -18,6 +18,7 @@ class EloquentProductRepository implements ProductRepository
 	}
 	public function create($input)
 	{
+
 		$p = new Product();
 		$p->productname = $input['productname'];
 		$p->productdesc = $input['productdesc'];
@@ -66,7 +67,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->whereNotBetween('producttypeid', [3, 4])
+			->where('producttypeid','<>' , 3)
 			->where('paxmin' , '>=' , $paxmin)
 			->where('paxmax' , '<=' , $paxmin)
 			->paginate(6);
@@ -83,7 +84,7 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 			->where('active', '=' , '1')
-			->whereNotBetween('producttypeid', [3, 4])
+			->where('producttypeid','<>' , 3)
 			->where('paxmax' , '>=' , $paxmax)
 			->paginate(6);
 		}
@@ -100,13 +101,50 @@ class EloquentProductRepository implements ProductRepository
 								  ');}
 					)
 		->where('active', '=' , '1')
-		->whereNotBetween('producttypeid', [3, 4])->paginate(6);
+		->where('producttypeid','<>' , 3)
+		->paginate(6);
 			
 		}
-	
-
 		return $t;
 	}
+
+	public function getAvailableNew($date , $type = false)
+	{
+		if($type){
+			$t = Product::whereNotExists(function($q) use ($date)
+			{
+					$q->select(DB::raw(1))
+							->from('booking_details')
+							->whereRaw('
+										product.id = booking_details.productid AND
+										booking_details.bookingstart >= "'.$date['start'].'" AND
+										booking_details.bookingend <= "'.$date['end'].'"
+									  ');}
+						)
+			->where('active', '=' , '1')
+			->where('producttypeid','<>' , 3)
+			->where('producttypeid','=', $type)
+			->paginate(6);
+
+		}else{
+			$t = Product::whereNotExists(function($q) use ($date)
+			{
+					$q->select(DB::raw(1))
+							->from('booking_details')
+							->whereRaw('
+										product.id = booking_details.productid AND
+										booking_details.bookingstart >= "'.$date['start'].'" AND
+										booking_details.bookingend <= "'.$date['end'].'"
+									  ');})
+			->where('active', '=' , '1')
+			->where('producttypeid','<>' , 3)
+			->paginate(6);
+		}
+	
+		return $t;
+	}
+
+
 
 	public function getAvailableReservables($date){
 		$t = Product::whereNotExists(function($q) use ($date)

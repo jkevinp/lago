@@ -14,19 +14,19 @@
 	                      </div>
                       	</div>
                       	<hr>
-                      	{{Form::open(['class' => 'form-horizontal style-form' ,'method' => 'post', 'route' => 'cpanel.product.create'])}}
+                      	{{Form::open(['class' => 'form-horizontal style-form' ,'method' => 'post','files'=> true , 'route' => 'cpanel.product.create'])}}
                       	  <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Product name</label>
                               <div class="col-sm-10">
                                   {{Form::text('productname' ,null,['class' => 'form-control'])}}
                               </div>
                          </div>
-                         <div class="form-group">
+                       <!--   <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Product Image</label>
                               <div class="col-sm-10">
                                  {{Form::select('fileid',$files, 0, ['class' => 'form-control'])}}
                               </div>
-                         </div>
+                         </div> -->
                          <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Product Type</label>
                               <div class="col-sm-10">
@@ -75,6 +75,12 @@
                               <label class="col-sm-2 col-sm-2 control-label">Max Capacity</label>
                               <div class="col-sm-10">
                                   {{Form::number('paxmax' ,null,['class' => 'form-control', 'min' => 0])}}
+                              </div>
+                         </div>
+                         <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Product Image</label>
+                              <div class="col-sm-10">
+                                    {{Form::file('image')}}
                               </div>
                          </div>
                          <hr>

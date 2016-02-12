@@ -9,7 +9,7 @@ class Booking extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 	public $timestamps = true;
-	public $fillable = array('time_checkin' ,'time_checkout',  'bookingmode', 'notes', 'paymenttype','fee','bookingid' , 'confirmationcode','bookingreferenceid' ,'bookingstart' , 'bookingend', 'totalduration', 'account_id' , 'active');
+	public $fillable = array('bookingtype', 'time_checkin' ,'time_checkout',  'bookingmode', 'notes', 'paymenttype','fee','bookingid' , 'confirmationcode','bookingreferenceid' ,'bookingstart' , 'bookingend', 'totalduration', 'account_id' , 'active');
 	protected $primaryKey = 'bookingid';
 	protected $table = 'booking';
 	public function account(){

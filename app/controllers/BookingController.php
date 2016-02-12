@@ -26,7 +26,7 @@ class BookingController extends BaseController  {
 		$val =  Validator::make($input , $rules);
 		if($val->fails())return Redirect::back()->withErrors($val->messages());
 		 //Check if the Product is still avaiable
-		$match = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']])
+		$match = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']])
 				->first()
 				->where('id' , '=' , $input['productid']);
 		if(empty($match))return Redirect::route('book.index')->withErrors('The Product is already reserved.');
@@ -97,14 +97,9 @@ class BookingController extends BaseController  {
 		if(Session::has('date_info')){
 				$date_info = Session::get('date_info');
 				$total = $date_info['children'] + $date_info['adult'];
-				$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
+				$rooms = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
 				if(isset($input['type'])){
-					if($input['type'] == 'free'){
-					$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
-				
-					}else if ($input['type'] == 'max'){
-						$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] ,1, $total);
-					}
+					$rooms = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']], $input['type']);
 				}
 				
 				
@@ -121,10 +116,11 @@ class BookingController extends BaseController  {
 		}
 	}
 
-
-
 	public function SetInfo(){
-			Session::flush();
+			Session::pull('originalFee');
+			Session::pull('date_info');
+			Session::pull('totalFee');
+			Session::pull('account_info');
 			$input = Input::all();
 			$rules = [
 						'start' => 'required',
@@ -137,9 +133,8 @@ class BookingController extends BaseController  {
 						'modeofstay' => 'required'
 					];
 
-					if(empty($input['adult']))$input['adult']=0;
+			if(empty($input['adult']))$input['adult']=0;
 	    	$validator =Validator::make($input, $rules);
-	    	
 	    	if($input['children'] + $input['adult'] <= 2)return Redirect::back()->withErrors("Minimun of 3 guest per reservation.");
 	    	
 	    	if($validator->fails())
@@ -196,18 +191,17 @@ class BookingController extends BaseController  {
 		$input['paymenttype'] = $input['paymenttype'];
 		$input['bookingmode'] = Session::get('date_info')['modeofstay'];
 		$input['fee'] = Session::get('totalFee');
-		
 		$input['id'] = $account->id;
-		
+
+		$input['bookingtype'] = "online";
+		if(isset($input['paymentmode']))
+				if($input['paymentmode'] == "cashier"){
+					$input['bookingtype'] = "walkin";
+				}
+
 		$booking = $this->booking->create($input);
-		
-		
+
 		$input['bookingid'] = $booking->bookingid;
-		
-
-
-
-
 		if($booking) 
 		{
 				$arows = $this->bookingdetails->changeTemporaryStatus($this->bookingdetails->findByBookingRefid(Session::getToken())->get(), 0);
@@ -226,7 +220,6 @@ class BookingController extends BaseController  {
 					$result = $this->transaction->create($account, $b, $input['_token'], $input['paymentmode'] ,'Auto generated from walk-in.', 'cashier'.$this->sale->generateId(), null);
 					$result->bankname = "N/A";
 					$result->save();
-					//cpanel.transaction.confirm' ,array('id' => $transaction['id'] , 'status' => 'confirmed' ,'bookingid' => $transaction['bookingid']
 					return Redirect::route('cpanel.transaction.confirm' , [
 						'id' => $result->id , 
 						'status' => 'confirmed' ,
@@ -257,10 +250,90 @@ class BookingController extends BaseController  {
 			$date = new DateTime($source);
 			return $date->format('Y-m-d'); // 31-07-2012
 	}
+	//Checkin check out or change status
 	public function changeStatus($id , $status , $fullypaid = false , $isCheckout = false){
-		if($isCheckout)
+		if($isCheckout)//checkout 
 		{
 			$find = $this->booking->find($id)->first();
+			$sid = $this->sale->generateId();
+			$transaction = $this->transaction->findByBookingId($id)->first();
+			$bookingdetails = $this->bookingdetails->getByRefId($transaction->bookingid)->get();
+			$c = BookingDetails::where('bookingreferenceid','=',$transaction->bookingid)
+					->where('temporary' , '=',2)
+					->get()
+					->count();
+			
+			if($transaction->status  != "fullypaid" || $c >=1)
+			{
+
+				$reservation = $this->booking->find($id)->first();
+				if($transaction->paymenttype == "half"){
+					//pay remaining balance
+					switch($transaction->paymenttype){
+						case 'half':
+							$coeff = 0.5;
+						break;
+						case 'full':
+							$coeff = 1;
+						break;
+					}//end of switch
+					//creates sale if have remaiming balance
+					$bookingdetails->each(function($detail) use ($sid,$coeff, $transaction,$reservation ){
+							switch ($reservation->bookingmode) {
+								case 'day':
+									$detail->productprice  =$this->product->find($detail->productid)->productprice;
+								break;
+								case 'night':
+									$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+								break;
+								default:
+									$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+								break;
+
+							}
+							if($detail->temporary != 2){
+
+								$p = $detail->productprice * $coeff;
+								$this->sale->create($sid,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
+						
+							}
+						});
+				}//END HALF
+				if($c >= 1){
+					$bookingdetails->each(function($detail) use ($sid, $transaction,$reservation ){
+							switch ($reservation->bookingmode) {
+								case 'day':
+									$detail->productprice  =$this->product->find($detail->productid)->productprice;
+								break;
+								case 'night':
+									$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+								break;
+								default:
+									$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+								break;
+
+							}
+							if($detail->temporary== 2){
+
+								$p = $detail->productprice;
+								$this->sale->create($sid,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
+							}
+						});
+				}
+			
+				$check = $this->transaction->changeStatus($transaction->id, 'fullypaid');//change transaction status to fully paid
+				if($check){
+					if($transaction->paymenttype == "half" || $c >= 1){
+						//make this receipt
+						$url = URL::action('pdf.invoice', ['cartid' => $sid]);
+						$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
+						$msg ='<hr>'.$url;
+					}else $msg = "";
+					SessionController::flash('The reservation status has been updated'.$msg);
+				}else{
+					return Redirect::back()->withErrors('An error has occured while changing the transaction status!');
+				}
+			}//end for half reservations
 			if($find){
 				$affectedrows = $this->booking->changeStatus( $find->bookingid, $status);
 				if($affectedrows){
@@ -268,75 +341,31 @@ class BookingController extends BaseController  {
 					$bd->each(function($bookingdetails){
 						$bookingdetails->delete();
 					});
-					SessionController::flash('The session has been checked-out');
+					if(isset($msg))
+					SessionController::flash('The session has been checked-out'.$msg);
+					else  SessionController::flash('The session has been checked-out');
 					return Redirect::back();
 				}else{
 					return Redirect::back()->withErrors('An error has occured while changing the reservation status!');
 				}
 			}
 			else return Redirect::back()->withErrors('An error has occured. No Reservation with the id provided was found!');
-		}else{
-			$sid = $this->sale->generateId();
-			$find = $this->booking->find($id)->first();
-			$transaction = $this->transaction->findByBookingId($id)->first();
-			$bookingdetails = $this->bookingdetails->getByRefId($transaction->bookingid)->get();
-			$reservation = $this->booking->find($id)->first();
-			switch($transaction->paymenttype){
-				case 'half':
-					$coeff = 0.5;
-				break;
-				case 'full':
-					$coeff = 1;
-				break;
-			}
-			//creates sale
-			if($transaction->paymenttype =='half'){
-
-					$bookingdetails->each(function($detail) use ($sid,$coeff, $transaction,$reservation ){
-						switch ($reservation->bookingmode) {
-				case 'day':
-					$detail->productprice  =$this->product->find($detail->productid)->productprice;
-				break;
-				case 'night':
-					$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
-				break;
-				default:
-					$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
-				break;
-
-			}
-					$p = $detail->productprice * $coeff;
-					$this->sale->create($sid,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
-				});
-			}
-			if($find){
-				$affectedrows = $this->booking->changeStatus( $find->bookingid, $status);
-				if($affectedrows){
-					if(isset($fullypaid)){
-						$check = $this->transaction->changeStatus($transaction->id, 'fullypaid');
-						if($check){
-							
-							if($transaction->paymenttype == "half"){
-								$url = URL::action('pdf.invoice', ['cartid' => $sid]);
-								$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
-								$msg ='<hr>'.$url;
-							}else $msg = "";
-
-							SessionController::flash('The reservation status has been updated'.$msg);
-						}else{
-							return Redirect::back()->withErrors('An error has occured while changing the transaction status!');
-						}
-					}else{
-							SessionController::flash('Successfully Checked-in');
-					}
-					return Redirect::back();
-				}else{
-					return Redirect::back()->withErrors('An error has occured while changing the reservation status!');
-				}
-			}
-			return Redirect::back()->withErrors('An error has occured. No Reservation with the id provided was found!');
-		}
 		
+		}else{
+			//checkin
+			$find = $this->booking->find($id)->first();
+			if($find)
+			{
+				$affectedrows = $this->booking->changeStatus( $find->bookingid, $status);//change status to checked in
+				if($affectedrows){
+					SessionController::flash('Successfully Checked-in');
+					return Redirect::back();
+				}else return Redirect::back()->withErrors('An error has occured while changing the reservation status!');
+					
+			}else{
+				return Redirect::back()->withErrors('Could not find reservation to check-in.');
+			}
+		}	
 	}
 	public function show($id)
 	{
@@ -528,6 +557,47 @@ class BookingController extends BaseController  {
 		$n= $d->h;
 		$n += $d->days * 24;
 		return $n;
+	}
+	public function addOnSessionItems($bookingid){
+		$booking = Booking::find($bookingid);
+		
+		if($bookingid){
+		$rooms = $this->product->getObject()->where('producttypeid' , '>' ,2)->where('producttypeid' , '<' , 5)->paginate(6);
+		$rooms->totalCount = $rooms->count();
+		foreach ($rooms as $room)
+		{
+			if(Files::find($room->fileid) == null) $room->attr = 0;
+			else $room->attr = Files::find($room->fileid);		
+		}
+		return View::make('admin.cashier.cashier-addsessionitems')->withRooms($rooms)->withBooking($booking);
+		}
+		else die("Invalid reservation.");
+				
+	}
+	public function checkoutaddsessionitems($bookingid){
+		$booking = Booking::find($bookingid);
+		$bookingdetails = $this->bookingdetails->findByBookingRefid($bookingid)->first();
+	
+		
+		if($bookingid){
+			$items = Session::pull('items');
+			if(count($items) == 0)die("Invalid session.");
+			foreach ($items as $i) {
+				$bd = new BookingDetails();
+				$bd->bookingstart = $bookingdetails->bookingstart;
+				$bd->bookingend = $bookingdetails->bookingend;
+				$bd->productid = $i['productid'];
+				$bd->productname = $i['product'];
+				$bd->quantity = $i['quantity'];
+				$bd->bookingreferenceid = $bookingid;
+				$bd->temporary = 2;//additional item flag for checkout
+				$bd->time = $bookingdetails->time;
+				$bd->save();
+			}
+			return Redirect::back()->with('flash_message' , "Items Added to reservation.");
+		}
+		else die("Invalid reservation.");
+
 	}
 
 	

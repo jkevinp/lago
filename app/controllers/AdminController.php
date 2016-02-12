@@ -24,6 +24,7 @@ class AdminController extends \BaseController
 		$this->producttype = $ptrepo;
 		$this->sale = $s;
 	}
+
 	public function signin(){
 		Session::flush();
 		$input = Input::all();
@@ -37,13 +38,32 @@ class AdminController extends \BaseController
 			{
 				SessionController::flash('Welcome back!');
 				return Redirect::intended(route('cpanel.dashboard'));
-			}else if(Auth::attempt(['usergroupid' => 3 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1'])){
+			}
+
+			else if(Auth::attempt(['usergroupid' => 2 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
+			{
+				SessionController::flash('Welcome back!');
+
+				return Redirect::intended(route('account.dashboard'));
+			}
+			else if(Auth::attempt(['usergroupid' => 3 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1'])){
 				SessionController::flash('Welcome back Staff!');
 				return Redirect::intended(route('cpanel.dashboard'));
 			}
 			else
 			{
-				return Redirect::back()->withErrors('Invalid Login Credentials!');
+				if($find = $this->account->findByEmail($input['username'])->first()){
+					if($find){
+						$find->attempt += 1;
+						$find->save();
+						if($find->attempt >= 3){
+							$this->account->Lock($find);
+							Event::fire('account.sendForgot', [$find]);
+							return Redirect::back()->withInput($input)->withErrors("Account Locked: Please check your E-mail.");
+						}
+					}
+				}
+				return Redirect::back()->withInput($input)->withErrors("Please check your login credentials or check if your account is activated and not locked.");
 			}
 		}
 	}
@@ -53,9 +73,11 @@ class AdminController extends \BaseController
 		SessionController::flash('Successfully Logged out! Come again!');
 		return Redirect::route('cpanel.account.login');
 	}
+
 	public function login(){
 		return View::make('admin.access.login');
 	}
+
 	public function dashboard(){
 		$reservations['start'] = $this->booking->getStartingToday()->statusIsConfirmed()->get();
 		$reservations['start']->each(function($detail)
@@ -78,6 +100,7 @@ class AdminController extends \BaseController
 		->with('pendingTransaction' ,$this->transaction->findByStatus('created')->get())
 		->withReservations($reservations);
 	}
+
 	public function show($action, $params, $field = null, $order = null){
 		$actions = ['reports','cashier', 'walkin', 'session' ,'file','product', 'bookingdetails', 'transaction', 'account' ,'message' ,'viewmessage','viewaccount' ,'coupon' , 'booking'];
 		if(in_array($action, $actions))
@@ -211,7 +234,8 @@ class AdminController extends \BaseController
 				}
 				break;
 				case 'reports':
-					$view = View::make('admin.reports.report-list');
+					$producttype = ProductType::all()->lists('producttypename' , 'id');
+					$view = View::make('admin.reports.report-list')->with(compact('producttype'));
 				break;
 			}
 			$view->withMails($this->mail->all())->with('pendingTransaction' ,$this->transaction->findByStatus('created')->get());
@@ -222,6 +246,7 @@ class AdminController extends \BaseController
 			return Redirect::to(route('cpanel.dashboard'))->withErrors('Invalid Url');
 		}
 	}
+
 	public function create($action){
 		$actions = ['transaction', 'account' ,'message' ,'viewmessage', 'coupon' ,'product' , 'file'];
 		if(in_array($action, $actions))
@@ -263,6 +288,7 @@ class AdminController extends \BaseController
 		}
 		else return Redirect::to(route('cpanel.dashboard'))->withErrors('Invalid Url');
 	}
+
 	public function edit($action, $params){
 		$actions = ['transaction', 'account' ,'message' ,'viewmessage', 'coupon' ,'product'];
 		if(in_array($action, $actions))
@@ -306,6 +332,7 @@ class AdminController extends \BaseController
 			return Redirect::to(route('cpanel.dashboard'))->withErrors('Invalid Url');
 		}
 	}
+
 	public function search($action, $param){
 		$actions = ['search','transaction', 'account' ,'message' ,'coupon', 'bookingcheckin'];
 		if(in_array($action, $actions)){
@@ -319,6 +346,7 @@ class AdminController extends \BaseController
 		else 
 			return Redirect::back()->withErrors('Invalid URL');
 	}
+
 	public function showResults(){
 		$actions = ['search','transaction', 'account' ,'message' ,'coupon' ,'bookingcheckin' ,'bookingcheckout'];
 		$input = Input::all();
@@ -360,12 +388,18 @@ class AdminController extends \BaseController
 		}
 		else 
 			return Redirect::back()->withErrors('Invalid URL');
-		
 	}
+
+
 	public function SetInfo(){
+			Session::pull('originalFee');
+			Session::pull('date_info');
+			Session::pull('totalFee');
+			Session::pull('account_info');
 		
 			$input = Input::all();
-			$rules = ['start' => 'required',
+			$rules = [
+						'start' => 'required',
 						'end' => 'required',
 						'email' => 'required|email',
 						'timeofday' => 'required',

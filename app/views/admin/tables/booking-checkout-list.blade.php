@@ -62,6 +62,8 @@
                                                   @if($booking['active'] == 3)
                                                      <a  class="checkout" data-href="{{URL::action('book.changeStatus' ,['id' => $booking['bookingid'] , 'status' => '4' ,'fullypaid' =>'false' , 'isCheckout' => 'true'])}}"><button class="btn btn-success btn-xs"><i class="fa fa-remove"></i> Check out</button></a>
                                                      <a class="addHours" id="extend" data-href="{{URL::action('book.extend' ,['id' => $booking['bookingid']])}}"><button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Extend</button></a>
+                                                     <a href="{{route('cpanel.addOnSessionItems' ,$booking['bookingid'])}}"><button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Additional Services/Items</button></a>
+                                                  
                                                   @endif
                                               </td>
                                           </tr>

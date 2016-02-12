@@ -52,6 +52,7 @@ class TransactionsController extends \BaseController
 				$status = 'fullypaid';
 			break;
 		}
+
 		$bookingdetails->each(function($detail) use ($id,$coeff, $transaction, $reservation ){
 
 			switch ($reservation->bookingmode) {
@@ -67,9 +68,11 @@ class TransactionsController extends \BaseController
 
 			}
 			$p = $detail->productprice * $coeff;
+
 			$this->sale->create($id,$detail->productid,$detail->quantity, $p, $transaction->id, 'reservation-'.$transaction->paymenttype);
 		
 		});
+
 		$check = $this->transaction->changeStatus($transactionid, $status);
 		
 		if($check){

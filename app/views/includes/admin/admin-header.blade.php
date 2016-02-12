@@ -221,10 +221,14 @@
             </h5>
           </div>
           <div class="modal-body">
+
+          <?php $totalCapacity  = 0; ?>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                      @if((Session::get('items')))
+
                       <?php $ctr = 0;?>
                         @foreach (Session::get('items') as $i)
+                          <?php if(isset($i['paxmax'])) $totalCapacity += $i['paxmax'] * $i['quantity']; ?>
                               <div class="panel panel-info">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h5 class="panel-title">
@@ -290,7 +294,17 @@
           </div>
           <div class="modal-footer">  
              @if((Session::get('items')))
-            {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
+              @if($totalCapacity >= (Session::get('date_info')['children'] + Session::get('date_info')['adult']))
+                {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
+
+              @else
+
+                  <div class="well text-center">
+                  <p>Total count of guest is less than the max capacity of all selected rooms,huts and cottages.</p>
+                  <p>Please select more rooms,huts or cottages.</p>
+                  </div>
+                  {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
+              @endif
             @endif
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>

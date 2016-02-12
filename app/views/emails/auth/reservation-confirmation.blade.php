@@ -28,4 +28,16 @@ Account branch: BPI tanay<br/>
 2.	Click the “Pay” button and then fill-up the form provided for “Reference Number / Deposit Code” <br/>
 3.	Lastly, click the “Confirmation” button.<br/>
 
+<br/>
+<br/>
+<br/>
+<hr>
+<h3>Terms of Service and Condition.</h3><br/>
+<p>Initial 50% downpayment is needed to verify your reservation.</li><br/>
+<p>No refund policy</li><br/>
+<p>Please be reminded that you can upgrade your room once your initial reservation payment is confirmed in our system.</li><br/>
+<p>Downgrading of rooms are also possible but there is no deduction on the original room price you reserved prior to the changes.</li><br/>
+<p>All rooms changes are subject on availability.</li><br/>
+
+
 @stop

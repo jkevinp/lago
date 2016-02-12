@@ -16,5 +16,9 @@ class ProductType extends Eloquent implements UserInterface, RemindableInterface
 	{
 		return $this->hasOne('Product');	
 	}
+	public function products()
+	{
+		return $this->hasMany('Product', 'producttypeid' , 'id');	
+	}
 
 }

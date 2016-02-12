@@ -23,7 +23,7 @@
     var msg= "";
     var makeFullyPaid = false;
     if(paymenttype == "half" && status == 'confirmed') {
-      msg = "Outstanding balance found! <br/><span style='color:red;'>PHP: " + formatNumber(balance) + "</span><br/> Please ask the customer to pay the balance before proceeding. <br/> Pressing 'OK' will mark the transaction as fully paid. ";
+      msg = "Outstanding balance found! <br/><span style='color:red;'>PHP: " + formatNumber(balance) + "</span><br/> Please ask the customer to pay the balance during checkout. <br/> Press 'Ok' to continue.. ";
       makeFullyPaid = $(this).attr('data-id');
     }
        bootbox.confirm("Check in this reservation? " + msg  , function(result) 
@@ -31,7 +31,7 @@
           if(result)
           {
             if(makeFullyPaid) href = href + "/" +makeFullyPaid;
-           document.location = href;
+            document.location = href;
           }
       }); 
 }); 

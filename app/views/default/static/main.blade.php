@@ -7,10 +7,6 @@
 <br/>
 <div class="row">
     <div class="col-md-12">
-        <!-- <div class="row content" style="padding-bottom:10px !important;">
-            @include('includes.form.form-date')
-        </div> -->
-
         <div class="row" style="margin-top:10px !important;margin-bottom:10px !important;">
             <div class="col-md-12">
                 <div class="content" style="height:820px !important;">

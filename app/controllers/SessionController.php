@@ -65,7 +65,8 @@ class SessionController extends \BaseController
 						'totalquantity' => $input ['producttotalqty'],
 						'type' => $input['producttype'],
 						'price' => $input['price'],
-						'image' => $input['image']
+						'image' => $input['image'],
+						'paxmax' => $input['paxmax']
 						));
 						Session::put('items' , $products);	
 						
@@ -82,7 +83,8 @@ class SessionController extends \BaseController
 							'totalquantity' => $input ['producttotalqty'],
 							'type' => $input['producttype'],
 							'price' => $input['price'],
-							'image' => $input['image']
+							'image' => $input['image'],
+							'paxmax' => $input['paxmax']
 							));
 						Session::put('items' , $products);
 						

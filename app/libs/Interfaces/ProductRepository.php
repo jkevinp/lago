@@ -9,6 +9,7 @@ interface ProductRepository
 	public function create($input );
 	public function getReserved($date);
 	public function getAvailable($date);
+	public function getAvailableNew($date, $type = false);
 	public function edit($id, $input);
 	public function check($date ,$id);
 	public function getObject();
