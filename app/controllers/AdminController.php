@@ -564,26 +564,15 @@ class AdminController extends \BaseController
 		Session::put('totalFee' ,$this->computeFee(Session::get('items')));
 		return Redirect::back();
 	}
-	public function computeFee($arr)
-	{
+	public function computeFee($arr){
 		$price =0;
 		$divider = 0;
 		if(Session::get('date_info')['modeofstay'] == "day") $divider = 9;
 		else if(Session::get('date_info')['modeofstay'] == "night")$divider = 9;
 		else $divider = 20;
 
-		$coeff = ((Session::get('date_info')['lenofstay'] * 24) /$divider);
-		foreach ($arr as $key => $value) {
-			if($value['type'] == 'Admission' || $value['type'] == 'Rentals'){
-				$price += (($value['price'] * $value['quantity']));
-			}
-			else{
-				$price += (($value['price'] * $value['quantity']) * $coeff);
-			}	
-		}
-		Session::put('originalFee', $price);
-		$price += $price * AppConfig::getTax();
-
+		
+		
 		$totalCapacity  = 0;
            $roomcounter = 0;
  		   foreach (Session::get('items') as $i){
@@ -624,8 +613,12 @@ class AdminController extends \BaseController
 				
 				Session::put('items' , $products);
 			}
+			$price = 0;
+			foreach (Session::get('items') as $key => $value) {
+				$price += $value['price'] * $value['quantity'];
+			}
 
-
+		Session::put('originalFee', $price);
 
 		return  number_format($price, 2, '.', '');
 	}
