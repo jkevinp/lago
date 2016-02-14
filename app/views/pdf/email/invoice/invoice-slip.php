@@ -6,10 +6,17 @@
     	*{
     		font-family: Arial;
     	}
-     table, th, td 
-     {
-    	border: 2px solid #AAA;
-		padding: 2px;
+    	table ,th{
+    		 border-collapse: collapse;
+    		 border: 2px solid #AAA;
+    }
+ td {
+    	border-collapse: collapse;
+    	border-left: 2px solid #AAA;
+    	border-right: 2px solid #AAA;
+    	padding-bottom: 1px;
+    	padding-top: 1px;
+
 	}
 	td.r{
 		text-align: right;
@@ -79,8 +86,8 @@
 	?></td>	 -->
 		<tr>
 			<td>&nbsp;</td>
-			<td class="r">Total Bill: <u><?php
-		echo ''.(number_format($TotalPrice,2) ).'';
+			<td class="r">Total Amount: <u><?php
+		echo 'PHP '.(number_format($TotalPrice,2) ).'';
 	?></u></td>	
 		</tr>
 	</table>

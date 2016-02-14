@@ -26,6 +26,7 @@ Route::group(['prefix' => 'pdf'] , function(){
 Route::get('pdf' , 'PDFController@reservationSlip');
 Route::post('pdf/generate' , ['uses' => 'PDFController@generateReport' , 'as' => 'report.generate']);
 Route::get('invoice/{cartid}' ,['uses' => 'PDFController@invoice', 'as' => 'pdf.invoice']);
+Route::get('receipt/{cartid}' ,['uses' => 'PDFController@receipt', 'as' => 'pdf.receipt']);
 
 Route::group(['prefix' => 'ajax'], function(){
     Route::get('/charts' , ['uses' => 'ReportsController@charts' , 'as' => 'ajax.charts.chart']);
@@ -106,7 +107,7 @@ Route::group(['prefix' => 'book'], function()
     Route::post('AddReservation/AddItem' ,['uses' => 'BookingController@AddItem' , 'as' => 'book.addItem']);
     Route::post('AddReservation/SetInfo' ,['uses' => 'BookingController@SetInfo' , 'as' => 'book.SetInfo']);
     //cpanel
-    Route::get('/changeStatus/{id}/{status}/{fullypaid?}/{isCheckout?}' , ['uses' => 'BookingController@changeStatus' , 'as' => 'book.changeStatus']);
+    Route::get('/changeStatus/{id}/{status}/{fullypaid?}/{isCheckout?}/{money?}' , ['uses' => 'BookingController@changeStatus' , 'as' => 'book.changeStatus']);
     Route::get('/extend/{id}/{hours}' , ['uses' => 'BookingController@extend' , 'as' =>'book.extend']);
 });
 

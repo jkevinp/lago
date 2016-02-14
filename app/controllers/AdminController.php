@@ -583,6 +583,50 @@ class AdminController extends \BaseController
 		}
 		Session::put('originalFee', $price);
 		$price += $price * AppConfig::getTax();
+
+		$totalCapacity  = 0;
+           $roomcounter = 0;
+ 		   foreach (Session::get('items') as $i){
+                if(isset($i['paxmax'])){ 
+                     $totalCapacity += $i['paxmax'] * $i['quantity'];
+                              if($i['paxmax'] != 0)
+                              $roomcounter += 1; 
+                            }
+            }
+
+   			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
+            $forced = $roomcounter * 10;
+            $remaining = $guest - $forced;
+            $excess = $guest - $totalCapacity;
+	         if($excess > 0)
+			{
+				$products = Session::pull('items');
+
+				foreach ($products as $key => $value) {
+					if($value['product'] == "Room Excess Fee")
+						unset($products[$key]);
+			//$item = array_values($item);
+				}
+				$products = array_values($products);
+
+				$product = Product::where("productname" , "Room Excess Fee")->first();
+				array_push($products, array(
+								'productid' => $product->id,
+								'product' => $product->productname , 
+								'quantity' => $excess,
+								'description' => $product->productdesc,
+								'totalquantity' => 'unlimited',
+								'type' => 'Admission',
+								'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
+								'image' => URL::asset('default/img-uploads').'/adult.jpg',
+								'removable' => false
+							));
+				
+				Session::put('items' , $products);
+			}
+
+
+
 		return  number_format($price, 2, '.', '');
 	}
 

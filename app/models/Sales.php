@@ -23,7 +23,13 @@ class Sales extends Eloquent implements UserInterface, RemindableInterface
     public function product(){
         return $this->hasOne('Product' , 'id' , 'productid');
     }
+    public function products(){
+        return $this->hasOne('Product' , 'id' , 'productid');
+    }
      public function transaction(){
+        return $this->hasOne('Transactions' , 'id' , 'transactionid');
+    }
+    public function transactions(){
         return $this->hasOne('Transactions' , 'id' , 'transactionid');
     }
     public function account()

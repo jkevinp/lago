@@ -222,13 +222,20 @@
           </div>
           <div class="modal-body">
 
-          <?php $totalCapacity  = 0; ?>
+          <?php $totalCapacity  = 0;$roomcounter = 0; ?>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                      @if((Session::get('items')))
 
                       <?php $ctr = 0;?>
                         @foreach (Session::get('items') as $i)
-                          <?php if(isset($i['paxmax'])) $totalCapacity += $i['paxmax'] * $i['quantity']; ?>
+                          <?php 
+                            if(isset($i['paxmax'])){ 
+                              $totalCapacity += $i['paxmax'] * $i['quantity'];
+                              if($i['paxmax'] != 0)
+                              $roomcounter += 1; 
+                            }
+
+                          ?>
                               <div class="panel panel-info">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h5 class="panel-title">
@@ -293,8 +300,17 @@
                     @endif
           </div>
           <div class="modal-footer">  
+            <?php 
+                $guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
+                $forced = $roomcounter * 10;
+                $remaining = $guest - $forced;
+                $excess = $guest - $totalCapacity;
+                Session::put('remaining' , $remaining);
+
+             ?>
              @if((Session::get('items')))
-              @if($totalCapacity >= (Session::get('date_info')['children'] + Session::get('date_info')['adult']))
+           
+                 @if($remaining <= 0)
                 {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
 
               @else

@@ -77,7 +77,7 @@ class BookingEventSubscriber
   public function onConfirm($account ,$id)
   {
        $pdfController =  App::make('PDFController');
-       $file = $pdfController->invoiceSlip($id);
+       $file = $pdfController->receiptCustomerOnly($id);
        
        Helpers::SendMail(
                       'emails.auth.transaction-confirmed',
@@ -96,6 +96,19 @@ class BookingEventSubscriber
                            'fileas' => 'transaction-invoice.pdf',
                        ], $file
                        );
+
+    $mailsController =  App::make('MailsController');
+    $mailsController->mail->create(
+                    [
+                      'sendername' => 'System',
+                      'senderemail' => SiteContents::where('title' ,'email')->first()->value,
+                      'receiveremail' => $account->email,
+                      'receivername' => $account->firstname." ".$account->lastName,
+                      'subject' => 'Reservation has been approved.',
+                      'message' => 'Your reservation with Booking id: '.$id.' has been approved.',
+                      'status' => 5
+                    ]
+                  );
   }
   public function subscribe($events)
   {

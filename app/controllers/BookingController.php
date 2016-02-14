@@ -79,6 +79,51 @@ class BookingController extends BaseController  {
 		}
 		Session::put('originalFee', $price);
 		$price += $price * AppConfig::getTax();
+
+		$totalCapacity  = 0;
+           $roomcounter = 0;
+ 		   foreach (Session::get('items') as $i){
+                if(isset($i['paxmax'])){ 
+                     $totalCapacity += $i['paxmax'] * $i['quantity'];
+                              if($i['paxmax'] != 0)
+                              $roomcounter += 1; 
+                            }
+            }
+
+   			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
+            $forced = $roomcounter * 10;
+            $remaining = $guest - $forced;
+            $excess = $guest - $totalCapacity;
+	         if($excess > 0)
+			{
+				$products = Session::pull('items');
+
+				foreach ($products as $key => $value) {
+					if($value['product'] == "Room Excess Fee")
+						unset($products[$key]);
+			//$item = array_values($item);
+				}
+				$products = array_values($products);
+
+				$product = Product::where("productname" , "Room Excess Fee")->first();
+				array_push($products, array(
+								'productid' => $product->id,
+								'product' => $product->productname , 
+								'quantity' => $excess,
+								'description' => $product->productdesc,
+								'totalquantity' => 'unlimited',
+								'type' => 'Admission',
+								'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
+								'image' => URL::asset('default/img-uploads').'/adult.jpg',
+								'removable' => false
+							));
+				
+				Session::put('items' , $products);
+			}
+
+
+
+
 		return  number_format($price, 2, '.', '');
 	}
 
@@ -251,9 +296,11 @@ class BookingController extends BaseController  {
 			return $date->format('Y-m-d'); // 31-07-2012
 	}
 	//Checkin check out or change status
-	public function changeStatus($id , $status , $fullypaid = false , $isCheckout = false){
+	public function changeStatus($id , $status , $fullypaid = false , $isCheckout = false , $money = false){
 		if($isCheckout)//checkout 
 		{
+
+
 			$find = $this->booking->find($id)->first();
 			$sid = $this->sale->generateId();
 			$transaction = $this->transaction->findByBookingId($id)->first();
@@ -262,6 +309,72 @@ class BookingController extends BaseController  {
 					->where('temporary' , '=',2)
 					->get()
 					->count();
+
+			if(!$money && ($transaction->status  != "fullypaid" || $c >=1)){
+					Session::put('parr' , []);
+				$reservation = $this->booking->find($id)->first();
+				if($transaction->paymenttype == "half"){
+					//pay remaining balance
+					switch($transaction->paymenttype){
+						case 'half':
+							$coeff = 0.5;
+						break;
+						case 'full':
+							$coeff = 1;
+						break;
+					}//end of switch
+					//creates sale if have remaiming balance
+					$bookingdetails->each(function($detail) use ($sid,$coeff, $transaction,$reservation ){
+							switch ($reservation->bookingmode) {
+								case 'day':
+									$detail->productprice  =$this->product->find($detail->productid)->productprice;
+								break;
+								case 'night':
+									$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+								break;
+								default:
+									$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+								break;
+
+							}
+							if($detail->temporary != 2){
+
+								$detail->productprice = $detail->productprice * $coeff;
+								Session::push('parr' , $detail);
+
+							
+							}
+						});
+				}//END HALF
+				if($c >= 1){
+					$bookingdetails->each(function($detail) use ($sid, $transaction,$reservation){
+							switch ($reservation->bookingmode) {
+								case 'day':
+									$detail->productprice  =$this->product->find($detail->productid)->productprice;
+								break;
+								case 'night':
+									$detail->productprice  =$this->product->find($detail->productid)->nightproductprice;
+								break;
+								default:
+									$detail->productprice  =$this->product->find($detail->productid)->overnightproductprice;
+								break;
+
+							}
+							if($detail->temporary == 2 && $detail->extensionhours >= 1){
+								$detail->productprice = $this->product->find($detail->productid)->extensionproductprice * $detail->extensionhours;
+							}
+
+							if($detail->temporary== 2){
+								$p = $detail->productprice;
+								Session::push('parr' , $detail);
+							}
+								
+						});
+				}
+				return View::make('admin.cashier.cashier-checkout')
+				->with('route' , route('book.changeStatus' ,['id' => $id , 'status' => $status ,'fullypaid' =>'false' , 'isCheckout' => 'true']))
+				->with('bookingdetails' , Session::pull('parr'))->with('transaction' , $transaction);
+			}
 			
 			if($transaction->status  != "fullypaid" || $c >=1)
 			{
@@ -313,6 +426,10 @@ class BookingController extends BaseController  {
 								break;
 
 							}
+							if($detail->temporary == 2 && $detail->extensionhours >= 1){
+								$detail->productprice = $this->product->find($detail->productid)->extensionproductprice * $detail->extensionhours;
+							}
+
 							if($detail->temporary== 2){
 
 								$p = $detail->productprice;
@@ -324,14 +441,14 @@ class BookingController extends BaseController  {
 				$check = $this->transaction->changeStatus($transaction->id, 'fullypaid');//change transaction status to fully paid
 				if($check){
 					if($transaction->paymenttype == "half" || $c >= 1){
-						//make this receipt
-						$url = URL::action('pdf.invoice', ['cartid' => $sid]);
+						//make this receipt 
+						$url = URL::action('pdf.receipt', ['cartid' => $sid]);
 						$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
 						$msg ='<hr>'.$url;
 					}else $msg = "";
 					SessionController::flash('The reservation status has been updated'.$msg);
 				}else{
-					return Redirect::back()->withErrors('An error has occured while changing the transaction status!');
+					return Redirect::route('cpanel.dashboard')->withErrors('An error has occured while changing the transaction status!');
 				}
 			}//end for half reservations
 			if($find){
@@ -344,12 +461,12 @@ class BookingController extends BaseController  {
 					if(isset($msg))
 					SessionController::flash('The session has been checked-out'.$msg);
 					else  SessionController::flash('The session has been checked-out');
-					return Redirect::back();
+					return Redirect::route('cpanel.dashboard');
 				}else{
-					return Redirect::back()->withErrors('An error has occured while changing the reservation status!');
+					return Redirect::route('cpanel.dashboard')->withErrors('An error has occured while changing the reservation status!');
 				}
 			}
-			else return Redirect::back()->withErrors('An error has occured. No Reservation with the id provided was found!');
+			else return Redirect::route('cpanel.dashboard')->withErrors('An error has occured. No Reservation with the id provided was found!');
 		
 		}else{
 			//checkin
@@ -359,11 +476,11 @@ class BookingController extends BaseController  {
 				$affectedrows = $this->booking->changeStatus( $find->bookingid, $status);//change status to checked in
 				if($affectedrows){
 					SessionController::flash('Successfully Checked-in');
-					return Redirect::back();
-				}else return Redirect::back()->withErrors('An error has occured while changing the reservation status!');
+					return Redirect::route('cpanel.dashboard');
+				}else return Redirect::route('cpanel.dashboard')->withErrors('An error has occured while changing the reservation status!');
 					
 			}else{
-				return Redirect::back()->withErrors('Could not find reservation to check-in.');
+				return Redirect::route('cpanel.dashboard')->withErrors('Could not find reservation to check-in.');
 			}
 		}	
 	}
@@ -414,24 +531,26 @@ class BookingController extends BaseController  {
 					$booking = $this->booking->find($id)->first();
 					$booking->bookingend = $date['end'];
 					$detail->bookingend = $date['end'];
+					$detail->temporary = 2;
+					$detail->extensionhours = $detail->extensionhours + $hours;
 					$booking->save(); 
 					$detail->save();
 
 
-					$this->sale->create($sid, 
-									$product->id,
-									$detail->quantity,
-									($product->extensionproductprice) * $hours, 
-									$booking->transaction->id,
-									'extend'
-									);		
+					// $this->sale->create($sid, 
+					// 				$product->id,
+					// 				$detail->quantity,
+					// 				($product->extensionproductprice) * $hours, 
+					// 				$booking->transaction->id,
+					// 				'extend'
+					// 				);		
 				}
 			}
 			
-			$url = URL::action('pdf.invoice', ['cartid' => $sid]);
-			$url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
-			$msg ="<hr>".$url;
-			SessionController::flash("Reservation has been extended". $msg);
+			// $url = URL::action('pdf.invoice', ['cartid' => $sid]);
+			// $url ="<a href='".$url."' target='_blank' class='btn btn-primary'>Print</a>";
+			// $msg ="<hr>".$url;
+			SessionController::flash("Reservation has been extended");
 			return Redirect::back();
 		}
 	}
@@ -559,22 +678,33 @@ class BookingController extends BaseController  {
 		return $n;
 	}
 	public function addOnSessionItems($bookingid){
+		 $products = Session::pull('items');
+         if($products){
+         foreach ($products as $key => $value) {
+                    if($value['product'] == "Room Excess Fee")
+                        unset($products[$key]);
+         }
+                $products = array_values($products);
+                Session::put('items' , $products);
+                }
+
 		$booking = Booking::find($bookingid);
 		
 		if($bookingid){
-		$rooms = $this->product->getObject()->where('producttypeid' , '>' ,2)->where('producttypeid' , '<' , 5)->paginate(6);
-		$rooms->totalCount = $rooms->count();
-		foreach ($rooms as $room)
-		{
-			if(Files::find($room->fileid) == null) $room->attr = 0;
-			else $room->attr = Files::find($room->fileid);		
-		}
-		return View::make('admin.cashier.cashier-addsessionitems')->withRooms($rooms)->withBooking($booking);
+			$rooms = $this->product->getObject()->where('producttypeid' , '>' ,2)->where('producttypeid' , '<' , 5)->paginate(6);
+			$rooms->totalCount = $rooms->count();
+			foreach ($rooms as $room)
+			{
+				if(Files::find($room->fileid) == null) $room->attr = 0;
+				else $room->attr = Files::find($room->fileid);		
+			}
+			return View::make('admin.cashier.cashier-addsessionitems')->withRooms($rooms)->withBooking($booking);
 		}
 		else die("Invalid reservation.");
 				
 	}
 	public function checkoutaddsessionitems($bookingid){
+
 		$booking = Booking::find($bookingid);
 		$bookingdetails = $this->bookingdetails->findByBookingRefid($bookingid)->first();
 	

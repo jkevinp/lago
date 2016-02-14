@@ -18,9 +18,9 @@
                           <span>Dashboard</span>
                       </a>
                   </li>
-                   <li class="sub-menu">
+                 <!--   <li class="sub-menu">
                       <a href="{{url::action('cpanel.show' ,['action' => 'cashier' ,'param' => 'pay'])}}"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Sales</span></a>
-                   </li>
+                   </li> -->
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-exchange"></i>
@@ -161,9 +161,9 @@
                           <span>Dashboard</span>
                       </a>
                   </li>
-                   <li class="sub-menu">
+                  <!--  <li class="sub-menu">
                       <a href="{{url::action('cpanel.show' ,['action' => 'cashier' ,'param' => 'pay'])}}"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Sales</span></a>
-                   </li>
+                   </li> -->
                    <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-exchange"></i>

@@ -52,7 +52,7 @@
                                         {{Form::hidden('producttotalqty', $room['productquantity'])}}
                                         {{Form::hidden('productdescription', $room['productdesc'])}}
                                         {{Form::hidden('producttype', $room->producttype['producttypename'])}}
-                                        @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
+                                        @if($room->producttype['id'] ==2)
                                         {{Form::hidden('paxmax', $room['paxmax'])}}
                                         @else
                                         {{Form::hidden('paxmax', 0)}}
@@ -60,11 +60,9 @@
                                         
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
 
-                                        @if($room->producttype['id'] != 3 && $room->producttype['id'] != 4)
-                                        
                                         <p>Min Capacity: {{$room['paxmin']}}</p>
                                         <p>Max Capacity: {{$room['paxmax']}}</p>
-                                        @endif
+                                    
 
                                         @if(Session::get('date_info')['modeofstay'])
                                             @if(Session::get('date_info')['modeofstay'] == "day")

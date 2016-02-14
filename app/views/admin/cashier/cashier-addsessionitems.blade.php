@@ -7,6 +7,11 @@
 @stop
 
 @section('content')
+
+
+
+
+
 	<br/><br/><br/><br/>
         <div class="container">
             <legend>
@@ -95,12 +100,16 @@
                                         {{Form::hidden('paxmax', 0)}}
                                         @endif
                                        
-                                        @if(Carbon::now('Asia/Manila')->hour >= 19 && Carbon::now('Asia/Manila')->hour <= 24)
+                                        @if($booking['bookingmode'] == "night")
                                             {{Form::hidden('price', $room['nightproductprice'])}}
                                             <p>Price: PHP {{$room['nightproductprice']}}/unit</p>
-                                        @else
-                                            {{Form::hidden('price', $room['productprice'])}}
+                                        @elseif($booking['bookingmode'] == "day")
+                                         {{Form::hidden('price', $room['productprice'])}}
                                             <p>Price: PHP {{$room['productprice']}}/unit</p>
+
+                                        @else
+                                            {{Form::hidden('price', $room['overnightproductprice'])}}
+                                            <p>Price: PHP {{$room['overnightproductprice']}}/unit</p>
                                         @endif
                                         <p>Category : {{$room->producttype['producttypename']}}</p>
                                         
@@ -137,6 +146,10 @@
                                     if($key !='page')
                                     $rooms->appends(array($key => Input::get($key)));
                                 }
+
+
+
+
                            ?>
                           {{$rooms->links()}}  
                        </div>

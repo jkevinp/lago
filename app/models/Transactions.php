@@ -23,4 +23,7 @@ public function scopeCreatedAscending($query)
     {
         return $query->orderBy('created_at','DESC');
     } 
+    public function booking(){
+    	return $this->belongsTo('Booking' , 'bookingid');
+    }
 }

@@ -59,6 +59,6 @@ class Product extends Eloquent implements UserInterface, RemindableInterface {
 			'image' => 	'mimes:image,jpeg,jpg,bmp,png|required'
 		];
     public static function rules(){
-    	return Self::$rules;
+    	return self::$rules;
     }
 }

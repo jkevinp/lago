@@ -89,6 +89,11 @@ class SessionController extends \BaseController
 						Session::put('items' , $products);
 						
 				}
+
+           
+
+
+
 			break;
 			case 'setinfo':
 				$date = array(

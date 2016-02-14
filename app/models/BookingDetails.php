@@ -9,7 +9,7 @@ class BookingDetails extends Eloquent implements UserInterface, RemindableInterf
 
 	use UserTrait, RemindableTrait;
 	public $timestamps = true;
-	public $fillable = array('temporary','productid' , 'bookingreferenceid' ,'productname' , 'quantity', 'active', 'time' ,'bookingstart' , 'bookingend');
+	public $fillable = array('extensionhours','temporary','productid' , 'bookingreferenceid' ,'productname' , 'quantity', 'active', 'time' ,'bookingstart' , 'bookingend');
 
 	/**
 	 * The database table used by the model.
