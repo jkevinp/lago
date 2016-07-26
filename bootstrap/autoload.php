@@ -1,5 +1,5 @@
 <?php
-$localhost = 1;
+$localhost = 0; 
 define('LARAVEL_START', microtime(true));
 define('APP_NAME', "Lago Fishing Village");
 
