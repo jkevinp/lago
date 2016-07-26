@@ -15,7 +15,7 @@ if($localhost){
 	define('DB_USER',getenv('OPENSHIFT_MYSQL_DB_USERNAME'));
 	define('DB_PASS',getenv('OPENSHIFT_MYSQL_DB_PASSWORD'));
 	define('DB_NAME',getenv('OPENSHIFT_GEAR_NAME'));
-	define('HOST', 'http://app-sunrock.rhcloud.com/');
+	define('HOST', 'http://lagofishingvillage-imuscityhall.rhcloud.com/');
 }
 define('APP_RESOURCES',HOST.'public/');
 define('APP_DEFAULT', APP_RESOURCES.'default/');
