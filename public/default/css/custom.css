@@ -1,4 +1,10 @@
-
+.topbar{
+	height: 76px;
+	background: url(../img/topbar.jpg) center top;
+	margin:0 !important;
+	padding: 0!important;
+	margin-top: -20px;
+}
 .theme-green{
       background: #00b356 !important;
       color:white !important;
@@ -6,7 +12,9 @@
       position:absolute;
 }
 *{
-	font-family: Century Gothic;
+	
+	padding: 0;
+	margin: 0;
 }
 
 #fixed { 
@@ -14,6 +22,25 @@
 	position:fixed; 
 	top:0; left:0; 
 	z-index:10000; 
+}
+.header-right{
+    padding-top: 25px;
+    font-size: 13px;
+    line-height: 30px;
+    height: 100%;
+}
+.header-right ul{
+	list-style-type: none;
+	float: right;
+}
+.header-right a{
+	margin-top: 10px;
+	letter-spacing: 0.5px;
+    padding-top: 25px;
+    line-height: 30px;
+    color: black;
+    margin-left: 10px;
+    text-decoration: none;
 }
 
 #footer{
@@ -24,20 +51,52 @@
 	text-align:left;
 	font-size:16px;
 	color:white;
-	font-family:Century Gothic;
+	font-family:Ruda;
 	background:#00b356;
 }
 .header-base{
 	overflow:auto;
-    background-color: #00b356;
-    border-radius: 5px;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px !important;
+    width: 100%;
+    background: url(../img/menu.jpg) center top;
+    height: 46px;
+    position: relative;
 }
 .header-base ul{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
 	cursor: pointer;
+	margin-bottom: 0;
+}
+ul.main-menu > li{
+	height: 100%;
+}
+ul.main-menu > li > a{
+	border: 0;
+}
+.header-base a{
+    /*display: block;*/
+    margin: 0;
+    border: 0;
+	height: 100%;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    margin-left:  10px;
+    margin-right: 10px;
+    font-size: 12px;
+    letter-spacing: 1px;
+	transition-duration: 0.4s;
+	border-bottom:  1px solid yellow;
+
+    padding: 10px 10px;
+}
+.header-base a:hover:not(.active) {
+    background-color: white;
+	color:black;
 }
 
 li{
@@ -48,36 +107,22 @@ li:last-child {
     border-right: none;
 }
 body{
+	background: url(../img/banner-bg.jpg) center no-repeat fixed;
+    background-size: cover;
 	min-height: 100vh;
-	background-image: url('../../media/photos/BlueBG.jpg') !important;
 	background-attachment: fixed;
 	background-position: center;
 	padding: 0;
 	margin: 0;
-}
-.header-base a{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 5px 5px;
-    text-decoration: none;
+	margin-top: -20px;
 }
 
-.header-base a:hover:not(.active) {
-    background-color: white;
-	color:black;
-}
 
 .active {
     background-color: white;
 }
 
-.header-base a {
-	margin: 0;
-    font-size: 12px;
-	font-family: Century Gothic;
-	transition-duration: 0.4s;
-}
+
 .four {width:85%;}
 .row{
 	padding: 0 !important;
@@ -88,31 +133,27 @@ body{
 	background-color: rgba(250,250,250,0.7);
 	padding: 0 !important;
 	margin: 0 !important;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	padding-bottom: 10px !important;
-	padding-top: 10px !important;
 	top:0;
 	height: auto;
-	border-radius: 5px;
 }
 section.header{
 	margin: 0;
 	padding: 0;
-
 }
 
 .footer{
-	padding-top: 20px;
-	top: 0;
-	margin-top: 20px;
+	width: 100%;
+    padding: 30px 0px;
+    background: #2B6221;
+    overflow: auto;
 }
 img.carousel-item{
     position: absolute !important;
+    width: 100vw !important;
+
     top:0;
-    left:0;
-    min-height:400px;
-	max-height:400px;
+    left:-16%;
+    max-height:800px !important;min-height:800px !important;width:100%;
 }
 div.karousel{
 	min-height:400px;

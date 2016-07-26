@@ -26,7 +26,7 @@
 <body>
 <section class="header">
 @yield('header')
-    @include('includes.default.header')
+@include('includes.default.header')
 </section>
 <div class="col-md-10 col-md-offset-1">
 @yield('content')
@@ -39,5 +39,7 @@
 
 
 @yield('script')
+
+
 </body>
 </html>

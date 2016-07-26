@@ -2,7 +2,7 @@
 
 @section('content')
 				<div class="row mt">
-                  <div class="col-md-12">
+                  <div class="col-md-4 col-md-offset-4">
                   	<h3>> Update Profile </h3>
                       <div class="form-panel">
                       

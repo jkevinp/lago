@@ -1,5 +1,6 @@
 <?php
-
+use Facebook\Facebook;
+use Facebook\FacebookRequest;
 class PageController extends \BaseController 
 {
 	public function reservenow(){
@@ -12,8 +13,35 @@ class PageController extends \BaseController
 			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
 		})->where('contentvalue' , 'news')->get();
 
-		return View::make('default.static.main')->with(compact('news'));
+		$url = "https://graph.facebook.com/v2.6/239858609498045?fields=posts&access_token=EAACEdEose0cBAPw8FfEjXWdMGH8ndo96wobk7KZApQk8F9CgLltKGCmPLdLQOgQC3f8GtZBXRqhJ9cD6h4QRM53ACgQN9lq2fkT76yftXybKeETebg17idYUk9eRLEz5hAwJ1oU5J7V9MPjDK6KvfQeRHGknoCfGEMWFqNlQZDZD";
+		$fbposts= $this->Curl($url);
+		$fbposts = json_decode($fbposts);
+		$fbposts = $fbposts->posts->data;
+		return View::make('default.static.main')->with(compact('news' , 'fbposts'));
 	}
+
+	function Curl($url){
+			$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		//curl_setopt($ch, CURLOPT_PROXY, PROXY_ADDR);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/xml']);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER,TRUE);
+		$result = curl_exec($ch);
+		$code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		
+		
+		curl_close($ch);
+		if($code !== 200){
+			if($code == 400){
+
+			}
+		}
+		return $result;
+	}
+
 	public function about(){
 
 		$content = SiteContents::where('contenttype' , 2)->get();

@@ -1,14 +1,26 @@
-<div class="col-md-10 col-md-offset-1">
-    <div class="row" style="min-height:135px;margin:auto;">
-      <img src="{{URL::asset('media/photos/Logo.png')}}" style="margin:auto;height:130px;" />
-      <img src="{{URL::asset('media/photos/Default')}}@yield('image').png" class="pull-right" style="margin:auto;height:130px;" />
+<div class="col-md-12 topbar">
+    <div class="col-md-3 col-md-offset-3">
+      <img src="{{URL::asset('media/photos/Logo.png')}}" style="height:40px;float:left;margin-top:20px;" />
+    </div>
+    <div class="col-md-3 header-right">
+            <ul>
+                <li> 
+                    <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
+                </li>
+                <li> 
+                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
+                </li>
+                <li>
+                    <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                </li>
+            </ul>
     </div>
 </div>
 
-  <div class="col-md-10 col-md-offset-1">
-      <div class="header-base">
-          <div class="col-md-6" style="padding:0;">
-              <ul>
+  <div class="col-md-12 header-base">
+      <div class="">
+          <div class="col-md-8 col-md-offset-2">
+              <ul class="main-menu">
                 <li> 
                     <a href="{{route('static.home')}}"><i class="fa fa-home fa-fw"></i>Home</a>
                 </li>
@@ -31,19 +43,7 @@
              
             </ul>
           </div>
-          <div class="col-md-4 col-md-offset-2">
-            <ul>
-                <li> 
-                    <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
-                </li>
-                <li> 
-                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
-                </li>
-                <li>
-                    <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                </li>
-            </ul>
-          </div>
+        
       </div>
   </div>
 
@@ -101,20 +101,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="reservationModalLabel">My Reservations</h4>
+            <h4 class="modal-title" id="reservationModalLabel">My Reservation List</h4>
             <h5>
               <div class="row">
                   <div class='col-md-6'>
                     @if(Session::get('email'))
-                    E-mail Address: {{Session::get('email')}}<br/>
+                    E-mail Address: <b>{{Session::get('email')}}</b><br/>
                     @elseif (Session::get('account_info')['email'])
-                    E-mail Address: {{Session::get('account_info')['email']}}<br/>
+                    E-mail Address: <b>{{Session::get('account_info')['email']}}</b><br/>
                     @endif
                     @if(Session::get('date_info'))
-                      Children/Adult Count: {{isset(Session::get('date_info')['children']) ? Session::get('date_info')['children'] : 0}}<br/>
-                      Senior Citizen Count: {{isset(Session::get('date_info')['adult'])    ? Session::get('date_info')['adult'] : 0}} <br/>
-                      Total Duration: {{Session::get('date_info')['lenofstay'] * 24}} hours.
-                      <br/>Mode: {{Session::get('date_info')['modeofstay']}}
+                      Children/Adult Count: <b>{{isset(Session::get('date_info')['children']) ? Session::get('date_info')['children'] : 0}}</b><br/>
+                      Senior Citizen Count: <b>{{isset(Session::get('date_info')['adult'])    ? Session::get('date_info')['adult'] : 0}}</b> <br/>
+                      Total Duration: <b>{{Session::get('date_info')['lenofstay'] * 24}} hours.</b>
+                      <br/>Mode: <b>{{Session::get('date_info')['modeofstay']}}</b>
                    
                     @endif
 
@@ -122,10 +122,10 @@
                   </div>
                   <div class='col-md-6'>
                     @if(Session::get('date_info'))
-                        Arrival : {{Session::get('date_info')['start']}} <br/>
-                        Departure: {{Session::get('date_info')['end']}} <br/>
+                        Arrival : <b>{{Session::get('date_info')['start']}}</b> <br/>
+                        Departure: <b>{{Session::get('date_info')['end']}} </b><br/>
                         @if (Session::get('totalFee'))
-                          Total Fee: {{number_format(Session::get('totalFee'),2)}}<br/>
+                          Total Fee:<b> {{number_format(Session::get('totalFee'),2)}}</b><br/>
                         @endif
                     @endif
 
@@ -133,16 +133,18 @@
               </div>
               @if(Session::get('date_info'))
               <div align="right">
-              <a href="{{route('static.reservenow')}}" class="btn btn-default">Edit Information</a>
-              {{HTML::linkRoute('book.removeAllItems', 'Reset' ,null, array('class' => 'btn btn-default'))}}
-              {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
+              <a href="{{route('static.reservenow')}}" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+              <a href="{{route('book.removeAllItems')}}" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+              <a href="{{route('book.index')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add items</a>
             </div>
               @endif
             </h5>
           </div>
           <div class="modal-body">
          
-          <?php $totalCapacity  = 0;$roomcounter = 0; ?>
+          <?php $totalCapacity  = 0;
+                $roomcounter = 0; 
+          ?>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                      @if((Session::get('items')))
                       <?php $ctr = 0;?>
@@ -154,20 +156,20 @@
                             }
 
                           ?>
-                              <div class="panel panel-info">
+                              <div class="panel panel-success">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h5 class="panel-title">
                                     <a data-toggle="collapse" class="list-group" data-parent="#accordion" href="#collapse{{$ctr}}" aria-expanded="false" aria-controls="collapse{{$ctr}}">
                                           
                                           <span class="list-group-item">
-
                                             <span>{{$i['product']}} 
                                                 <span class="badge">
                                                     {{$i['quantity']}}
-
+                                                </span>
+                                                <span>
+                                                    PHP : {{ number_format($i['quantity'] * $i['price'],2)}}
                                                 </span>
                                              </span>
-
                                           </span>
                                     </a>
                                   </h5>
@@ -178,12 +180,13 @@
                                             <div class="col-md-8">
 
                                                 <p>{{$i['description']}}</p>
+                                                <p>Quantity : {{$i['quantity']}}</p>
                                               
                                                 <span class="badge"></span>
                                                 <hr>
                                                 <div class="row">
-                                                    <div class="col-lg-6"><p>Category: {{$i['type']}}</p> </div>
-                                                    <div class="col-lg-6"><p>Price/unit: {{$i['price']}}
+                                                    <div class="col-lg-6"><p>Category: {{$i['type']}}</p></div>
+                                                    <div class="col-lg-6"><p>Price/unit: {{$i['price']}} ( PHP : {{ number_format($i['quantity'] * $i['price'],2)}})
                                                         <div class="btn-group " role="group" aria-label="...">
                                                       @if(isset($i['removable']))
                                                         @if($i['removable'] == false)
@@ -201,7 +204,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <a data-lightbox="image-1" class="example-image-link" data-title="{{$i['product']}}" href="{{$i['image']}}"  >
-                                                <img src="{{$i['image']}}"   class="example-image img-responsive img-rounded" />
+                                                <img src="{{$i['image']}}"   class="example-image img img-responsive img-thumbnail" />
                                             </a>
                                             </div>
                                         </div>

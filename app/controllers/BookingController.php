@@ -18,26 +18,28 @@ class BookingController extends BaseController  {
 		$this->mails = $mails;
 		$this->transaction = $t;
 		$this->sale = $s;
+
 	}
 	public function AddItem(){
+
 		$input = Input::all();
 		$date_info = Session::get('date_info');
 		$rules = array('quantity' => 'required' , 'productname' => 'required');
 		$val =  Validator::make($input , $rules);
 		if($val->fails())return Redirect::back()->withErrors($val->messages());
+
 		 //Check if the Product is still avaiable
-		$match = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']])
-				->first()
-				->where('id' , '=' , $input['productid']);
+		$match = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']])->first() ->where('id' , '=' , $input['productid']);
+
 		if(empty($match))return Redirect::route('book.index')->withErrors('The Product is already reserved.');
 		else
 		{
 			SessionController::BookingSession('additem', $input);		
 			Session::put('totalFee' ,$this->computeFee(Session::get('items')));
-			Helpers::flash('Added '.$input['productname'].' to Reservations List');
 			$this->bookingdetails->deleteTemporary(Session::getToken());
 			$this->bookingdetails->create(Session::get('items'), Session::get('date_info') ,Session::getToken() ,1);
-			Event::fire('bookingdetails.tempCreate', Session::getToken());
+			//Event::fire('bookingdetails.tempCreate', Session::getToken());
+			Helpers::flash('Added '.$input['productname'].' to Reservations List');
 			return Redirect::back();
 		}
 	}
@@ -68,22 +70,23 @@ class BookingController extends BaseController  {
 		else if(Session::get('date_info')['modeofstay'] == "night")$divider = 9;
 		else $divider = 20;
 
-		
-		
-		$totalCapacity  = 0;
+		   $totalCapacity  = 0;
            $roomcounter = 0;
  		   foreach (Session::get('items') as $i){
                 if(isset($i['paxmax'])){ 
-                     $totalCapacity += $i['paxmax'] * $i['quantity'];
-                              if($i['paxmax'] != 0)
-                              $roomcounter += 1; 
-                            }
+                    $totalCapacity += $i['paxmax'] * $i['quantity'];
+                        if($i['paxmax'] != 0 && $i['type'] == 2)$roomcounter += 1; 
+                }
             }
 
    			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
+   			//6
             $forced = $roomcounter * 10;
+            //1 *10 = 10
             $remaining = $guest - $forced;
+            //6 - 10
             $excess = $guest - $totalCapacity;
+            //6 - 10 =4
 	         if($excess > 0)
 			{
 				$products = Session::pull('items');
@@ -268,22 +271,26 @@ class BookingController extends BaseController  {
 		}
 		
 	}
+
 	public function GetLastAccount(){
 		$account = Account::orderby('created_at', 'desc')->first();
 		return $account;
 	}
+
 	public function countDays($date1, $date2){
 		 $now = strtotime($date1);
 	     $your_date = strtotime($date2);
 	     $datediff = abs($now - $your_date);
 	     return floor($datediff/(60*60*24)) + 1;
 	}
+
 	public function GenerateBookingId(){
 		$micro_date = microtime();
 		$date_array = explode(" ",$micro_date);
 		$date = date("YmdHis",$date_array[1]);
 		return str_random(3).$date;
 	}
+
 	public function ConvertDate($source){
 			$date = new DateTime($source);
 			return $date->format('Y-m-d'); // 31-07-2012
@@ -477,22 +484,7 @@ class BookingController extends BaseController  {
 			}
 		}	
 	}
-	public function show($id)
-	{
-		//
-	}
-	public function edit($id)
-	{
-		//
-	}
-	public function update($id)
-	{
-		//
-	}
-	public function destroy($id)
-	{
-		//
-	}
+
 	public function extend($id , $hours)
 	{
 		$sid = $this->sale->generateId();

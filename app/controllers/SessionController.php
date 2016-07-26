@@ -111,10 +111,8 @@ class SessionController extends \BaseController
 				Session::put('items' , []);
 				SessionController::admission($input);
 				$account = Account::where('email' , '=' , $input['email'])->first();
-				if($account)
-					Session::put('account_info' , $account);
-				else
-					Session::put('email' , $input['email']);
+				if($account) Session::put('account_info' , $account);
+				else Session::put('email' , $input['email']);
 			break;
 		}
 	}

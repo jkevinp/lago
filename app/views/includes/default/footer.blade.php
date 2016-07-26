@@ -1,13 +1,15 @@
 <div class="footer">
     <div class="col-md-10 col-md-offset-1">
-        <div class="header-base">
-            <div class="col-md-12">
+        <div class="">
+            <div class="col-md-8 col-md-offset-2">
               <br/>
                 <div class="row">
                     <div class="col-md-9" style="color:white;">
                         <p class="copyright  small">Copyright &copy; {{APP_NAME}} 2016. All Rights Reserved</p>
-                        <p><i class="fa fa-map-marker"></i> Maharlika Road, San Salvador, Baras, Rizal</p>
-                        @foreach(SiteContents::where('title' , 'phone')->get() as $v)
+                        @foreach(SiteContents::where('title' , 'address')->get() as $v)
+                            <p><i class="fa fa-map-marker"></i> Address: {{$v->value}}</p>
+                        @endforeach
+                       @foreach(SiteContents::where('title' , 'phone')->get() as $v)
                             <p><i class="fa fa-phone"></i>  {{$v->value}}</p>
                         @endforeach
                         @foreach(SiteContents::where('title' , 'name')->get() as $v)
@@ -16,6 +18,7 @@
                         @foreach(SiteContents::where('title' , 'email')->get() as $v)
                             <p><i class="fa fa-google"></i> Email: {{$v->value}}</p>
                         @endforeach
+                      
 
                     </div>
                     <div class="col-md-3">
