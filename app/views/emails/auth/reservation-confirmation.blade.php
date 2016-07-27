@@ -24,7 +24,7 @@ Account branch: BPI tanay<br/>
 <br/>
 <br/><hr>
 <h3>INSTRUCTIONS:</h3><br/>
-1.	After paying, kindly login to your account at the website (<a href="http://www.doneresort.com/account/login">Login</a>).<br/>
+1.	After paying, kindly login to your account at the website (<a href="http://www..com/account/login">Login</a>).<br/>
 2.	Click the “Pay” button and then fill-up the form provided for “Reference Number / Deposit Code” <br/>
 3.	Lastly, click the “Confirmation” button.<br/>
 

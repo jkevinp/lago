@@ -13,11 +13,14 @@ class PageController extends \BaseController
 			$j->on('contenttype.id', '=' , 'sitecontents.contenttype');
 		})->where('contentvalue' , 'news')->get();
 
-		$url = "https://graph.facebook.com/v2.6/239858609498045?fields=posts&access_token=EAACEdEose0cBAPw8FfEjXWdMGH8ndo96wobk7KZApQk8F9CgLltKGCmPLdLQOgQC3f8GtZBXRqhJ9cD6h4QRM53ACgQN9lq2fkT76yftXybKeETebg17idYUk9eRLEz5hAwJ1oU5J7V9MPjDK6KvfQeRHGknoCfGEMWFqNlQZDZD";
+		$url = "https://graph.facebook.com/v2.6/239858609498045?fields=posts&access_token=EAACEdEose0cBALcLouXvQzo09ZBTAb9kkFmxq8SBlIc0IOs6iQDrvLCcEQoXe8X6Idw5ZAgrMRIjKlONsAiJiC8zwOyK9tR0UHUMgBykgi8xOt3ffblAqGnMHFXOuJ3ewofQ4h74DxZAgFp5c3eRw7ysiR2LZBD19u3ykIWPMAZDZD";
 		$fbposts= $this->Curl($url);
 		$fbposts = json_decode($fbposts);
-		$fbposts = $fbposts->posts->data;
+		if($fbposts)$fbposts = $fbposts->posts->data;
+		else $fbposts = [];
 		return View::make('default.static.main')->with(compact('news' , 'fbposts'));
+		
+
 	}
 
 	function Curl($url){

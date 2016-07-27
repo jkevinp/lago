@@ -4,11 +4,11 @@
 <div class="row content">
  <!-- Header -->
     <div class="intro-header1">
-        <div class="">
-            <div class="row">
-              <div class="col-lg-8 col-lg-offset-2">
+        <div class="" style="height:50vh;">
+            <div class="row" style="margin-top:100px !important">
+              <div class="col-md-6 col-md-offset-3">
                     <div class="intro-message">
-                      <h3><i class="fa fa-sign-in"></i> User's Login</h3>
+                      <h3 class="text-center"><i class="fa fa-sign-in"></i> User's Login</h3>
             {{Form::Open(
               array('route' => 'cpanel.account.auth' ,  
               'method' => 'post' , 
@@ -43,11 +43,9 @@
                     <div class="btn-group" role="group">
                      {{ Form::submit('Login', array('class' => 'btn btn-primary btn-lg ')) }}
                     </div>
+                
                     <div class="btn-group" role="group">
-                        {{ Form::reset('Reset', array('class' => 'btn btn-default btn-lg')) }}
-                    </div>
-                    <div class="btn-group" role="group">
-                      <a class="btn btn-success btn-lg" href="{{URL::action('account.register')}}">Create Account</a>
+                      <a class="btn btn-success btn-lg" href="{{URL::action('account.register')}}">Join Now!</a>
                       </div>
                       <div class="btn-group" role="group">
                       <a class="btn btn-danger btn-lg" href="{{URL::action('account.forgot')}}">Forgot Password</a>
@@ -56,7 +54,7 @@
                   </div>
               </div>
 
-      {{Form::close()}}
+            {{Form::close()}}
                         
                     </div>
                 </div>
