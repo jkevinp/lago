@@ -16,7 +16,7 @@ class PageController extends \BaseController
 		$url = "https://graph.facebook.com/v2.6/239858609498045?fields=posts&access_token=EAACEdEose0cBALcLouXvQzo09ZBTAb9kkFmxq8SBlIc0IOs6iQDrvLCcEQoXe8X6Idw5ZAgrMRIjKlONsAiJiC8zwOyK9tR0UHUMgBykgi8xOt3ffblAqGnMHFXOuJ3ewofQ4h74DxZAgFp5c3eRw7ysiR2LZBD19u3ykIWPMAZDZD";
 		$fbposts= $this->Curl($url);
 		$fbposts = json_decode($fbposts);
-		if($fbposts)$fbposts = $fbposts->posts->data;
+		if(isset($fbposts->posts->data))$fbposts = $fbposts->posts->data;
 		else $fbposts = [];
 		return View::make('default.static.main')->with(compact('news' , 'fbposts'));
 		
