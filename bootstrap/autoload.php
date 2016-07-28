@@ -7,7 +7,7 @@ if($localhost){
 	define('DB_HOST', 'localhost'); 
 	define('DB_USER', 'root');
 	define('DB_PASS', '');
-	define('DB_NAME','donedb');
+	define('DB_NAME','lago');
 	define('HOST', 'localhost:8000/Doneresort/');
 }else{
 	define('DB_HOST',getenv('OPENSHIFT_MYSQL_DB_HOST'));
