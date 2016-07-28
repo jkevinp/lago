@@ -6,7 +6,7 @@
 @section('content')
 <br/>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6 col-md-offset-3">
         <div class="row content" style="margin-bottom:10px !important;">
             @include('includes.form.form-date')
         </div>

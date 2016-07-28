@@ -2,6 +2,7 @@
 
 
 @section('content')
+<div class="box box-primary">
 <ul class="nav nav-tabs  nav-justified">
   <li role="presentation" id="libank" ><a href="#" id="bank">Bank Payment</a></li>
   <!-- <li role="presentation" id="lipaypal"><a href="#" id="paypal">Paypal</a></li> -->
@@ -13,7 +14,7 @@
     ?>
 @endforeach
 
-<div class="row" id="tab-bank" >
+<div class="row" id="tab-bank">
     <div id="body">
        {{Form::open(['route' => 'transaction.pay', 'method' => 'post'])}}
            <hr/>
@@ -173,6 +174,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 
 

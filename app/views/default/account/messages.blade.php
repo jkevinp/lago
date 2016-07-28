@@ -3,15 +3,15 @@
 @section('content')
 				<div class='row'>
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i>
                                     @if(isset($title))
                                         {{$title}}
                                     @endif
                                 </h3>
                             </div>
-                            <div class="panel-body">
+                            <div class="box-body">
                                 <div class="list-group">
                                     <?php $ctr =0?>
                                 	<div class="panel-group " id="accordion" role="tablist" aria-multiselectable="false">
@@ -39,10 +39,11 @@
                                             </div>
                                      </div>
                                 </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
+                                
                             </div>
+                            <div class="box-footer">
+                                    <a href="#" class="pull-right">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
                         </div>
                     </div>
             </div>

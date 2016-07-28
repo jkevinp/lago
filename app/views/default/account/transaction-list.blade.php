@@ -3,16 +3,16 @@
 @section('content')
 <div class='row'>
     <div class="col-lg-12">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i>
                         @if(isset($title))
                             {{$title}}
                             <span class="badge"> {{count($transactions)}} </span>
                         @endif
                     </h3>
                             </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="list-group">
                         @if(count($transactions) == 0)
                             <div class="alert alert-info">No records found.</div>

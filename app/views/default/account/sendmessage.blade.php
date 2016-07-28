@@ -1,7 +1,7 @@
 @extends('layout.user-dashboard')
 
 @section('content')
-	<div class="row">
+	<div class="box box-body">
                   <div class="col-md-8 col-md-offset-1">
                           <h3>Create Message</h3>
                           {{Form::open(['class' =>'form-horizontal' ,'method' => 'post' , 'route' => 'cpanel.mail.create'])}}

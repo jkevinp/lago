@@ -3,17 +3,22 @@
       <img src="{{URL::asset('media/photos/Logo.png')}}" style="height:40px;float:left;margin-top:20px;" />
     </div>
     <div class="col-md-3 header-right">
-            <ul>
-                <li> 
-                    <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
-                </li>
-                <li> 
-                    <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
-                </li>
-                <li>
-                    <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                </li>
-            </ul>
+      <ul>
+          <li> 
+              <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
+          </li>
+          <li> 
+              <a href="#" data-toggle="modal" data-target="#reservationModal" data-whatever=""><i class="fa fa-book fa-fw"></i> Reservation List</a>
+          </li>
+          <li>
+              @if(Auth::user())
+              <a href="{{URL::action('account.dashboard')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Dashboard</a>
+              <a href="{{URL::action('account.logout')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
+              @else
+              <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+              @endif
+          </li>
+      </ul>
     </div>
 </div>
 

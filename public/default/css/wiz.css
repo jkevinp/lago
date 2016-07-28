@@ -1,0 +1,409 @@
+@import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
+/*Now the CSS*/
+
+body{
+    
+}
+
+
+.nav-tabs > li > a{
+      border-radius: 0px !important;
+}
+.nav-tabs > li.active > a{
+        background-color: #1D6592;
+        color: white;
+}
+.nav-tabs > li.active > a:hover{
+     color: white;
+      background-color: #1D6592;
+}
+
+.bg-blue{
+    background-color:#333; !important;
+    font-weight: bolder;
+    padding: 0;
+    /*text-shadow: 4px 4px 2px rgba(255, 255, 255, 0.7);*/
+}
+.bg-blue a{
+    color:white !important;
+}
+
+.bg-gray{
+    background-color:#f7f7f7;
+}
+.bg-blue a:active{
+    color:white !important;
+}
+.bg-blue a:hover{
+    color:white !important;
+}
+
+.fade.out {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.fade.in {
+  opacity: 1;
+  -webkit-transition: opacity 3.0s linear;
+  -moz-transition: opacity 3.0s linear;
+  -o-transition: opacity 3.0s linear;
+  transition: opacity 3.0s linear;
+}
+ul.sidebar-links{
+    list-style-type:none;
+    list-style: none;
+    padding:0;
+    margin: 0;
+    padding-left:10px;
+}
+ul.sidebar-links > li{
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+    margin: 0 !important;
+    width: 100%;
+    text-decoration: none;
+}
+ul.sidebar-links > li {
+    margin: 0 !important;
+    color: white;
+    text-decoration: none;
+}
+ul.sidebar-links > li > a{
+    width: 100% !important;
+    color:white !important;
+}
+ul.sidebar-links > li > a:hover{
+    width: 100% !important;
+    background-color: #1D6592;
+    color:white !important;
+}
+ul.sidebar-links > li > a:active{
+    width: 100% !important;
+    background-color: #449d44;
+    color:white !important;
+}
+ul.sidebar-links > li > a:focus{
+    width: 100% !important;
+    background-color: #449d44;
+    color:white !important;
+}
+ul.sidebar-links > li > ul > li{
+    width: 100% !important;
+    list-style-type:none;
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+    margin: 0 !important;
+    color: white;
+    text-decoration: none;
+}
+ul.sidebar-links > li > ul > li a{
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+    margin: 0 !important;
+    color: white;
+    width: 100% !important;
+    text-decoration: none;
+}
+ul.sidebar-links > li > ul > li a:hover{
+    width: 100% !important;
+    background-color: #1D6592;
+    color:white !important;
+}
+
+ul.sidebar-links > li > legend{
+    padding: 20px;
+    width: 100% !important;
+    color: white !important;
+}
+
+/*.sidebar{
+    padding-top: 30px !important;
+    z-index: 10;
+    margin-top: -20px ;
+    height: 100vh;
+    position: absolute;
+}*/
+.dim{
+    background-color:rgba(0,0,0,0.5);
+    position: fixed;
+    top:0;
+    width: 100%;
+    height: 100%;
+}
+.pop-up-panel{
+    border:1px black solid;
+    position:fixed;
+    top:15%;
+    right:25%;
+    left:25%;
+    min-width:50%;
+    max-width:800px;
+    min-height:70%;
+    overflow: scroll;
+
+}
+
+
+.pop-up-hide {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+.pop-up-hide:hover {
+    background: #00d9ff;
+}
+.game-nav-bar{
+    width: 100%;
+    height: 130px;
+    margin-top: -20px;
+    background: #eaeaf2;
+}
+.game-bar{
+    display: table;   /* Allow the centering to work */
+    margin: 0 auto;
+}
+.game-bar-body{
+    padding: 0;
+    width: 100%;
+    height: 130px;
+}
+.game-bar-items{
+    list-style: none;
+    display: block;
+    float: left;
+    font-size: 16px;
+    text-align: center;
+}
+.game-bar-items > a{
+    margin: 0 auto;
+    color:#1D6592;
+    min-height:130px;
+    font-size: 17px;
+    text-decoration: none;
+    padding-left:32.5px;
+    padding-right:32.5px;
+    padding-top:65px;
+    padding-bottom:65px;
+    line-height: 130px;
+}
+
+.game-bar-items > a:hover{
+    color: white;
+    text-shadow: 4px 4px 2px rgba(0, 0, 0, 1);
+    margin: 0 auto;
+    background-color:#1D6592;
+    color:white;
+    -webkit-transition: background-color 1s; /* Safari */
+    transition:background background-color 1s;
+    -moz-transition:background-color 1s;
+}
+
+
+
+/*wiz */
+.wiz-container{  
+    position: relative;  
+    min-height: 600px;
+    height: auto;
+    margin: 0;  
+    padding: 0;  
+    overflow: hidden;
+    display: block;
+}  
+.wiz{  
+    position: absolute;
+    background-color:#1F1F1F;
+    float: left;  
+    min-height: 600px;
+    height:auto;
+    list-style: none;
+    list-style-type: none;
+    width: 100%;
+} 
+.wiz.active{
+
+}
+.wiz.right{
+    animation-name: lefttoright;
+    animation-duration: 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+.wiz.left{
+    animation-name: righttoleft;
+    animation-duration: 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+
+.wiz-nav-bar{
+    margin: 0;
+    padding: 0;
+}
+.wiz-bar{
+    display: table;   /* Allow the centering to work */
+    margin: 0 auto;
+}
+.wiz-bar-body{
+    padding: 0;
+    width: 100%;
+}
+
+.wiz-btn-group{
+    padding-top: 20px;
+    width: 50%;
+    margin-left:auto;
+    margin-right: auto;
+  
+}
+.wiz-hrline{
+    border-width:2px;
+    border-style:all;
+}
+.wiz-row{
+    border-bottom: 1px solid #ddd;
+    font-size: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+    overflow-y:hidden;
+    position: relative;
+}
+.wiz-line{
+    -webkit-transform: translateY(-20px) translateX(5px);
+    -moz-transform: translateY(-20px) translateX(5px);
+    -moz-transform: translateY(-20px) translateX(5px);
+    position: absolute;
+    top:50%;
+    height: 10px;
+    width: 95%;
+    z-index:20;
+}
+.wiz-icon{
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    z-index: 22;
+}
+.btn-wiz-li{
+    list-style: none;
+    display: block;
+    float: left;
+    text-align: center;
+}
+.fa-ico{
+    text-align:center;
+    position: relative;
+}
+.wiz-bar-items{
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+    background-color:#1F1F1F;
+}
+
+.wiz-bar-items.btn-wiz-li.active{
+    background-color:#EB9532 !important;
+    color:#f7e19b !important;
+    -webkit-transition: background-color 1s; /* Safari */
+    transition:background background-color 1s;
+    -moz-transition:background-color 1s;
+    pointer-events: none;
+    background-color: #1c1c1c !important;
+    border: 0 !important;
+    border-left: 5px !important;
+    border-left-style: solid !important;
+    border-left-color: #f7e19b !important
+
+}
+
+.wiz-bar-items.btn-wiz-li.active > a{
+   
+      
+}
+.status-icon-active{
+    color:#EB9532 !important;
+}
+
+
+@keyframes wizactive {
+    from{
+         right:-100%;
+    }
+    to{
+         right:0px;
+    }
+}
+@keyframes wizinactive {
+    from{
+         right:0;
+    }
+    to{
+         right:100%;
+    }
+}
+
+@keyframes righttoleft {
+    from{
+         right:0;
+    }
+    to{
+         right:-100%;
+    }
+}
+@keyframes lefttoright {
+    from{
+         right:0;
+    }
+    to{
+         right:100%;
+    }
+}
+
+/* end wiz */
+
+/* BEGIN plain css style layout */
+.container-fluid{
+    padding: 0;
+    margin: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.sidebar{
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #333;
+    border-right: 1px solid #eee;
+}
+/* END css style layout */

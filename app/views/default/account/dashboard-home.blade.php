@@ -1,19 +1,17 @@
 @extends('layout.user-dashboard')
-
-URLS EDIT
 @section('content')
 				<div class='row'>
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i>
                                     @if(isset($title))
                                         {{$title}}
                                     @endif
                                 </h3>
                             </div>
                             <!-- Reservation -->
-                            <div class="panel-body ">
+                            <div class="box-body">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6">
                                         <div class="panel panel-red">

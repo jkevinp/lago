@@ -3,16 +3,16 @@
 @section('content')
 <div class='row'>
     <div class="col-lg-12">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i>
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i>
                         @if(isset($title))
                             {{$title}}
-                            <span class="badge"> {{count($booking)}} </span>
+                            <span class="badge"> {{count($booking)}}</span>
                         @endif
                     </h3>
                             </div>
-                <div class="panel-body">
+                <div class="box-body">
                     <div class="list-group">
                         @if(count($booking) == 0)
                             <div class="alert alert-info">No records found.</div>
@@ -57,10 +57,11 @@
                         </span>
                         @endforeach
                     </div>
-                <div class="text-right">
-                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
+               
              </div>
+              <div class="box-footer">
+                    <a href="#" class="pull-right">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
         </div>
     </div>
 </div>
