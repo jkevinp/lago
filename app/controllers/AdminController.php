@@ -36,18 +36,18 @@ class AdminController extends \BaseController
 		{
 			if(Auth::attempt(['usergroupid' => 1 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-				SessionController::flash('Welcome back!');
+			
 				return Redirect::intended(route('cpanel.dashboard'));
 			}
 
 			else if(Auth::attempt(['usergroupid' => 2 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-				SessionController::flash('Welcome back!');
+				
 
 				return Redirect::intended(route('account.dashboard'));
 			}
 			else if(Auth::attempt(['usergroupid' => 3 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1'])){
-				SessionController::flash('Welcome back Staff!');
+			
 				return Redirect::intended(route('cpanel.dashboard'));
 			}
 			else

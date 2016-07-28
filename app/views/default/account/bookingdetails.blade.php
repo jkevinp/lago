@@ -2,10 +2,10 @@
 
 @section('content')
  
-<div class="container">
+
 	<div class="row">
-		<div class="col-md-10">
- 			<div class="panel panel-info">
+		<div class="col-md-12">
+ 			<div class="box">
  				<div class="panel-heading">
  					Booking Details 
  					<span class="badge">
@@ -68,7 +68,7 @@
 	 						@if($booking->paymenttype == "full")
 	 						{{$booking->fee}}<font color="red">(May change if coupon applied.)</font>
 	 						@else
-	 						{{($booking->fee * 0.50)}} <font color="red">(May change if coupon applied.)</font>
+	 						{{($booking->fee * 0.50)}} 
 	 						@endif
 	 					</div>
  					</div>
@@ -76,44 +76,33 @@
  			</div>
  		</div>
 	</div>
-</div>
-
- @foreach($details as $bookingdetails)	
- <div class="container">
-	<div class="row">
-  		<div class="col-md-6" style=" border-right: 2px dashed #333;">
-  			<div class="panel panel-default">
-			  	<div class="panel-heading">
+<div class="row">
+ @foreach($details as $bookingdetails)		
+  		<div class="col-md-4">
+  			<div class="box ">
+			  	<div class="box-header">
 			  		Product: {{$bookingdetails->productname}}
 			  	</div>
 
-			  	<div class="panel-body">
-					<table class="table table-responsive" data-height="299">
-				   		<tr>
-				   			<td>Product ID:</td>
-				   			<td> {{$bookingdetails->productid}}</td>
-				   		</tr>
+
+			  	<div class="box-body">
+					<table class="table table-responsive" >
 				   		<tr>
 				   			<td>Reserved Quantity: </td>
 				   			<td>{{$bookingdetails->quantity}}</td>
 				   		</tr>
 					</table>
 				</div>
+				<div class="box-footer">
+
+					<a data-lightbox="image-1" class="example-image-link"  data-title="{{$bookingdetails->productname}}" href="{{URL::asset('default/img-uploads')}}/{{$bookingdetails->image}}" >
+			    			<img width="250px" style="margin-left:auto !important;margin-right:auto !important;" height="150px" src="{{URL::asset('default/img-uploads')}}/{{$bookingdetails->image}}"  class="img-thumbnail"/>
+						</a>
+				</div>
 			</div>
   		</div>
-  		<div class="col-md-4" style="">
-  			<div class="panel panel-default">
-			  	<div class="panel-heading">
-			  		Product Preview
-			  	</div>
-			  	<div class="panel-body">
-					<a data-lightbox="image-1" class="example-image-link" data-title="{{$bookingdetails->productname}}" href="{{URL::asset('default/img-uploads')}}/{{$bookingdetails->image}}" >
-			    			<img width="150px" height="150px" src="{{URL::asset('default/img-uploads')}}/{{$bookingdetails->image}}"  class="img-thumbnail"/>
-						</a>
-					</div>
-			</div>
-		</div>
-	</div>
-</div>
+
 @endforeach
+
+	</div>
 @stop

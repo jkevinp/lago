@@ -18,13 +18,10 @@
     <div id="body">
        {{Form::open(['route' => 'transaction.pay', 'method' => 'post'])}}
            <hr/>
-            <div class="col-md-12">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="alert alert-info"> 
                     {{Form::hidden('token' , Session::getToken())}}
-                    <p><b>We accept Bank deposits via BPI.</b></p>
-                    <p>Select the <u>Reservation ID</u> of the reservation you wish to pay then enter the reference/booking code that you received from the bank.</p>
-                    <p>Our staff will verify if the payment has been made. After verification, the reservation will be confirmed.</p>
-                    <p>For any notes or instruction, please specify at notes field.</p>
+                
                     @foreach(SiteContents::where('title' , 'Bank Information')->get() as $content)
                     <p>{{$content->value}}</p>
                     @endforeach
@@ -42,15 +39,15 @@
             </tr>
             <tr>
                 <td>Bank Deposit/Transaction Code:</td>
-                <td> {{Form::text('code' , '', array('class' => 'padded-text','placeholder' => 'Example: 123ABC'))}}</td>
+                <td> {{Form::text('code' , '', array('class' => 'padded-text form-control','placeholder' => 'Example: 123ABC'))}}</td>
             </tr>
             <tr>
                 <td>Discount Coupon:(Disabled)</td>
-                <td> {{Form::text('coupon' , '', array('class' => 'padded-text','placeholder' => 'Example: Sun201312', 'disabled' => 'true'))}}</td>
+                <td> {{Form::text('coupon' , '', array('class' => 'padded-text','placeholder' => 'Example: 1NCJUN', 'disabled' => 'true'))}}</td>
             </tr>
             <tr>
                 <td colspan=2  width=100%>
-                {{ Form::textarea('notes', null, ['class' => 'form-control','size' => '300x10' ,'style' => 'resize:none;witdh:100%;height:300px', 'placeholder' => 'Notes or message to the staff. Indicate what bank did you used.']) }}
+                {{ Form::textarea('notes', null, ['class' => 'form-control','size' => '300x10' ,'style' => 'resize:none;witdh:100%;height:100px', 'placeholder' => 'Remarks']) }}
                 </td>
             </tr>
             <tr>

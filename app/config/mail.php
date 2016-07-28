@@ -17,7 +17,7 @@ return array(
 	'driver' => 'smtp',
 	'host' => 'sunrockresortscom1.ipage.com',
 	'port' => 587,
-	'from' => array('address' => 'no-reply@doneresort.com', 'name' => "D'One resort"),
+	'from' => array('address' => 'no-reply@doneresort.com', 'name' => APP_NAME),
 	'encryption' => 'tls',
 	'username' => 'no-reply@doneresort.com',
 	'password' => 'BarasRizal2016',

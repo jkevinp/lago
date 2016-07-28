@@ -46,7 +46,7 @@ class BookingController extends BaseController  {
 	public function RemoveAllItems(){
 		$this->bookingdetails->deleteTemporary(Session::getToken());
 		Session::flush();
-		Session::put('flash_message' ,'Session has been resetted.');
+		Session::put('flash_message' ,'Session has been reset.');
 		return Redirect::intended('/');
 	}
 	public function DeleteItems($key){
@@ -79,40 +79,40 @@ class BookingController extends BaseController  {
                 }
             }
 
-   			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
-   			//6
-            $forced = $roomcounter * 10;
-            //1 *10 = 10
-            $remaining = $guest - $forced;
-            //6 - 10
-            $excess = $guest - $totalCapacity;
-            //6 - 10 =4
-	         if($excess > 0)
-			{
-				$products = Session::pull('items');
+   // 			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
+   // 			//6
+   //          $forced = $roomcounter * 10;
+   //          //1 *10 = 10
+   //          $remaining = $guest - $forced;
+   //          //6 - 10
+   //          $excess = $guest - $totalCapacity;
+   //          //6 - 10 =4
+	  //        if($excess > 0)
+			// {
+			// 	$products = Session::pull('items');
 
-				foreach ($products as $key => $value) {
-					if($value['product'] == "Room Excess Fee")
-						unset($products[$key]);
-			//$item = array_values($item);
-				}
-				$products = array_values($products);
+			// 	foreach ($products as $key => $value) {
+			// 		if($value['product'] == "Room Excess Fee")
+			// 			unset($products[$key]);
+			// //$item = array_values($item);
+			// 	}
+			// 	$products = array_values($products);
 
-				$product = Product::where("productname" , "Room Excess Fee")->first();
-				array_push($products, array(
-								'productid' => $product->id,
-								'product' => $product->productname , 
-								'quantity' => $excess,
-								'description' => $product->productdesc,
-								'totalquantity' => 'unlimited',
-								'type' => 'Admission',
-								'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
-								'image' => URL::asset('default/img-uploads').'/adult.jpg',
-								'removable' => false
-							));
+			// 	$product = Product::where("productname" , "Room Excess Fee")->first();
+			// 	array_push($products, array(
+			// 					'productid' => $product->id,
+			// 					'product' => $product->productname , 
+			// 					'quantity' => $excess,
+			// 					'description' => $product->productdesc,
+			// 					'totalquantity' => 'unlimited',
+			// 					'type' => 'Admission',
+			// 					'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
+			// 					'image' => URL::asset('default/img-uploads').'/adult.jpg',
+			// 					'removable' => false
+			// 				));
 				
-				Session::put('items' , $products);
-			}
+			// 	Session::put('items' , $products);
+			// }
 			$price = 0;
 			foreach (Session::get('items') as $key => $value) {
 				$price += $value['price'] * $value['quantity'];

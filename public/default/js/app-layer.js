@@ -1,8 +1,7 @@
 $(document).ready(function(e){
   var parentlayer = parent.layer.getFrameIndex(window.name); 
     var currentlayer;
-    layer.config({   skin: 'layui-layer-rim'});
-    
+    layer.config({ skin: 'layer-ext-moon' });
     $('.btn-pop-up').on('click', function(){
          $('.btn-login').trigger('click');
     });

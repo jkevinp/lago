@@ -5,11 +5,10 @@
 @stop
 
 @section('content')
- 
-            <div class="row content">
-                <div class="col-lg-12" align="center">
+<div class="row">
+                <div class="col-md-6 col-md-offset-3" align="center">
                     <br/>
-                        <h3>Account registration</h3>
+                        <h3>Register Account</h3>
                         <h5>Please fill the following Fields.</h5>
                         <hr class="intro-divider">
                         {{Form::open(array('route' => 'account.create'))}}

@@ -1,7 +1,7 @@
 @extends('layout.user-dashboard')
 @section('content')
 				<div class='row'>
-                    <div class="col-lg-12">
+                    <div class="col-lg-11">
                         <div class="box box-primary">
                             <div class="box-header">
                                 <h3 class="box-title"><i class="fa fa-clock-o fa-fw"></i>
@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                       <div class="col-lg-4 col-md-6">
-                                        <div class="panel panel-primary">
+                                        <div class="panel panel-">
                                             <div class="panel-heading">
                                                 <div class="row">
                                                     <div class="col-xs-3">

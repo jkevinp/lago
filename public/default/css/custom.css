@@ -1,9 +1,9 @@
 .topbar{
-	height: 76px;
+	height: 80px;
 	background: url(../img/topbar.jpg) center top;
 	margin:0 !important;
 	padding: 0!important;
-	margin-top: -20px;
+	/*margin-top: -20px;*/
 }
 .theme-green{
       background: #00b356 !important;
@@ -37,7 +37,7 @@
 	margin-top: 10px;
 	letter-spacing: 0.5px;
     padding-top: 25px;
-    line-height: 30px;
+    line-height: 25px;
     color: black;
     margin-left: 10px;
     text-decoration: none;
@@ -209,6 +209,11 @@ div.karousel{
 	background-color: rgba(255,255,255,0.7);
 	color:#00b356 !important; 
 	outline: 0;
+	border-radius: 0 !important;
+}
+.row{
+	/*min-height: 70vh;*/
+	margin-bottom: 30px !important;
 }
 .btn-primary{
 	background-color: #00b356 !important;

@@ -1,6 +1,10 @@
 <div class="col-md-10 col-md-offset-1 text-center">
 	<form class="form-horizontal" action="{{URL::route('book.SetInfo')}}" method="post" >
-	    <legend>Reservation Form</legend>
+	    <legend>Booking Information</legend>
+             <div class="alert alert-info">
+                  Minimum of 3 Guest per reservation.
+                 
+             </div>
                 <div class="control-group">
                     <div class="controls">
                     <input  type="text" id="email" name="email" value="{{Auth::user()->usergroupid == 2 ? Auth::user()->email : ''}}" class="padded-text form-control" placeholder="Your Email-Address">
@@ -61,13 +65,7 @@
                   <input min="0" type="number" value="" style="height:30px" placeholder="Number of Children and Adults" class="form-control padded-text" name="children">
                   <input min="0" type="number" value="" style="height:30px" placeholder="Number of Senior Citizen" class="form-control padded-text" name="adult">
                 
-              <div class="alert alert-info">
-	               <span class="help-block">Select the starting and ending date will be automatically generated for your reservation. Click "Find Available Rooms" to proceed to the next step.</span>
-	                Children 2 feet and below are free. Don't add it to the Number of Children/Adults<br/>
-                  Senior Citizen must present their Senior citizen ID<br/>
-                  Minimum of 3 Guest per reservation.
-                 
-             </div>
-      <button type="submit" class="btn btn-success" id="btn_submit_date">Find Available Rooms</button>
+       <br/>
+      <button type="submit" class="btn btn-lg btn-success" id="btn_submit_date">Book now!</button>
 	</form>
 </div>

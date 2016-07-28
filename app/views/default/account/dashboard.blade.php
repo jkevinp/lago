@@ -60,7 +60,7 @@
                
              </div>
               <div class="box-footer">
-                    <a href="#" class="pull-right">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+            
                 </div>
         </div>
     </div>

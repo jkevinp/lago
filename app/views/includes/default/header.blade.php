@@ -1,9 +1,9 @@
 <div class="col-md-12 topbar">
     <div class="col-md-3 col-md-offset-3">
-      <img src="{{URL::asset('media/photos/Logo.png')}}" style="height:40px;float:left;margin-top:20px;" />
+      <img src="{{URL::asset('media/photos/Logo.png')}}" style="height:60px;float:left;margin-top:20px;" />
     </div>
-    <div class="col-md-3 header-right">
-      <ul>
+    <div class="col-md-5 header-right">
+      <ul style="margin-top:15px;">
           <li> 
               <a href="{{route('static.reservenow')}}"><i class="fa fa-calendar fa-fw"></i>Reserve Now</a>
           </li>
@@ -12,10 +12,10 @@
           </li>
           <li>
               @if(Auth::user())
-              <a href="{{URL::action('account.dashboard')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Dashboard</a>
-              <a href="{{URL::action('account.logout')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a>
+              <a href="{{URL::action('account.dashboard')}}"><i class="fa fa-fire" aria-hidden="true"></i>Dashboard</a>
+              <a href="{{URL::action('account.logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
               @else
-              <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+              <a href="{{URL::action('account.login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
               @endif
           </li>
       </ul>
@@ -161,7 +161,7 @@
                             }
 
                           ?>
-                              <div class="panel panel-success">
+                              <div class="">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                   <h5 class="panel-title">
                                     <a data-toggle="collapse" class="list-group" data-parent="#accordion" href="#collapse{{$ctr}}" aria-expanded="false" aria-controls="collapse{{$ctr}}">
@@ -235,17 +235,17 @@
                 Session::put('remaining' , $remaining);
              ?>
 
-            @if((Session::get('items')))
-              @if($remaining <= 0)
+   <!--          @if((Session::get('items')))
+              @if($remaining <= 0) -->
                 {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
-              @else
-                  <div class="well text-center">
+          <!--     @else -->
+       <!--            <div class="well text-center">
                   <p>Total count of guest is less than the max capacity of all selected rooms,huts and cottages.</p>
                   <p>Please select more rooms,huts or cottages.</p>
                   </div>
                   {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
               @endif
-            @endif
+            @endif --> 
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>

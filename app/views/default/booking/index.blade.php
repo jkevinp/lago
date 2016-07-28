@@ -2,13 +2,29 @@
 
 @section('script')
 <script type="text/javascript">
+
+
+    $(document).ready(function(e){
+        
+        $( ".items" ).hover(
+          function() {
+                $(this).find("a").fadeOut(0);
+                $(this).find("div.caption").fadeIn(200);
+
+          }, function() {
+              $(this).find("div.caption").fadeOut(0);
+                $(this).find("a").fadeIn(0);
+              
+          }
+        );
     AddActiveClass(new URI((''+document.location)).search(true).type , 'All');
+    });
 </script>
 @stop
 
 @section('content')
 	
-        <div class="row content">
+        <div class="row">
             <legend>
             <h3 class="text-center">Rooms and Services</h3>
             </legend>
@@ -26,9 +42,9 @@
                     </div>
                         @foreach($rooms as $room)
                         {{Form::open(array('action' => 'book.addItem' , 'method' => 'post'))}}
-                        <div class="col-md-4 items">
+                        <div class="col-md-4 items" style="height:283px !important;">
                             <div class="thumbnail">
-                                <a data-lightbox="image-1"class="example-image-link" data-title="{{$room['productname']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" >
+                                <a data-lightbox="image-1" class="example-image-link" data-title="{{$room['productname']}}" href="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}" >
                                     @if(File::exists(public_path('default/img-uploads/'.$room['attr']['imagename'])))
                                         <img src="{{URL::asset('default/img-uploads')}}/{{$room['attr']['imagename']}}"  style="width:300px;height:200px;"  class="example-image img-responsive"/>
                                     @else
@@ -36,7 +52,7 @@
                                     @endif
 
                                 </a>
-                                    <div class="caption">
+                                    <div class="caption" style="display:none;">
 
                                         <h5 class="text-primary">{{$room['productname']}}</h5>
                                         {{Form::hidden('image', URL::asset("default/img-uploads").'/'.$room['attr']['imagename'])}}
@@ -103,7 +119,8 @@
                     </ul>
                 </div>
             </div>
-                 <div align="center" >
+
+            <div align="center" >
 
             <?php
                 $qs = array_keys(Input::all());
@@ -117,7 +134,9 @@
         </div>
            <!-- /.Row -->
         </div>
+         <br/><br/>
    
         <!-- /.container -->
 
 @stop
+

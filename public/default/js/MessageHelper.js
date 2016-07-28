@@ -1,3 +1,4 @@
+
 function redirect(url , closelayer = false){
   if(closelayer) parent.layer.closeAll();
   if(url.length)window.location.href = url;
@@ -110,15 +111,21 @@ function m_alert(content , callback){
   var _index = layer.confirm(content, {
     btn: ['Okay'],
     title: "information",
-    skin: 'layui-layer-rim',
-    icon : 1
+    skin: 'layui-ext-moon',
+    offset : '10px',
+    icon : 1,
     },function(layero, index){
       if(typeof callback == "function"){
         console.log("callback");
         callback();
-        parent.layer.close(_index);
+       
+      }else{
+         parent.layer.close(_index);
       }
     });
+
+ 
+
 }
 function m_alert2(content , callback,callback2){
   layer.confirm(content, {

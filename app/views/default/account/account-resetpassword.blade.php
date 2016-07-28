@@ -1,7 +1,8 @@
 @extends('layout.template')
 @section('content')
-<div class="row content">
-	<div class="col-md-10 col-md-offset-1">
+<div class="row">
+	<br/>
+	<div class="col-md-4 col-md-offset-4">
 		<legend class="text-center">Reset Account</legend>
 		
 		{{Form::open(array('route' => 'account.changePassword', 'method' => 'post'))}}
@@ -13,8 +14,8 @@
 		{{Form::password('password1', array('class' => 'form-control padded-text input-lg', 'placeholder' => 'Confirm new password'))}}
 		</div>
 		<div class="btn-group btn-group-justified" role=""> 
-				<div class="btn-group" role="group">{{Form::submit('Submit' ,['class' => 'btn btn-primary'])}}</div>  	
-				<div class="btn-group" role="group">{{Form::reset('Reset' ,['class' => 'btn btn-default'])}}</div>
+				<div class="btn-group" role="group">{{Form::submit('Submit' ,['class' => 'btn-lg btn btn-primary'])}}</div>  	
+				<div class="btn-group" role="group">{{Form::reset('Reset' ,['class' => 'btn-lg btn btn-default'])}}</div>
 			</div>  
 			{{Form::close()}}
 					</div>

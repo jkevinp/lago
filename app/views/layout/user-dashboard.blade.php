@@ -63,7 +63,7 @@
 
 
         <div class="content-wrapper">
-          <div class="container">
+          <div class="">
             <section class="content-header">
               <ol class="breadcrumb">
                 @if(Route::current()->getName())

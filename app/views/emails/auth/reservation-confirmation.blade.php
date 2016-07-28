@@ -17,8 +17,8 @@ Please follow the instructions carefully to confirm your reservation.<br/>
 <br/>
 Bank of the Philippines<br/>
 Account Number: 3410-0000-74<br/><br/>
-Account branch: BPI tanay<br/>
-<strong>Account Name: D' One Resort and Restaurant</strong>
+Account branch: BPI<br/>
+<strong>Account Name: {{APP_NAME}}</strong>
 <br/>
 <b>Please indicate at the comment box what bank you deposit/payed the bill.</b>
 <br/>
