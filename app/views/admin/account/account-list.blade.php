@@ -29,12 +29,12 @@
                                   <th><i class="fa fa-bookmark"></i> User Group</th>
                                   <th><i class=" fa fa-edit"></i> Status</th>
                                   <th><i class=" fa fa-edit"></i> Actions</th>
-                                  <th></th>
                               </tr>
                               </thead>
 
-                              	@foreach($accounts as $account)
+                              
                               <tbody>
+                                @foreach($accounts as $account)
                               <tr>
                                   <td><a href="basic_table.html#">{{$account['id']}}</a></td>
                                   <td class="hidden-phone">{{$account['title']}}. {{$account['firstname']}} {{$account['middleName']}} {{$account['lastName']}}</td>

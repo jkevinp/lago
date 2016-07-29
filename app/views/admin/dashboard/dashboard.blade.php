@@ -1,46 +1,43 @@
 @extends('layout.admin-dashboard')
 
 @section('content')
-
-			
-          <!--Booking today-->
-           <div class="row mt">
-            <div class="col-md-12">
-              <div class="content-panel">
-                <h4><i class="fa fa-angle-right"></i>Reservations Today
-                  <span class="badge badge-theme ">
-                    {{count($reservations['start'])}} reservations found
-                  </span>
-                </h4>
-                  <div class="panel-body">
-                    <div  class="col-sm-12" >
-                        <table class="table table-bordered">
-                          <thead>
-                            <tr> 
-                                <th>Full Name</th>
-                              <th>Booking id</th>
-                              <th>Account id</th>
-                              <th>Arrival</th>
-                              <th>Departure</th>
-                            </tr>
-                          </thead>
-                            <tbody>
-                            @foreach($reservations['start'] as $start)
-                            <tr>
-                               <td>{{$start->acc['firstname']}} {{$start->acc['middleName']}} {{$start->acc['lastName']}}</td>
-                              <td> {{$start['bookingid']}}</td>
-                              <td> {{$start['account_id']}}</td>
-                              <td> {{$start['bookingstart']}}</td>
-                              <td> {{$start['bookingend']}}</td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                     </div>
-                  </div>
-              </div>
-            </div>
-          </div>
+<div class="row mt">
+  <div class="col-md-12">
+    <div class="content-panel">
+      <h4><i class="fa fa-angle-right"></i>Reservations Today
+        <span class="badge badge-theme ">
+          {{count($reservations['start'])}} reservations found
+        </span>
+      </h4>
+        <div class="panel-body">
+          <div  class="col-sm-12" >
+              <table class="table table-bordered">
+                <thead>
+                  <tr> 
+                      <th>Full Name</th>
+                    <th>Booking id</th>
+                    <th>Account id</th>
+                    <th>Arrival</th>
+                    <th>Departure</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  @foreach($reservations['start'] as $start)
+                  <tr>
+                     <td>{{$start->acc['firstname']}} {{$start->acc['middleName']}} {{$start->acc['lastName']}}</td>
+                    <td> {{$start['bookingid']}}</td>
+                    <td> {{$start['account_id']}}</td>
+                    <td> {{$start['bookingstart']}}</td>
+                    <td> {{$start['bookingend']}}</td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+              </table>
+           </div>
+        </div>
+    </div>
+  </div>
+</div>
           <!--Booking today-->
            <div class="row mt">
             <div class="col-md-12">
