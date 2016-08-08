@@ -24,11 +24,8 @@
 
 @section('content')
 	
-        <div class="row">
-            <legend>
-            <h3 class="text-center">Rooms and Services</h3>
-            </legend>
-            
+        <div class="bg-white-0 col-lg-8 col-lg-offset-2">
+            <h3 class="">Rooms and Services</h3>
              <div class="row">
                 
                 <div class="col-md-9" style=" border-right:1px solid #e5e5e5" > 

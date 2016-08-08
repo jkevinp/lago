@@ -90,14 +90,11 @@
                       </ul>
                   </li>
                   <li class="treeview">
-                      <a href="javascript:;" >
+                      <a href="{{URL::action('cpanel.show' ,array('action' => 'product' , 'param' => 'all'))}}" >
                           <i class="fa fa-bookmark"></i>
                           <span>Products</span>
                       </a>
-                      <ul class="treeview-menu">
-                         <li><a  href="{{URL::action('cpanel.show' ,array('action' => 'product' , 'param' => 'all'))}}">View Products</a></li>
-                            <li><a  href="{{URL::action('cpanel.create' ,array('action' => 'product'))}}">Create Products</a></li>
-                      </ul>
+                  
                   </li>
                   <li class="treeview">
                       <a href="javascript:;" >

@@ -6,6 +6,7 @@
 
 @section('content')
  
+ <div class="col-lg-8 col-lg-offset-2 ">
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
   <div class="carousel-inner" role="listbox">
     <div class="item active">
@@ -320,6 +321,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+</p>
 @stop
 
 @section('script')

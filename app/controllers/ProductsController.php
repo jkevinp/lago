@@ -24,48 +24,67 @@ class ProductsController extends \BaseController
 									booking_details.bookingend <= "'.$date['end'].'"
 								  ');}
 					)->paginate($perPage);
-	}
+	} 
 	public function create(){
-		$input = Input::all();
+		try{
+			$input = Input::all();
 		//validation for product creation
-		$rules = Product::rules();
-		$val = Validator::make($input, $rules);
-		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);
-		//create a file entry for the image
-		$file = Input::file('image');
-		$destinationPath = public_path('/default/img-uploads/');
-		$filename = str_random(8).$file->getClientOriginalName();
-		Input::file('image')->move($destinationPath, $filename);//move the file to folder
-		$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
-		$classFile = new Files();
-		$classFile->imagename = $filename;
-		$classFile->directory = $HrefdestinationPath;
-		$classFile->description = $input['productdesc'];
-		$classFile->save();
-		$input['fileid'] = $classFile->id;
-		$result = $this->product->create($input);
-		if($result){
-			SessionController::flash('Created New product. <br/> Product id:'.$result);
-			return Redirect::back();
+			$rules = Product::rules();
+			$val = Validator::make($input, $rules);
+			if($val->fails())throw new Exception($val->messages()->first(), 1);
+			
+			//create a file entry for the image
+			$file = Input::file('image');
+			$destinationPath = public_path('/default/img-uploads/');
+			$filename = str_random(8).$file->getClientOriginalName();
+			Input::file('image')->move($destinationPath, $filename);//move the file to folder
+			$HrefdestinationPath = URL::asset('public/default').'/img-uploads/';
+			$classFile = new Files();
+			$classFile->imagename = $filename;
+			$classFile->directory = $HrefdestinationPath;
+			$classFile->description = $input['productdesc'];
+			$classFile->save();
+			$input['fileid'] = $classFile->id;
+			$result = $this->product->create($input);
+
+			return Response::json([
+					'status' => $result ? true : false,
+					'message'=> $result ? 'Created New product. <br/> Product id:'.$result : 'Could not create new product!'
+				]);
+
+		
+		}catch(Exception $e){
+			return Response::json([
+				'status' => false,
+				'message' => $e->getMessage()
+				]);
 		}
-		return Redirect::back()->withErrors('Could not create new product!')->withInput($input);
+
 	}
 	public function edit()
 	{
-		$input = Input::all();
-		$rules = Product::rules();
-		$val = Validator::make($input, $rules);
-		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);
-		$result = $this->product->find($input['id']);
-		if($result){
+		try{
+
+			$input = Input::all();
+			$rules = Product::rules();
+			$val = Validator::make($input, $rules);
+			if($val->fails())throw new Exception($val->messages()->first(), 1);
+			$result = $this->product->find($input['id']);
+			if(!$result)throw new Exception("Could not find product.", 1);
 			$result = $this->product->edit($result->id , $input);
-			if($result)
-			{
-				SessionController::flash('Product found! Product changes saved!');
-				return Redirect::back();
-			}
-			else return Redirect::back()->withErrors('Could not edit product!')->withInput($input);
-		}return Redirect::back()->withErrors('Could not find product!')->withInput($input);
+			return Response::json([
+					'status' => $result ? true : false,
+					'message'=> $result ? 'Update Complete!' : 'Update Failed!'
+				]);
+
+
+		}catch(Exception $e){
+			return Response::json([
+				'status' => false,
+				'message' => $e->getMessage()
+				]);
+		}
+		
 	}
 	public function changeStatus($id, $status)
 	{

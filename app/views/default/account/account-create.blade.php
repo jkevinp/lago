@@ -5,13 +5,13 @@
 @stop
 
 @section('content')
-<div class="row">
+<div class="col-lg-8 col-lg-offset-2 bg-white-0">
                 <div class="col-md-6 col-md-offset-3" align="center">
                     <br/>
                         <h3>Register Account</h3>
                         <h5>Please fill the following Fields.</h5>
                         <hr class="intro-divider">
-                        {{Form::open(array('route' => 'account.create'))}}
+                        {{Form::open(array('route' => 'account.create' , 'class' => 'dynamic-form', 'method' => 'post'))}}
                         {{
                             Form::select('Title', 
                                             array('MR' => 'Mr',

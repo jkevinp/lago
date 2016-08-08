@@ -1,11 +1,11 @@
 @extends('layout.template')
 @section('content')
-<div class="row">
+<div class="bg-white-0 col-lg-8 col-lg-offset-2">
 	<br/>
 	<div class="col-md-4 col-md-offset-4">
 		<legend class="text-center">Reset Account</legend>
 		
-		{{Form::open(array('route' => 'account.changePassword', 'method' => 'post'))}}
+		{{Form::open(array('route' => 'account.changePassword', 'method' => 'post', 'class' =>'dynamic-form'))}}
 		<div class="form-group form-group-sm">
 		{{Form::hidden('code' , $code)}}
 		{{Form::hidden('email' , $account->email)}}

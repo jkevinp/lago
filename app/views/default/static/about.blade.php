@@ -4,11 +4,12 @@
 
 @section('content')
     <!-- Header -->
+     @include('includes.default.carousel')
 
-    <div class="row content">
-   <h2 class="text-center">About Us</h2>
+    <div class="bg-white col-lg-8 col-lg-offset-2">
+    <h2 class="text-center">About Us</h2>
     <div class="row">
-    <br/><br/>
+
     @foreach($content as $k=>$c)
     @if($k % 2 ==0)
         <div class="col-md-12">

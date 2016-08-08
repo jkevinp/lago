@@ -50,10 +50,10 @@ class Product extends Eloquent implements UserInterface, RemindableInterface {
     public static $rules = [
 			'productname' => 'required|unique:product,productname',
 			'producttypeid' => 'required',
-			'productprice' => 'required|min:1|numeric|between:1,9999999',
-			'nightproductprice' => 'required|min:1|numeric|between:1,9999999' ,
-			'overnightproductprice' => 'required|min:1|numeric|between:1,9999999',
-			'extensionproductprice' => 'required|min:1|numeric|between:1,9999999',
+			'productprice' => 'required|min:0|numeric|between:1,9999999',
+			'nightproductprice' => 'required|min:0|numeric|between:1,9999999' ,
+			'overnightproductprice' => 'required|min:0|numeric|between:1,9999999',
+			'extensionproductprice' => 'required|min:0|numeric|between:1,9999999',
 			'paxmin' => 'required|min:1|numeric|between:1,9999999',
 			'paxmax' => 'required|min:1|numeric|between:1,9999999',
 			'image' => 	'mimes:image,jpeg,jpg,bmp,png|required'

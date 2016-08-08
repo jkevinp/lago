@@ -1,6 +1,6 @@
 <div class="col-md-12 topbar">
-    <div class="col-md-3 col-md-offset-3">
-      <img src="{{URL::asset('media/photos/Logo.png')}}" style="height:60px;float:left;margin-top:20px;" />
+    <div class="col-md-1 col-md-offset-3">
+      <img src="{{URL::asset('media/photos/logo.png')}}" style="height:60px;float:left;margin-top:20px;" />
     </div>
     <div class="col-md-5 header-right">
       <ul style="margin-top:15px;">
@@ -23,8 +23,7 @@
 </div>
 
   <div class="col-md-12 header-base">
-      <div class="">
-          <div class="col-md-8 col-md-offset-2">
+          <div class="col-md-6 col-md-offset-3">
               <ul class="main-menu">
                 <li> 
                     <a href="{{route('static.home')}}"><i class="fa fa-home fa-fw"></i>Home</a>
@@ -249,5 +248,6 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-      </div>
+  
+    </div>
     </div>

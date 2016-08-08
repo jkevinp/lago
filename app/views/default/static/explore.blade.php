@@ -1,7 +1,5 @@
 @extends('layout.template')
 
-@section('image' ,'-RoomCottage')
-
 @section('header')
 
 <style type="text/css">
@@ -37,7 +35,10 @@
 
 
 @section('content')
-<div class="row content">
+     @include('includes.default.carousel')
+
+    <div class="bg-white col-lg-8 col-lg-offset-2">
+     <h2 class="text-center">Rooms and Cottages</h2>
 <div id="carousel-explore"  class="carousel slide" data-ride="carousel">
 
   <div class="carousel-inner" role="listbox">

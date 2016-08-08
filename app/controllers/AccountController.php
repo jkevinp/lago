@@ -156,12 +156,10 @@ class AccountController extends \BaseController
 		$account = Account::where($query)->first();
 		if($account)
 		{
-			if($account->active === 0)
-			{
+			if($account->active === 0){
 				return View::Make('default.account.verify')->withAccount($account)->withCode($code);
 			}
-			else
-			{
+			else{
 				Session::put('flash_message', "The account you're trying to activate is already activated or does not exist.");
 				return Redirect::to('/');
 			}
@@ -266,22 +264,26 @@ class AccountController extends \BaseController
 		}
 		
 	}
-	public function registrationForm()
-	{
+	public function registrationForm(){
 		return View::make('default.account.account-create');
 	}
-	public function forgot()
-	{
+	public function forgot(){
 		return View::make('default.account.password-reset');
 	}
-	public function sendForgot()
-	{
-		$input = Input::all();
-		$rules = ['email' => 'required|email|exists:account,email'];
-		$val = Validator::make($input, $rules);
-		if($val->fails())return Redirect::back()->withErrors($val->messages());
-		$account = $this->account->findByEmail($input['email'])->first();
-		Event::fire('account.sendForgot', [$account]);
+	public function sendForgot(){
+		try{
+			$input = Input::all();
+			$rules = ['email' => 'required|email|exists:account,email'];
+			$val = Validator::make($input, $rules);
+			if($val->fails())throw new Exception($val->messages()->first(), 1);
+			
+			$account = $this->account->findByEmail($input['email'])->first();
+			Event::fire('account.sendForgot', [$account]);
+			return Response::json(['status' => true , 'message' => 'Please check your email address.']);
+		}catch(Exception $e){
+			return Response::json(['status' => false , 'message' => $e->getMessage()]);
+		}
+		
 	}
 	public function passwordResetForm($code)
 	{
@@ -322,29 +324,39 @@ class AccountController extends \BaseController
 	}
 	public function create()
 	{
-		$rules = ['Title' => 'required' , 'Firstname' => 'required|min:1', 'Lastname' => 'required|min:1', 'Middlename' => 'required|min:1','ContactNumber' => 'required','Email' => 'required|unique:account|email','Email2' => 'required|same:Email'];
-		//get All Input from from
-		$input = Input::all();
-		//Set a error message for each type of validation error
-		$messages = ['required' => 'The :attribute field is required.','same'  => 'The :others must match.'];
-		//create the validation
-		$val = Validator::make($input, $rules, $messages);
-		//check validation
-		if($val->fails())return Redirect::back()->withErrors($val->messages())->withInput($input);	//If validation fails..
-		$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
-		$input['confirmation_code'] = str_random(10).'k'.str_random(5).'e'.str_random(15);
-	
-		if(isset($input['active']))$active = $input['active'];
-		else $active = 0;
-		$account = $this->account->create($input, $input['usergroup'],$active);
-		if($account)
+		try
 		{
-			Event::fire('account.create', [$account]);
-			SessionController::flash('Account Successfully created. Please check your E-mail address Inbox or Spam to continue.<br/>Account id:'.$account->id);
+			$rules = ['Title' => 'required' , 'Firstname' => 'required|min:1', 'Lastname' => 'required|min:1', 'Middlename' => 'required|min:1','ContactNumber' => 'required','Email' => 'required|unique:account|email','Email2' => 'required|same:Email'];
+			//get All Input from from
+			$input = Input::all();
+			//Set a error message for each type of validation error
+			$messages = ['required' => 'The :attribute field is required.','same'  => 'The :others must match.'];
+			//create the validation
+			$val = Validator::make($input, $rules, $messages);
+			//check validation
+			if($val->fails())throw new Exception($val->messages()->first(), 1);
 			
-			return Redirect::to('/');
+			$input['password'] = $input['Firstname'][0].$input['Lastname'].str_random(3);
+			$input['confirmation_code'] = str_random(10).'k'.str_random(5).'e'.str_random(15);
+		
+			if(isset($input['active']))$active = $input['active'];
+			else $active = 0;
+			$account = $this->account->create($input, $input['usergroup'],$active);
+		
+			if($account)Event::fire('account.create', [$account]);
+		
+
+			return Response::json([
+					'status' => $account ? true : false,
+					'message'=> $account ? 'Account Successfully created. Please check your E-mail address Inbox or Spam to continue.<br/>Account id:'.$account->id 
+					:  'Could not create account!'
+
+				]);
+
+		}catch(Exception $e)
+		{
+			return Response::json(['status' => false , 'message' => $e->getMessage()]);
 		}
-		return Redirect::back()->withErrors('Could not create account!');
 	}
 
 	public function edit()

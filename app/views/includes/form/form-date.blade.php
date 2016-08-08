@@ -36,10 +36,7 @@
                 <div class="btn-group btn-group-justified" role="group" id="custom" style="">
                     <select class="form-control padded-text" name="timeofday" id="timeofday">
                       <option value="0"  selected disabled="true">Start</option>
-                      <option value="8"  mode="day"        id='morning'>Day          [8:00am-5:00pm]</option>
-                      <option value="19" mode="night"      id='evening'>Night        [7:00pm-4:00am]</option>
-                      <option value="8"  mode="overnight1" id='overnight1'>Overnight [8:00am-4:00am]</option>
-                      <option value="19" mode="overnight2" id='overnight2'>Overnight [7:00pm-5:00pm]</option>
+                     <option value="19" mode="overnight2" id='overnight2'>Overnight [24 hours]</option>
                     </select>
                     <input type="hidden" name="modeofstay" readonly id="modeofstay"/>
                    

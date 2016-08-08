@@ -26,28 +26,22 @@ class AdminController extends \BaseController
 	}
 
 	public function signin(){
-		Session::flush();
+		try{
+			Session::flush();
 		$input = Input::all();
 		$login_rules= array('username' => 'required' , 'password' => 'required');
 		$val = Validator::make($input, $login_rules);
-		if($val->fails())
-			return Redirect::Back()->withErrors($val->messages());
-		else
-		{
+		if($val->fails())throw new Exception($val->messages()->first(), 1);
+		
 			if(Auth::attempt(['usergroupid' => 1 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-			
 				return Redirect::intended(route('cpanel.dashboard'));
 			}
-
 			else if(Auth::attempt(['usergroupid' => 2 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-				
-
 				return Redirect::intended(route('account.dashboard'));
 			}
 			else if(Auth::attempt(['usergroupid' => 3 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1'])){
-			
 				return Redirect::intended(route('cpanel.dashboard'));
 			}
 			else
@@ -59,13 +53,21 @@ class AdminController extends \BaseController
 						if($find->attempt >= 3){
 							$this->account->Lock($find);
 							Event::fire('account.sendForgot', [$find]);
-							return Redirect::back()->withInput($input)->withErrors("Account Locked: Please check your E-mail.");
+							throw new Exception('Account Locked: Please check your E-mail.', 1);
+							
 						}
 					}
 				}
-				return Redirect::back()->withInput($input)->withErrors("Please check your login credentials or check if your account is activated and not locked.");
+				throw new Exception("Please check your login credentials or check if your account is activated and not locked.", 1);
+	
 			}
-		}
+		
+		}catch(Exception $e){
+			return Response::json([
+					'status' => false,
+					'message'=> $e->getMessage()
+				]);	
+		}	
 	}
 	
 	public function logout(){

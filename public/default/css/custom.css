@@ -1,5 +1,5 @@
 .topbar{
-	height: 80px;
+	height: 76px;
 	background: url(../img/topbar.jpg) center top;
 	margin:0 !important;
 	padding: 0!important;
@@ -12,7 +12,6 @@
       position:absolute;
 }
 *{
-	
 	padding: 0;
 	margin: 0;
 }
@@ -26,7 +25,7 @@
 .header-right{
     padding-top: 25px;
     font-size: 13px;
-    line-height: 30px;
+    /*line-height: 30px;*/
     height: 100%;
 }
 .header-right ul{
@@ -51,7 +50,7 @@
 	text-align:left;
 	font-size:16px;
 	color:white;
-	font-family:Ruda;
+	/*font-family:Ruda;*/
 	background:#00b356;
 }
 .header-base{
@@ -70,33 +69,44 @@
     overflow: hidden;
 	cursor: pointer;
 	margin-bottom: 0;
+	display: flex;
+    justify-content: space-between;
 }
+
 ul.main-menu > li{
 	height: 100%;
+	margin: 0;
+    border: 0;
+	height: 100%;
+ 
+    text-align: center;
+/*    margin-left:  10px;
+    margin-right: 10px;*/
+  	
+    letter-spacing: 1px;
+	transition-duration: 0.4s;
+
+
+    /*padding: 10px 10px;*/
 }
 ul.main-menu > li > a{
 	border: 0;
+	height: 100% !important;
+	color: white;
+	font-size: 14px;
+	width: 100%;
+   text-decoration: none;
+   padding-bottom: 10px;
+   padding-top: 10px;
+
 }
 .header-base a{
     /*display: block;*/
-    margin: 0;
-    border: 0;
-	height: 100%;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    margin-left:  10px;
-    margin-right: 10px;
-    font-size: 12px;
-    letter-spacing: 1px;
-	transition-duration: 0.4s;
-	border-bottom:  1px solid yellow;
 
-    padding: 10px 10px;
 }
 .header-base a:hover:not(.active) {
-    background-color: white;
-	color:black;
+    /*background-color: white;*/
+	color:#ffe66f;
 }
 
 li{
@@ -115,6 +125,7 @@ body{
 	padding: 0;
 	margin: 0;
 	margin-top: -20px;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 
@@ -136,11 +147,39 @@ body{
 	top:0;
 	height: auto;
 }
+.bg-white{
+	background-color: white;
+	border-radius: 3px;
+	margin-top: 110px;
+	padding-bottom: 10px;
+	padding-top: 20px;
+	min-height: 800px;
+
+}
+.bg-white-0{
+	padding-top: 20px;
+	background-color: white;
+	border-radius: 3px;
+	padding-bottom: 10px;
+	min-height: 800px;
+
+}
 section.header{
 	margin: 0;
 	padding: 0;
 }
+.banner_bar {
+    width: 100%;
+    height: 100px;
+    background: url(../images/reb_bg.png) center top repeat-x;
+    position: absolute;
+    left: 0px;
+    bottom: -120px;
+    z-index: 99;
+    background-color: #2B6221;
+    opacity: 0.98;
 
+}
 .footer{
 	width: 100%;
     padding: 30px 0px;
@@ -149,16 +188,20 @@ section.header{
 }
 img.carousel-item{
     position: absolute !important;
-    width: 100vw !important;
-
+ /*   width: 100vw !important;
+*/
     top:0;
-    left:-16%;
-    max-height:800px !important;min-height:800px !important;width:100%;
+    /*left:-16%;*/
+    max-height:518px !important;
+    min-height:518px !important;
+    width:100%;
 }
+
 div.karousel{
 	min-height:400px;
 	max-height:400px;
 	position: relative !important;
+	display: block;
 }
 
 .css-carousal{
@@ -204,11 +247,11 @@ div.karousel{
 
 .form-control{
 	border:0!important;
-	border-bottom: 5px solid black;
+	border: 0.5px solid #00b356  !important;
 	font-weight: bolder;
 	background-color: rgba(255,255,255,0.7);
 	color:#00b356 !important; 
-	outline: 0;
+	outline: 0 !important;
 	border-radius: 0 !important;
 }
 .row{

@@ -110,36 +110,33 @@ class EloquentProductRepository implements ProductRepository
 
 	public function getAvailableNew($date , $type = false)
 	{
-		if($type){
+		
 			$t = Product::whereNotExists(function($q) use ($date)
 			{
-					$q->select(DB::raw(1))
+					$q->select(DB::raw('1'))
 							->from('booking_details')
+							->groupBy('booking_details.productid')
 							->whereRaw('
 										product.id = booking_details.productid AND
 										booking_details.bookingstart >= "'.$date['start'].'" AND
 										booking_details.bookingend <= "'.$date['end'].'"
-									  ');}
-						)
-			->where('active', '=' , '1')
+									  ')
+							->havingRaw('SUM(booking_details.quantity) >= product.productquantity');
+			})
+			->where('active', '=' , 1)
 			->where('producttypeid','<>' , 3)
-			->where('producttypeid','=', $type)
-			->paginate(6);
+			->leftJoin('booking_details' , 'booking_details.productid'  ,'=' , 'product.id')
+			
+			->groupBy('product.id')
+			->selectRaw('product.*, IFNULL(sum(booking_details.quantity),0) as used, 
+			 IFNULL(product.productquantity - sum(booking_details.quantity) ,product.productquantity) as productquantity');
 
-		}else{
-			$t = Product::whereNotExists(function($q) use ($date)
-			{
-					$q->select(DB::raw(1))
-							->from('booking_details')
-							->whereRaw('
-										product.id = booking_details.productid AND
-										booking_details.bookingstart >= "'.$date['start'].'" AND
-										booking_details.bookingend <= "'.$date['end'].'"
-									  ');})
-			->where('active', '=' , '1')
-			->where('producttypeid','<>' , 3)
-			->paginate(6);
-		}
+
+			if($type) $t = $t->where('producttypeid','=', $type);
+			
+
+			$t = $t->paginate(6);
+
 	
 		return $t;
 	}

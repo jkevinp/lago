@@ -1,4 +1,4 @@
-@extends('layout.admin-dashboard')
+@extends('layout.plain')
 
 @section('content')
 				<div class="row mt">
@@ -16,7 +16,7 @@
 	                      </div>
                       	</div>
                       	<hr>
-                      	{{Form::open(['class' => 'form-horizontal style-form' ,'method' => 'post', 'route' => 'cpanel.product.edit'])}}
+                      	{{Form::open(['class' => 'form-horizontal style-form dynamic-form' ,'method' => 'post', 'route' => 'cpanel.product.edit'])}}
                       	   <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Product ID</label>
                               <div class="col-sm-10">

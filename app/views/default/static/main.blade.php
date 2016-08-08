@@ -4,25 +4,12 @@
 @stop
 
 @section('content')
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="content" style="height:820px !important;">
-                    <div class="karousel" style="z-index:5;">
-                        <img src="{{URL::asset('media/photos')}}/1.jpg" style="" class="carousel-item"/>
-                        <img src="{{URL::asset('media/photos')}}/2.jpg" style="" class="carousel-item"/>
-                        <img src="{{URL::asset('media/photos')}}/3.JPG" style="" class="carousel-item"/>
-                        <img src="{{URL::asset('media/photos')}}/5.jpg" style="" class="carousel-item"/>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-     <div class="col-md-6">
-        <div class="content" style="min-height:800px !important;">
+    @include('includes.default.carousel')
+
+     <div class="col-lg-8 col-lg-offset-2 bg-white">
+        <div class="" style="min-height:800px !important;">
             <div class="row">
-            <legend class=""><i class="fa fa-newspaper-o"></i> News And Updates</legend>
+            <h3 class="text-center"><i class="fa fa-newspaper-o"></i> News And Updates</h3>
             </div>
             @foreach($news as $new)
                 <div class="col-md-10 col-md-offset-1">
@@ -33,7 +20,7 @@
                 <hr/>
                 @if(isset($new->media) && !empty($new->media))
                 <center>
-                    <img class="img" src="{{Helpers::Assets($new->media)}}" style="max-width: 100%;width:100%;max-height: 250px;">
+                    <img class="img" src="{{Helpers::Assets($new->media)}}" style="max-width:100%;width:100%;max-height: 250px;">
                 </center>
                 @endif
                 <br/>
@@ -46,41 +33,6 @@
             @endforeach
         </div> 
     </div>
-    <div class="col-md-6">
-        <div class="content" style="min-height:800px !important;">
-            <div class="row">
-            <legend class=""><i class="fa fa-newspaper-o"></i> Facebook Feed</legend>
-            </div>
-            @foreach($fbposts as $new)
-
-                <div class="col-md-10 col-md-offset-1">
-                <div class="row">
-                    <span class="label label-success pull-right">{{$new->created_time}}</span>
-                    @if(isset($new->story))
-                    <h3><i>{{$new->story}}</i></h3>
-                    @endif
-                 </div>
-                <hr/>
-                @if(isset($new->media) && !empty($new->media))
-                <center>
-                    <img class="img" src="{{Helpers::Assets($new->media)}}" style="max-width: 100%;width:100%;max-height: 250px;">
-                </center>
-                @endif
-                <br/>
-                  @if(isset($new->message))
-                <p>{{$new->message}}</p>
-                @endif
-                <hr/>
-                <br/>
-                <br/>
-                </div>
-
-            @endforeach
-        </div> 
-    </div>
-</div>
-
-
 @stop
 
 @section('script')

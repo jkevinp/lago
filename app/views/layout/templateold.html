@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 <head>
-    @yield('header')
-    <meta charset="utf-8">
+	@yield('header')
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{{APP_NAME}}</title>
+	<title>{{APP_NAME}}</title>
     <link rel="shortcut icon" href="{{ asset('default') }}/img/icons/favicon.ico">
     <link href="{{URL::asset('default')}}/css/bootstrap.min.css" rel="stylesheet">
     <!-- <link href="{{URL::asset('default')}}/css/landing-page.css" rel="stylesheet"> -->
@@ -16,7 +16,6 @@
     <link href="{{URL::asset('default')}}/css/lightbox.css" rel="stylesheet">
     <link href="{{URL::asset('default')}}/css/custom.css" rel="stylesheet">
       <link href="{{URL::asset('default')}}/css/animate.css" rel="stylesheet" type="text/css" />
-      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -25,13 +24,13 @@
     <![endif]-->
 </head>
 <body>
-
 <section class="header">
 @yield('header')
 @include('includes.default.header')
 </section>
-
+<div class="col-md-10 col-md-offset-1">
 @yield('content')
+</div>
  
 <section>
 @include('includes.default.footer')
@@ -40,12 +39,6 @@
 
 
 @yield('script')
-<!--   <script src="{{ asset('default/js/jquery.min.js') }}"></script> -->
-    <script src="{{ asset('default/js/layer.js') }}"></script>
-  <script src="{{ asset('default/js/app-layer.js') }}"></script>
-    <script src="{{ asset('default/js/MessageHelper.js') }}"></script>
-
-<script src="{{ asset('default/js/app.js') }}"></script>
 
 
 </body>

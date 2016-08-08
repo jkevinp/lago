@@ -6,12 +6,13 @@
   <title>{{APP_NAME}} - Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+      <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link href="{{ asset('admin-assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('admin-assets/css/AdminLTE.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables/dataTables.bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-assets/css/skins/skin-blue.min.css') }}">
+     <link href="{{URL::asset('default')}}/css/lightbox.css" rel="stylesheet">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -230,7 +231,31 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     
-    <script src="{{ asset('default/js/jquery.min.js') }}"></script>
+    <!-- <script src="{{ asset('default/js/jquery.min.js') }}"></script> -->
+
+     <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.js"></script>
+     <script src="{{URL::asset('default')}}/js/jquery.js"></script> 
+   
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="{{URL::asset('default')}}/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--common script for all pages-->
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/common-scripts.js"></script>
+    <!--script for this page-->
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter-conf.js"></script>
+ 
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <!--custom switch-->
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap-switch.js"></script>
+    
+    <!--custom tagsinput-->
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.tagsinput.js"></script>
+    <script src="{{URL::asset('default')}}/js/lightbox.min.js"></script>
+    
+    <script src="{{URL::asset('default')}}/js/bootbox.min.js"></script>
+
     <script src="{{ asset('admin-assets/js/app.min.js') }}"></script>
     <script src="{{ asset('default/js/layer.js') }}"></script>
     <script src="{{ asset('default/js/bootstrap.min.js') }}"></script>
@@ -238,7 +263,7 @@
     <script src="{{ asset('default/js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('default/js/app-layer.js') }}"></script>
     <script src="{{ asset('default/js/MessageHelper.js') }}"></script>
-     <script src="{{ asset('default/js/datatable.js') }}"></script>
+    <script src="{{ asset('default/js/datatable.js') }}"></script>
 
     <script src="{{ asset('default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
@@ -272,18 +297,40 @@
         });
       });
     </script>
-    @if(isset($errors) && $errors->first())
-    <script type="text/javascript">
-      $(document).ready(function(){
-        m_error("{{ $errors->first }}");
-      });
+
+    @if(isset($errors) && ($errors->first()))
+      <script type="text/javascript">
+        var x= "{{$errors->first()}}";
+        if(x !== "")
+        {
+             $(document).ready(function () {
+          var unique_id = $.gritter.add({
+            title: '<font color="red">Error!</font><hr>',
+            text: x,
+            image: '{{URL::asset("default/img/icons/")}}/close.png',
+            sticky: false,
+            time: '',
+            class_name: 'my-sticky-class'
+            });
+        });
+        }
+       
     </script>
     @endif
-    @if(Session::get('flash_message'))
-    <script type="text/javascript">
-      $(document).ready(function(){
-        m_info("{{ Session::get('flash_message') }}");
-      });
+
+     @if(Session::get('flash_message'))
+        <script type="text/javascript">
+        var xx= "{{Session::pull('flash_message')}}";
+        $(document).ready(function () {
+          var iunique_id = $.gritter.add({
+            title: '<font color="yellow">Notification</font><hr>',
+            text: xx,
+            image: '{{URL::asset("default/img/icons/")}}/notification.png',
+            sticky: false,
+            time: '',
+            class_name: 'my-sticky-class'
+            });
+        });
     </script>
     @endif
 

@@ -30,7 +30,9 @@
 
 
 @section('content')
-<div class="row content">
+     @include('includes.default.carousel')
+
+    <div class="bg-white col-lg-8 col-lg-offset-2">
 <div id="carousel-explore"  class="carousel slide" data-ride="carousel">
 
   <div class="carousel-inner" role="listbox">

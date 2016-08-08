@@ -7,7 +7,7 @@
 
 
 @section('content')
-<div class="row">
+<div class="bg-white-0 col-lg-8 col-lg-offset-2">
     <div class="col-md-4 col-md-offset-4">
         <div class="intro-message">
          	<h3><i class="fa fa-lock"></i> Account Recovery</h3>
@@ -17,7 +17,7 @@
 			{{Form::Open(
 				array('route' => 'account.sendForgot' ,  
 				'method' => 'post' , 
-				'class' => 'form-horizontal'))
+				'class' => 'form-horizontal dynamic-form'))
 			}}
 				
 				<div class="form-group">

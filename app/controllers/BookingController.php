@@ -79,40 +79,6 @@ class BookingController extends BaseController  {
                 }
             }
 
-   // 			$guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
-   // 			//6
-   //          $forced = $roomcounter * 10;
-   //          //1 *10 = 10
-   //          $remaining = $guest - $forced;
-   //          //6 - 10
-   //          $excess = $guest - $totalCapacity;
-   //          //6 - 10 =4
-	  //        if($excess > 0)
-			// {
-			// 	$products = Session::pull('items');
-
-			// 	foreach ($products as $key => $value) {
-			// 		if($value['product'] == "Room Excess Fee")
-			// 			unset($products[$key]);
-			// //$item = array_values($item);
-			// 	}
-			// 	$products = array_values($products);
-
-			// 	$product = Product::where("productname" , "Room Excess Fee")->first();
-			// 	array_push($products, array(
-			// 					'productid' => $product->id,
-			// 					'product' => $product->productname , 
-			// 					'quantity' => $excess,
-			// 					'description' => $product->productdesc,
-			// 					'totalquantity' => 'unlimited',
-			// 					'type' => 'Admission',
-			// 					'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
-			// 					'image' => URL::asset('default/img-uploads').'/adult.jpg',
-			// 					'removable' => false
-			// 				));
-				
-			// 	Session::put('items' , $products);
-			// }
 			$price = 0;
 			foreach (Session::get('items') as $key => $value) {
 				$price += $value['price'] * $value['quantity'];
@@ -132,7 +98,7 @@ class BookingController extends BaseController  {
 		return View::make('admin.booking.booking-available')->withProducts($rooms);
 	}
 
-	public function index(){
+	public function index(){ //create
 
 		$input = Input::all();
 		if(Session::has('date_info')){
@@ -142,13 +108,15 @@ class BookingController extends BaseController  {
 				if(isset($input['type'])){
 					$rooms = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']], $input['type']);
 				}
+
+				// dd($rooms->toArray());
 				
 				
 			$rooms->totalCount = $rooms->count();
 
 			foreach ($rooms as $room){
-					if(Files::find($room->fileid) == null) $room->attr = 0;
-					else $room->attr = Files::find($room->fileid);		
+				if(Files::find($room->fileid) == null) $room->attr = 0;
+				else $room->attr = Files::find($room->fileid);		
 			}
 			return View::make('default.booking.index')->withRooms($rooms);
 		}
@@ -193,7 +161,9 @@ class BookingController extends BaseController  {
 				return Redirect::route('book.index');
 			}
 	}
+
 	public function create(){	
+
 		return View::make('default.booking.create');
 	}
 	public function store(){
@@ -485,8 +455,7 @@ class BookingController extends BaseController  {
 		}	
 	}
 
-	public function extend($id , $hours)
-	{
+	public function extend($id , $hours){
 		$sid = $this->sale->generateId();
 		$details = $this->bookingdetails->getByRefId($id)->get();
 		$err = 0;

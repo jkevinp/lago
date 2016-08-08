@@ -31,7 +31,7 @@ class AccountEventSubscriber
     
   }
   public function onForgot($account){
-      echo 'Please check your mail.';
+     
       Helpers::SendMail('emails.auth.reminder',
                           [     'email' => $account['email'] , 
                                 'Lastname' => $account['lastName'] ,

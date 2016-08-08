@@ -1,7 +1,7 @@
 @extends('layout.template')
 
 @section('content')
-<div class="row content">
+<div class="col-lg-8 col-lg-offset-2 bg-white-0">
  <!-- Header -->
     <div class="intro-header1">
         <div class="" style="height:50vh;">
@@ -9,10 +9,9 @@
               <div class="col-md-6 col-md-offset-3">
                     <div class="intro-message">
                       <h3 class="text-center"><i class="fa fa-sign-in"></i> User's Login</h3>
-            {{Form::Open(
-              array('route' => 'cpanel.account.auth' ,  
+            {{ Form::Open(array('route' => 'cpanel.account.auth' ,  
               'method' => 'post' , 
-              'class' => 'form-horizontal'))
+              'class' => 'form-horizontal dynamic-form'))
             }}
               
               <div class="form-group">
