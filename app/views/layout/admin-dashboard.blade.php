@@ -231,43 +231,36 @@
     <!-- REQUIRED JS SCRIPTS -->
 
     
-    <!-- <script src="{{ asset('default/js/jquery.min.js') }}"></script> -->
 
-     <!-- <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.js"></script> -->
-     <script src="{{URL::asset('default')}}/js/jquery.js"></script> 
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="{{URL::asset('default')}}/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.scrollTo.min.js"></script>
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.nicescroll.js" type="text/javascript"></script>
-    
-    <!-- <script type="text/javascript" src="{{URL::asset('default')}}/js/common-scripts.js"></script> -->
-    <!--script for this page-->
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter-conf.js"></script>
- 
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <!--custom switch-->
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap-switch.js"></script>
-    
-    <!--custom tagsinput-->
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.tagsinput.js"></script>
-    <script src="{{URL::asset('default')}}/js/lightbox.min.js"></script>
-    
-    <script src="{{URL::asset('default')}}/js/bootbox.min.js"></script>
-    <script src="{{ asset('admin-assets/js/app.min.js') }}"></script>
+    <script src="{{ asset('default/js/columns.js') }}"></script>
+    <script src="{{ asset('default/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('default/js/app.js') }}"></script>
+    <script src="{{ asset('default/js/app.min.js') }}"></script>
+
     <script src="{{ asset('default/js/layer.js') }}"></script>
     <script src="{{ asset('default/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('default/js/app.js') }}"></script>
-    <script src="{{ asset('default/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('default/js/Validation.js') }}"></script>
     <script src="{{ asset('default/js/app-layer.js') }}"></script>
     <script src="{{ asset('default/js/MessageHelper.js') }}"></script>
-    <script src="{{ asset('default/js/datatable.js') }}"></script>
-    <script src="{{ asset('default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('default/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- <script src="{{ asset('default/plugins/fastclick/fastclick.min.js') }}"></script> -->
-    <script>
-      $(function () {
+    <script src="{{ asset('default/js/selectize.js') }}"></script>
+
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter-conf.js"></script>
+   
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap-switch.js"></script>
+    <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.tagsinput.js"></script>
+
+    <script src="{{URL::asset('default')}}/js/lightbox.min.js"></script>
+    <script src="{{URL::asset('default')}}/js/bootbox.min.js"></script>
+    <script src="{{ URL::asset('default/js/layer.js') }}"></script>
+    <script src="{{ URL::asset('default/js/app.js') }}"></script>
+    <script src="{{ URL::asset('default/js/app-layer.js') }}"></script>
+    <script src="{{ URL::asset('default/js/MessageHelper.js') }}"></script>
+    <script src="{{ URL::asset('default/js/datatable.js') }}"></script>
+    <script src="{{ URL::asset('default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ URL::asset('default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
          $('.table').DataTable();
         //initdatatable();
         $('.mt').removeClass("mt").addClass("box box-primary");
@@ -329,6 +322,7 @@
     </script>
     @endif
 
-    
+    @yield('script')
+    @yield('scripts')
   </body>
   </html>
