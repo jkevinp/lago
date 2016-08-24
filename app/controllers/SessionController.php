@@ -9,46 +9,6 @@ class SessionController extends \BaseController
 	{
 		Session::put('flash_message' , $message);
 	}
-	public static function admission($input)
-	{
-		if($input['adult'] > 0)
-		{
-			$products = Session::pull('items');
-			$product = Product::where("productname" , "Discounted Admission Ticket")->first();
-			array_push($products, array(
-							'productid' => $product->id,
-							'product' => $product->productname , 
-							'quantity' => $input['adult'],
-							'description' => $product->productdesc,
-							'totalquantity' => 'unlimited',
-							'type' => 'Admission',
-							'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
-							'image' => URL::asset('default/img-uploads').'/adult.jpg',
-							'removable' => false
-						));
-
-			Session::put('items' , $products);
-		}
-		if($input['children'] > 0)
-		{
-			$products = Session::pull('items');
-			$product = Product::where("productname" , "General Admission Ticket")->first();
-			array_push($products, array(
-							'productid' => $product->id,
-							'product' => $product->productname , 
-							'quantity' => $input['children'],
-							'description' => $product->productdesc,
-							'totalquantity' => 'unlimited',
-							'type' => 'Admission',
-							'price' => $product->getPriceByMode(Session::get('date_info')['modeofstay']),
-							'image' => URL::asset('default/img-uploads').'/adult.jpg',
-							'removable' => false
-						));
-			
-			Session::put('items' , $products);
-		}
-	}
-
 	public static function BookingSession($action, $input)
 	{
 		switch($action)
@@ -97,8 +57,6 @@ class SessionController extends \BaseController
 			break;
 			case 'setinfo':
 				$date = array(
-							'adult' => $input['adult'],
-							'children' => $input['children'],
 							'start' => $input['start'],
 							'end' =>  $input['end'],
 							'timeofday' => $input['timeofday'],
@@ -109,7 +67,6 @@ class SessionController extends \BaseController
 							);
 				Session::put('date_info' ,$date);
 				Session::put('items' , []);
-				SessionController::admission($input);
 				$account = Account::where('email' , '=' , $input['email'])->first();
 				if($account) Session::put('account_info' , $account);
 				else Session::put('email' , $input['email']);

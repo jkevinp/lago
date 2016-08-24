@@ -1,7 +1,6 @@
 @extends('layout.admin-dashboard')
 
 @section('content')
-@include('admin.form.search')
 	<div class="row mt">
 		<div class ="col-md-12">
 			<div class="content-panel">

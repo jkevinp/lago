@@ -21,15 +21,13 @@
  $(document).ready(function(){
     var currentIndex = 0;
     var lastIndex = 0;
- 
-    
     $('.carousel-item').each(function(index, obj){
         if(index !=0)
         $(obj).css('display', 'none');
         $(obj).css('z-index', '-' +index);
         $(obj).attr('data-count' , index);
         lastIndex = index;
-    });
+    }); 
     
     setInterval(function(){
         if($("[data-count='"+ currentIndex  +"']").length)

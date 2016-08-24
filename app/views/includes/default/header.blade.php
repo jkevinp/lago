@@ -115,9 +115,7 @@
                     E-mail Address: <b>{{Session::get('account_info')['email']}}</b><br/>
                     @endif
                     @if(Session::get('date_info'))
-                      Children/Adult Count: <b>{{isset(Session::get('date_info')['children']) ? Session::get('date_info')['children'] : 0}}</b><br/>
-                      Senior Citizen Count: <b>{{isset(Session::get('date_info')['adult'])    ? Session::get('date_info')['adult'] : 0}}</b> <br/>
-                      Total Duration: <b>{{Session::get('date_info')['lenofstay'] * 24}} hours.</b>
+                     Total Duration: <b>{{Session::get('date_info')['lenofstay'] * 24}} hours.</b>
                       <br/>Mode: <b>{{Session::get('date_info')['modeofstay']}}</b>
                    
                     @endif
@@ -225,26 +223,14 @@
                     @endif
           </div>
           <div class="modal-footer">  
-           <?php 
-              
-                $guest = Session::get('date_info')['adult'] + Session::get('date_info')['children'];
-                $forced = $roomcounter * 10;
-                $remaining = $guest - $forced;
-                $excess = $guest - $totalCapacity;
-                Session::put('remaining' , $remaining);
-             ?>
 
-   <!--          @if((Session::get('items')))
-              @if($remaining <= 0) -->
+          @if((Session::get('items')))
+       
                 {{HTML::linkRoute('book.create', 'Proceed to Checkout',array(), array('id' => 'linkid', 'class' => 'btn btn-primary'), false);}}
-          <!--     @else -->
-       <!--            <div class="well text-center">
-                  <p>Total count of guest is less than the max capacity of all selected rooms,huts and cottages.</p>
-                  <p>Please select more rooms,huts or cottages.</p>
-                  </div>
+            @else
+                 
                   {{HTML::linkRoute('book.index', 'Add Reservation items' ,null, array('class' => 'btn btn-primary'))}}
               @endif
-            @endif --> 
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>

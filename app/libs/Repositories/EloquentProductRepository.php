@@ -6,7 +6,7 @@ use DB;
 use BookingDetails;
 class EloquentProductRepository implements ProductRepository
 {
-	public  $perPage = 6;
+	public  $perPage = 10;
 	public function all(){
 		return Product::all();
 	}
@@ -135,7 +135,7 @@ class EloquentProductRepository implements ProductRepository
 			if($type) $t = $t->where('producttypeid','=', $type);
 			
 
-			$t = $t->paginate(6);
+			$t = $t->paginate($this->perPage);
 
 	
 		return $t;

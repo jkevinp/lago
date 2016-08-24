@@ -7,7 +7,6 @@ use Sunrock\Interfaces\MailsRepository as MailsRepo;
 use Sunrock\Interfaces\ProductRepository as ProductRepo;
 use Sunrock\Interfaces\TransactionRepository as trepo;
 use Sunrock\Interfaces\SaleRepository as srepo;
-
 class BookingController extends BaseController  {
 	public function __construct(srepo $s,trepo $t ,ProductRepo $product,MailsRepo $mails, AccountsRepo $account , BookingRepo $booking , BookingDetailsRepo $bookingdetails)
 	{
@@ -21,16 +20,13 @@ class BookingController extends BaseController  {
 
 	}
 	public function AddItem(){
-
 		$input = Input::all();
 		$date_info = Session::get('date_info');
 		$rules = array('quantity' => 'required' , 'productname' => 'required');
 		$val =  Validator::make($input , $rules);
 		if($val->fails())return Redirect::back()->withErrors($val->messages());
-
 		 //Check if the Product is still avaiable
 		$match = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']])->first() ->where('id' , '=' , $input['productid']);
-
 		if(empty($match))return Redirect::route('book.index')->withErrors('The Product is already reserved.');
 		else
 		{
@@ -38,7 +34,6 @@ class BookingController extends BaseController  {
 			Session::put('totalFee' ,$this->computeFee(Session::get('items')));
 			$this->bookingdetails->deleteTemporary(Session::getToken());
 			$this->bookingdetails->create(Session::get('items'), Session::get('date_info') ,Session::getToken() ,1);
-			//Event::fire('bookingdetails.tempCreate', Session::getToken());
 			Helpers::flash('Added '.$input['productname'].' to Reservations List');
 			return Redirect::back();
 		}
@@ -51,8 +46,7 @@ class BookingController extends BaseController  {
 	}
 	public function DeleteItems($key){
 		$item = Session::pull('items');
-		if(is_array($item))
-		{
+		if(is_array($item)){
 			unset($item[$key]);
 			$item = array_values($item);
 			Session::put('items' , $item);
@@ -99,26 +93,23 @@ class BookingController extends BaseController  {
 	}
 
 	public function index(){ //create
-
 		$input = Input::all();
 		if(Session::has('date_info')){
 				$date_info = Session::get('date_info');
-				$total = $date_info['children'] + $date_info['adult'];
 				$rooms = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
 				if(isset($input['type'])){
 					$rooms = $this->product->getAvailableNew(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']], $input['type']);
 				}
 
-				// dd($rooms->toArray());
 				
-				
+
 			$rooms->totalCount = $rooms->count();
 
 			foreach ($rooms as $room){
 				if(Files::find($room->fileid) == null) $room->attr = 0;
 				else $room->attr = Files::find($room->fileid);		
 			}
-			return View::make('default.booking.index')->withRooms($rooms);
+			return View::make('default.booking.bookingproductlist')->withRooms($rooms);
 		}
 		else{
 			return Redirect::intended('/#booknow')->withErrors('Please Specify the required informations.');
@@ -126,6 +117,7 @@ class BookingController extends BaseController  {
 	}
 
 	public function SetInfo(){
+
 			Session::pull('originalFee');
 			Session::pull('date_info');
 			Session::pull('totalFee');
@@ -137,24 +129,15 @@ class BookingController extends BaseController  {
 						'email' => 'required|email',
 						'timeofday' => 'required',
 						'lenofstay' => 'required',
-						'children' =>'required|integer|between:0,1000',
-						'adult' => 'required|integer|between:0,1000',
 						'modeofstay' => 'required'
 					];
-
-			if(empty($input['adult']))$input['adult']=0;
 	    	$validator =Validator::make($input, $rules);
-	    	if($input['children'] + $input['adult'] <= 2)return Redirect::back()->withErrors("Minimun of 3 guest per reservation.");
-	    	
-	    	if($validator->fails())
-				return Redirect::back()
-					->withErrors("Please fill all fields.")
-					->withInput($input);
+	    	if($validator->fails())return Redirect::back()->withErrors("Please fill all fields.")->withInput($input);
 			else 
 			{
 				//set the date on session
 				if($input['timeofday'] == '0' || $input['lenofstay'] == '0')return Redirect::route('static.reservenow')->withErrors('Please select the schedule of reservation')->withInput($input);
-				if($input['adult'] == '0' &&  $input['children'] == '0')return Redirect::route('static.reservenow')->withErrors('Number of persons for resort admission is required.')->withInput($input);
+
 				SessionController::BookingSession('setinfo' , $input);
 				Session::put('totalFee' ,$this->computeFee(Session::get('items')));
 				if(isset($input['route'] ))return  Redirect::route($input['route']);
@@ -163,7 +146,6 @@ class BookingController extends BaseController  {
 	}
 
 	public function create(){	
-
 		return View::make('default.booking.create');
 	}
 	public function store(){

@@ -1,7 +1,7 @@
                         <div class="row mt">
                               <div class="col-md-12">
                                       <table class="table table-striped table-advance table-hover">
-                                        <h4><i class="fa fa-angle-right"></i> Reservations
+                                        <h4><i class="fa fa-angle-right"></i> Check out
                                           <span class="badge">
                                             @if(count($bookings) == 0)
                                               No records found

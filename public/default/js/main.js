@@ -52,7 +52,7 @@ $(document).ready(function(){
           if(value == "day" || value == "night"){
                $('#lenofstay').append('<option value="0" selected disabled>Select Length of Stay</option>');
                for(var ctr = 1 ; ctr <= 1; ctr++){
-                  $('#lenofstay').append('<option value="'+((ctr * 9) /24)+'">'+(ctr * 9)+' Hours</option>');
+                  $('#lenofstay').append('<option value="'+((ctr * 10) /24)+'">'+(ctr * 10)+' Hours</option>');
                 }
           }else{
                $('#lenofstay').append('<option value="0" selected disabled>Select Length of Stay</option>');
