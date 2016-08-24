@@ -14,20 +14,14 @@
 	                      </div>
                       	</div>
                       	<hr>
-
-                      	{{Form::open(['class' => 'form-horizontal style-form dynamic-form' ,'enctype' => 'multipart/form-data', 'method' => 'post','files'=> 'true' , 'route' => 'cpanel.product.create'])}}
+                        <form action="{{route('cpanel.product.create')}}" class="form-horizontal dynamic-form" files="true"  enctype="multipart/form-data" method="POST">
                       	  <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Product name</label>
                               <div class="col-sm-10">
                                   {{Form::text('productname' ,null,['class' => 'form-control'])}}
                               </div>
                          </div>
-                       <!--   <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Product Image</label>
-                              <div class="col-sm-10">
-                                 {{Form::select('fileid',$files, 0, ['class' => 'form-control'])}}
-                              </div>
-                         </div> -->
+                 
                            <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Quantity</label>
                               <div class="col-sm-10">

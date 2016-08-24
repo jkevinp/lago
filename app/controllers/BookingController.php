@@ -269,8 +269,6 @@ class BookingController extends BaseController  {
 	public function changeStatus($id , $status , $fullypaid = false , $isCheckout = false , $money = false){
 		if($isCheckout)//checkout 
 		{
-
-
 			$find = $this->booking->find($id)->first();
 			$sid = $this->sale->generateId();
 			$transaction = $this->transaction->findByBookingId($id)->first();

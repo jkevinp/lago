@@ -58,15 +58,14 @@
                   </li>
 
                   <li class="treeview">
-                      <a href="javascript:;" >
+                      <a href="{{URL::action('cpanel.show' ,array('action' => 'account' , 'param' => 'all'))}}" >
                           <i class="glyphicon glyphicon-user"> </i>
                           <span>Accounts</span>
                       </a>
-                      <ul class="treeview-menu">
+                     <!--  <ul class="treeview-menu">
                           <li><a  href="{{URL::action('cpanel.show' ,array('action' => 'account' , 'param' => 'all'))}}">View Accounts</a></li>
-                          <li><a  href="{{URL::action('cpanel.create' ,array('action' => 'account'))}}">Create Account</a></li>
-                          <li><a  href="{{URL::action('cpanel.search' ,array('action' => 'account' ,'param' =>'search'))}}">Search Accounts</a></li>
-                      </ul>
+                          <li><a  href="{{URL::action('cpanel.create' ,array('action' => 'account'))}}">Create Account</a></li> 
+                      </ul> -->
                   </li>
                   <li class="treeview">
                       <a href="javascript:;" >

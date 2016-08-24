@@ -3,12 +3,10 @@
 use Sunrock\Interfaces\CouponRepository;
 class CouponController extends \BaseController {
 
-	public function __construct(CouponRepository $c)
-	{
+	public function __construct(CouponRepository $c){
 		$this->coupon =$c;
 	}
-	public function computeBill($coupon, $fee)
-	{
+	public function computeBill($coupon, $fee){
 		switch($coupon->type)
 		{
 			case 'percent':
@@ -24,13 +22,11 @@ class CouponController extends \BaseController {
 			
 		}
 	}
-	public function checkReturn($fee)
-	{
+	public function checkReturn($fee){
 		if($fee <= 0)return 0;
 		else return $fee;
 	}
-	public function create()
-	{
+	public function create(){
 		$input = Input::all();
 		echo $input['type'];
 		if($input['type'] === 'percent')
@@ -50,11 +46,8 @@ class CouponController extends \BaseController {
 				];
 
 		}
-		
-
-		if(isset($input['active']))
-		$active = 1;
-	else $active =0;
+		if(isset($input['active']))$active = 1;
+		else $active =0;
 		
 		$validator = Validator::make($input, $rules);
 		if($validator->fails())return Redirect::back()->withInput($input)->withErrors($validator->messages());

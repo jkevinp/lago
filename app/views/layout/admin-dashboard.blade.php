@@ -6,21 +6,21 @@
   <title>{{APP_NAME}} - Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-      <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link href="{{URL::asset('default')}}/font-awesome/css/font-awesome.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link href="{{ asset('admin-assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('admin-assets/css/AdminLTE.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('admin-assets/plugins/datatables/dataTables.bootstrap.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-assets/css/skins/skin-blue.min.css') }}">
-     <link href="{{URL::asset('default')}}/css/lightbox.css" rel="stylesheet">
+  <link href="{{URL::asset('default')}}/css/lightbox.css" rel="stylesheet">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-      </head>
-      <body class="hold-transition skin-blue sidebar-mini">
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
           <header class="main-header">
             <a href="#" class="logo">
@@ -233,15 +233,14 @@
     
     <!-- <script src="{{ asset('default/js/jquery.min.js') }}"></script> -->
 
-     <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.js"></script>
+     <!-- <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.js"></script> -->
      <script src="{{URL::asset('default')}}/js/jquery.js"></script> 
-   
     <script type="text/javascript" src="{{URL::asset('default')}}/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="{{URL::asset('default')}}/js/jquery.dcjqaccordion.2.7.js"></script>
     <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.scrollTo.min.js"></script>
     <script type="text/javascript" src="{{URL::asset('default')}}/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <!--common script for all pages-->
-    <script type="text/javascript" src="{{URL::asset('default')}}/js/common-scripts.js"></script>
+    
+    <!-- <script type="text/javascript" src="{{URL::asset('default')}}/js/common-scripts.js"></script> -->
     <!--script for this page-->
     <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="{{URL::asset('default')}}/js/gritter-conf.js"></script>
@@ -255,7 +254,6 @@
     <script src="{{URL::asset('default')}}/js/lightbox.min.js"></script>
     
     <script src="{{URL::asset('default')}}/js/bootbox.min.js"></script>
-
     <script src="{{ asset('admin-assets/js/app.min.js') }}"></script>
     <script src="{{ asset('default/js/layer.js') }}"></script>
     <script src="{{ asset('default/js/bootstrap.min.js') }}"></script>
@@ -264,13 +262,10 @@
     <script src="{{ asset('default/js/app-layer.js') }}"></script>
     <script src="{{ asset('default/js/MessageHelper.js') }}"></script>
     <script src="{{ asset('default/js/datatable.js') }}"></script>
-
     <script src="{{ asset('default/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('default/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
-    <!-- SlimScroll -->
     <script src="{{ asset('default/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('default/plugins/fastclick/fastclick.min.js') }}"></script>
+    <!-- <script src="{{ asset('default/plugins/fastclick/fastclick.min.js') }}"></script> -->
     <script>
       $(function () {
          $('.table').DataTable();

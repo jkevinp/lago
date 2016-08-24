@@ -1,7 +1,7 @@
 <?php
 $localhost = 1; 
 define('LARAVEL_START', microtime(true));
-define('APP_NAME', "Lago Fishing Village 1");
+define('APP_NAME', "Lago Fishing Village");
 
 if($localhost){
 	define('DB_HOST', 'localhost'); 

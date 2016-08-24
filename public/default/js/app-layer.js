@@ -1,3 +1,4 @@
+var LAYER_STATUS = false;
 $(document).ready(function(e){
   var parentlayer = parent.layer.getFrameIndex(window.name); 
     var currentlayer;
@@ -7,6 +8,7 @@ $(document).ready(function(e){
     });
 
     $('body').delegate(".layer-opener" , "click" , function(e){
+
         var _index = parent.layer.load();
         window["loader_index"] = _index;
         var content = $(this).data('href');
@@ -22,9 +24,11 @@ $(document).ready(function(e){
             success: function (layero, index) {
               parent.layer.close(_index);
                   console.log("success");
+                   layer_is_loaded = true;
             },
             ready: function(layero, index){
               console.log("ready");
+
             },
             end: function(layero, index){
               parent.layer.close(_index);
@@ -32,6 +36,7 @@ $(document).ready(function(e){
             },
             always: function (layero , index){
               console.log("always");
+
             }
         });
         currentlayer = _layer;

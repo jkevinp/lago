@@ -9,11 +9,11 @@
 </a>
 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 <li>
-{{HTML::linkRoute('account.getProfile','Profile',null,['class' => 'fa fa-fw fa-user'])}}
+<a href="{{route('account.getProfile')}}"><i class="fa fa-fw fa-user"></i>Profile</a>
 </li>
 <li class="divider"></li>
 <li>
-{{HTML::linkRoute('account.logout','Logout',null,['class' => 'fa fa-fw fa-power-off'])}}
+<a href="{{route('account.logout')}}"><i class="fa fa-fw fa-power-off"></i>Logout</a>
 </li>
 </ul>
 </li>

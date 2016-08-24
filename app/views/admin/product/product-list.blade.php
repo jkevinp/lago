@@ -37,13 +37,13 @@
 						<td>{{$product['productquantity']}}</td>
 						<td> 	
 		   					<a data-href="{{URL::action('cpanel.edit' ,['action' => 'product' , 'param' => $product['id']])}}" class="btn btn-primary btn-xs layer-opener" data-w="800px" data-h="600px" data-type="2">
-		   					<i class="fa fa-edit"></i> Edit</a>
+		   					<i class="fa fa-edit"></i></a>
 		   					@if($product['active'] == 1)
-                            <a href="{{URL::action('product.changeStatus' ,['id' => $product['id'] , 'param' => '0'])}}" class="btn btn-warning btn-xs"><i class="fa fa-remove"></i> Deactivate</a>
+                            <a href="{{URL::action('product.changeStatus' ,['id' => $product['id'] , 'param' => '0'])}}" class="btn btn-warning btn-xs"><i class="fa fa-remove"></i> </a>
             				@elseif($product['active'] == 0)
-            				<a href="{{URL::action('product.changeStatus' ,['id' =>  $product['id']  , 'param' => '1'])}}" class="btn btn-warning btn-xs"><i class="fa fa-check"></i> Activate</a>
+            				<a href="{{URL::action('product.changeStatus' ,['id' =>  $product['id']  , 'param' => '1'])}}" class="btn btn-warning btn-xs"><i class="fa fa-check"></i></a>
             				@endif
-            				<a href="#" class="btn btn-success btn-xs" data-toggle="modal" data-target="#p{{$product->id}}">View</a>
+            				<a href="#" class="btn btn-success btn-xs" data-toggle="modal" data-target="#p{{$product->id}}"><i class="fa fa-eye"></i></a>
                         </td>
 
 					</tr>

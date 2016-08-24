@@ -2,51 +2,20 @@
 
 class CmsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$contenttype = ContentType::all();
 		return View::make('admin.cms.index')->with(compact('contents' , 'contenttype'));
 	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		$contenttype = ContentType::whereNull('deleted_at')->groupBy('contentkey')->lists('contentkey','contentkey');
 		return View::make('admin.cms.create')->with(compact('contenttype'));
 	}
-
-
-	
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($id)
 	{
 		
 	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
 		if($content = SiteContents::find($id)){
@@ -56,23 +25,15 @@ class CmsController extends \BaseController {
 		else SessionController::flash("Content not found.");
 		return Redirect::to(route('cms.index'));
 	}
-
-
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function update()
 	{
 		$input = Input::all();
-		$rules = [	'image' => 'mimes:jpeg,bmp,png' , 
+		$rules = [	
+					'image' => 'mimes:jpeg,bmp,png' , 
 					'id' => 'required' , 
 					'content-category' => 'required' , 
-					'contenttype' => 'required'];
+					'contenttype' => 'required'
+					];
     	$validator = Validator::make($input, $rules);
 		if($validator->fails())
 		{
@@ -105,9 +66,7 @@ class CmsController extends \BaseController {
 				if($file){
 					if(file_exists($destinationPath.$filename))
 					{
-
 						$lastInsertId = $content->id;
-
 						SessionController::flash("Content saved.");
 						return Redirect::back();
 					}
@@ -124,14 +83,6 @@ class CmsController extends \BaseController {
 
 		}	
 	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function destroy($id)
 	{
 		$c = SiteContents::find($id);

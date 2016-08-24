@@ -28,6 +28,7 @@ class ProductsController extends \BaseController
 	public function create(){
 		try{
 			$input = Input::all();
+
 		//validation for product creation
 			$rules = Product::rules();
 			$val = Validator::make($input, $rules);

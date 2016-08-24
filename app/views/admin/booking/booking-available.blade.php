@@ -22,7 +22,10 @@
                         <th class="hidden-phone"><i class="fa fa-question-circle"></i> Night Rate</th>
                         <th><i class="fa fa-bookmark"></i> Overnight Rate</th>
                         <th><i class="fa fa-bookmark"></i> Extension Price</th>
-                        <th></th>
+                        <th><i class="fa fa-bookmark"></i>Total Quantity</th>
+                        <th><i class="fa fa-bookmark"></i>Total reserved</th>
+                        <th><i class="fa fa-bookmark"></i>Avialable</th>
+        
                     </tr>
                     </thead>
                     @foreach($products as $p)
@@ -33,6 +36,9 @@
                         <td>{{$p->nightproductprice}}</td>
                         <td>{{$p->overnightproductprice}}</td>
                         <td>{{$p->extensionproductprice}}</td>
+                        <td>{{$p->productquantity }}</td>
+                        <td>{{$p->used}}</td>
+                        <td>{{($p->productquantity - $p->used)}}</td>
                     </tr>
                     @endforeach
                     </tbody>

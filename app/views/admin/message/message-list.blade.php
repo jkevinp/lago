@@ -2,10 +2,8 @@
 
 @section('content')
 
-  <section id="">
-    <section class="wrapper">
         <!-- page start-->
-        <div class="row mt">
+        <div class="row">
             <div class="col-sm-3">
                 <section class="panel">
                     <div class="panel-body">
@@ -65,7 +63,4 @@
                 </section>
             </div>
         </div>
-            
-        </section><! --/wrapper -->
-      </section><!-- /MAIN CONTENT -->
 @stop

@@ -28,32 +28,43 @@ class AdminController extends \BaseController
 	public function signin(){
 		try{
 			Session::flush();
-		$input = Input::all();
-		$login_rules= array('username' => 'required' , 'password' => 'required');
-		$val = Validator::make($input, $login_rules);
-		if($val->fails())throw new Exception($val->messages()->first(), 1);
-		
+			$input = Input::all();
+			$login_rules= array('username' => 'required' , 'password' => 'required');
+			$val = Validator::make($input, $login_rules);
+			if($val->fails())throw new Exception($val->messages()->first(), 1);
 			if(Auth::attempt(['usergroupid' => 1 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-				return Redirect::intended(route('cpanel.dashboard'));
+				return Response::json([
+					'status' => true,
+					'others' => 'reload_page',
+					'redirect' => route('cpanel.dashboard')
+					]);
 			}
 			else if(Auth::attempt(['usergroupid' => 2 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1']))
 			{
-				return Redirect::intended(route('account.dashboard'));
+				return Response::json([
+					'status' => true,
+					'others' => 'reload_page',
+					'redirect' => route('account.dashboard')
+					]);
 			}
 			else if(Auth::attempt(['usergroupid' => 3 ,'email' => $input['username'] , 'password' => $input['password'], 'active' => '1'])){
-				return Redirect::intended(route('cpanel.dashboard'));
+				return Response::json([
+					'status' => true,
+					'others' => 'reload_page',
+					'redirect' => route('cpanel.dashboard')
+					]);
 			}
 			else
 			{
 				if($find = $this->account->findByEmail($input['username'])->first()){
 					if($find){
 						$find->attempt += 1;
-						$find->save();
+						$find->save(); 
 						if($find->attempt >= 3){
 							$this->account->Lock($find);
 							Event::fire('account.sendForgot', [$find]);
-							throw new Exception('Account Locked: Please check your E-mail.', 1);
+							throw new Exception('Account Locked: Please check your E-mail.'.$find['confirmation_code'], 1);
 							
 						}
 					}
@@ -65,7 +76,8 @@ class AdminController extends \BaseController
 		}catch(Exception $e){
 			return Response::json([
 					'status' => false,
-					'message'=> $e->getMessage()
+					'message'=> $e->getMessage(),
+					
 				]);	
 		}	
 	}
@@ -257,12 +269,10 @@ class AdminController extends \BaseController
 			switch($action)
 			{
 				case 'coupon':
-					$view=  View::make('admin.coupon.coupon-create')
-							->withTitle('Create new coupon');
+					$view=  View::make('admin.coupon.coupon-create')->withTitle('Create new coupon');
 				break;
 				case 'account':
-					$view = View::make('admin.account.account-create')
-							->withTitle('Create new Account');
+					$view = View::make('admin.account.account-create')->withTitle('Create new Account');
 				break;
 				case 'product':
 					$fileList = $this->file->all()->toArray();
@@ -281,8 +291,7 @@ class AdminController extends \BaseController
 					$view = View::make('admin.file.file-create');
 				break;
 				case 'message':
-					$view = View::make('admin.message.message-create')
-						->withUser(Auth::user());
+					$view = View::make('admin.message.message-create')->withUser(Auth::user());
 				break;
 			}
 			$view->withMails($this->mail->all())->with('pendingTransaction' ,$this->transaction->findByStatus('created')->get());
@@ -452,24 +461,24 @@ class AdminController extends \BaseController
 	public function showProducts(){
 		$input = Input::all();
 		if(Session::has('date_info')){
-					$date_info = Session::get('date_info');
-					$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
-					$total = $date_info['children'] + $date_info['adult'];
-					if(isset($input['type'])){
-						if($input['type'] == 'recommended'){
-						$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] , $total);
-						}
-						else if ($input['type'] == 'max'){
-							$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] ,1, $total);
-					}
-					}
-					$rooms->totalCount = $rooms->count();
-					foreach ($rooms as $room)
-					{
-						if(Files::find($room->fileid) == null) $room->attr = 0;
-						else $room->attr = Files::find($room->fileid);		
-					}
-					return View::make('admin.walkin.walkin-products')->withRooms($rooms);
+			$date_info = Session::get('date_info');
+			$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']]);
+			$total = $date_info['children'] + $date_info['adult'];
+			if(isset($input['type'])){
+				if($input['type'] == 'recommended'){
+				$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] , $total);
+				}
+				else if ($input['type'] == 'max'){
+					$rooms = $this->product->getAvailable(['start' => $date_info['datetime_start'], 'end' => $date_info['datetime_end']] ,1, $total);
+			}
+			}
+			$rooms->totalCount = $rooms->count();
+			foreach ($rooms as $room)
+			{
+				if(Files::find($room->fileid) == null) $room->attr = 0;
+				else $room->attr = Files::find($room->fileid);		
+			}
+			return View::make('admin.walkin.walkin-products')->withRooms($rooms);
 		}
 		else
 		{

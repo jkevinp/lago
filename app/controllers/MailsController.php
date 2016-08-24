@@ -8,8 +8,7 @@ class MailsController extends BaseController
     	$this->mail = $mails;
     	$this->account = $arepo;
   	}
-  	public function create()
-  	{
+  	public function create(){
   		$input = Input::all();
   		$rules = [
   					'receiveremail' => 'required|email',
@@ -24,8 +23,7 @@ class MailsController extends BaseController
   		{
     			$input['receivername'] = $find['firstname'].' '.$find['middleName'].' '.$find['lastName'];	
     			$result = $this->mail->create($input);
-    			if($result)
-    			{
+    			if($result){
     				SessionController::flash('A new Message has been sent to '.$result->receiveremail);
     				return Redirect::back();
     			}

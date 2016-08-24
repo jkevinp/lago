@@ -28,7 +28,7 @@
                                   <th><i class="fa fa-bookmark"> </i> Deposit/transaction Code</th>
                                   <th><i class=" fa fa-edit"></i> Status</th>
                                   <th><i class=" fa fa-edit"></i> Actions</th>
-                                  <th></th>
+                             
                               </tr>
                               </thead>
                               	

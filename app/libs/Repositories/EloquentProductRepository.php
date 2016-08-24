@@ -28,7 +28,7 @@ class EloquentProductRepository implements ProductRepository
 		$p->extensionproductprice= $input['extensionproductprice'];
 		$p->paxmin = $input['paxmin'];
 		$p->paxmax = $input['paxmax'];
-		$p->productquantity = 1;
+		$p->productquantity =  $input['quantity'];
 		$p->fileid = $input['fileid'];
 		$p->producttypeid = $input['producttypeid'];
 
@@ -129,7 +129,7 @@ class EloquentProductRepository implements ProductRepository
 			
 			->groupBy('product.id')
 			->selectRaw('product.*, IFNULL(sum(booking_details.quantity),0) as used, 
-			 IFNULL(product.productquantity - sum(booking_details.quantity) ,product.productquantity) as productquantity');
+			 IFNULL(product.productquantity - sum(booking_details.quantity) ,product.productquantity) as remainingproductquantity');
 
 
 			if($type) $t = $t->where('producttypeid','=', $type);
@@ -144,22 +144,45 @@ class EloquentProductRepository implements ProductRepository
 
 
 	public function getAvailableReservables($date){
-		$t = Product::whereNotExists(function($q) use ($date)
-		{
-					$q->select(DB::raw('*'))
-					->from('booking_details')
-					->whereRaw("
-						product.id = booking_details.productid AND 
-						booking_details.bookingstart <= '".$date['start']."' AND 
-						booking_details.bookingend >= '".$date['start']."' 
-						");
-		})
-		->where('active', '=' , '1')
-		->whereNotBetween('producttypeid', [3, 4])
-		->get();
+		// $t = Product::whereNotExists(function($q) use ($date)
+		// {
+		// 			$q->select(DB::raw('*'))
+		// 			->from('booking_details')
+		// 			->whereRaw("
+		// 				product.id = booking_details.productid AND 
+		// 				booking_details.bookingstart <= '".$date['start']."' AND 
+		// 				booking_details.bookingend >= '".$date['start']."' 
+		// 				");
+		// })
+		// ->where('active', '=' , '1')
+		// ->whereNotBetween('producttypeid', [3, 4])
+		// ->get();
+
+			$t = Product::whereNotExists(function($q) use ($date)
+			{
+					$q->select(DB::raw('1'))
+							->from('booking_details')
+							->groupBy('booking_details.productid')
+							->whereRaw('
+										product.id = booking_details.productid AND
+										booking_details.bookingstart >= "'.$date['start'].'" AND
+										booking_details.bookingend <= "'.$date['end'].'"
+									  ')
+							->havingRaw('SUM(booking_details.quantity) >= product.productquantity');
+			})
+			->where('active', '=' , 1)
+			->where('producttypeid','<>' , 3)
+			->leftJoin('booking_details' , 'booking_details.productid'  ,'=' , 'product.id')
+			
+			->groupBy('product.id')
+			->selectRaw('product.*, IFNULL(sum(booking_details.quantity),0) as used, 
+			 IFNULL(product.productquantity - sum(booking_details.quantity) ,product.productquantity) as remainingproductquantity');
+
+
+			$t = $t->whereNotBetween('producttypeid', [3, 4]);
 		
 
-		return $t;
+		return $t->get();
 	}
 
 

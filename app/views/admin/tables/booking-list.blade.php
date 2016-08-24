@@ -22,7 +22,7 @@
                                               <th><i class=" fa fa-edit"></i> Status</th>
                                               <th><i class="fa fa-book"></i>Remarks</th>
                                               <th><i class=" fa fa-edit"></i> Actions</th>
-                                              <th></th>
+                                       
                                           </tr>
                                           </thead>
                                           @foreach($bookings as $booking)

@@ -22,6 +22,6 @@ return array(
 	'username' => 'no-reply@doneresort.com',
 	'password' => 'BarasRizal2016',
 	'sendmail' => '/usr/sbin/sendmail -bs',
-	'pretend' => false,
+	'pretend' => true,
 
 );
